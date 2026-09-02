@@ -1,0 +1,80 @@
+.board-card {
+    display: flex;
+    overflow: hidden;
+    min-height: 155px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.board-card:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+.board-card-color {
+    width: 5px;
+    flex-shrink: 0;
+}
+
+.board-card-color.blue {
+    background-color: #3b82f6;
+}
+
+.board-card-color.purple {
+    background-color: #8b5cf6;
+}
+
+.board-card-color.green {
+    background-color: #10b981;
+}
+
+.board-card-content {
+    flex: 1;
+    padding: 18px;
+}
+
+.board-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.board-card-header h4 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 15px;
+    font-weight: 650;
+}
+
+.board-card-header button {
+    padding: 4px;
+    border: 0;
+    background: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.board-card-content p {
+    min-height: 38px;
+    margin: 10px 0 16px;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.board-card-footer {
+    display: flex;
+    gap: 14px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f1f3;
+}
+
+.board-card-footer span {
+    color: #9ca3af;
+    font-size: 11px;
+}

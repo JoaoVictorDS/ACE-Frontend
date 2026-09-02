@@ -1,0 +1,43 @@
+.dashboard-section {
+    margin-bottom: 32px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.section-header h3 {
+    margin: 0 0 4px;
+    color: #111827;
+    font-size: 18px;
+    font-weight: 650;
+}
+
+.section-header p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.section-action {
+    flex-shrink: 0;
+}
+
+.section-link {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #2563eb;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.section-link:hover {
+    color: #1d4ed8;
+}

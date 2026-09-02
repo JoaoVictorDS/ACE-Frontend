@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { Input } from '../../components/Input/Input'
 import { Button } from '../../components/Button/Button'
@@ -7,6 +8,7 @@ import { getErrorMessage } from '../../utils/error'
 import './LoginPage.css'
 
 export const LoginPage = () => {
+    const navigate = useNavigate()
     const { login, loading } = useAuth()
     const [formData, setFormData] = useState({ email: '', password: '' })
     const [errors, setErrors] = useState({})
@@ -14,9 +16,7 @@ export const LoginPage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-
         setFormData((prev) => ({ ...prev, [name]: value }))
-
         if (errors[name]) {
             setErrors((prev) => ({ ...prev, [name]: '' }))
         }
@@ -34,6 +34,7 @@ export const LoginPage = () => {
 
         try {
             await login(formData.email, formData.password)
+            navigate('/dashboard')
         } catch (error) {
             setApiError(getErrorMessage(error))
         }

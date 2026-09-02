@@ -1,0 +1,58 @@
+.summary-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.summary-card-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 9px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.summary-card-icon.blue {
+    background-color: #eff6ff;
+    color: #2563eb;
+}
+
+.summary-card-icon.purple {
+    background-color: #f5f3ff;
+    color: #7c3aed;
+}
+
+.summary-card-icon.red {
+    background-color: #fef2f2;
+    color: #ef4444;
+}
+
+.summary-card-icon.green {
+    background-color: #ecfdf5;
+    color: #10b981;
+}
+
+.summary-card div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.summary-card span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.summary-card strong {
+    color: #111827;
+    font-size: 24px;
+    font-weight: 700;
+}

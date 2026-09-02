@@ -1,0 +1,283 @@
+.app-sidebar {
+    position: sticky;
+    top: 64px;
+
+    width: 250px;
+    height: calc(100vh - 64px);
+
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.app-sidebar-content {
+    width: 100%;
+    padding: 16px 12px;
+
+    box-sizing: border-box;
+}
+
+/* =========================
+   Workspace
+========================= */
+
+.app-sidebar-workspace {
+    position: relative;
+
+    margin-bottom: 16px;
+}
+
+.app-sidebar-workspace-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 9px;
+
+    border: none;
+    border-radius: 8px;
+    background-color: #f9fafb;
+
+    color: #374151;
+    font-family: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.app-sidebar-workspace-button:hover {
+    background-color: #f3f4f6;
+}
+
+.app-sidebar-workspace-avatar {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 7px;
+
+    background-color: #dbeafe;
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.app-sidebar-workspace-info {
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.app-sidebar-workspace-label {
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.app-sidebar-workspace-info strong {
+    overflow: hidden;
+
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-sidebar-workspace-arrow {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+/* Workspace menu */
+
+.app-sidebar-workspace-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+
+    z-index: 50;
+
+    padding: 6px;
+
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.app-sidebar-workspace-option {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    width: 100%;
+
+    padding: 8px;
+
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+
+    color: #374151;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
+.app-sidebar-workspace-option:hover {
+    background-color: #f3f4f6;
+}
+
+.app-sidebar-workspace-option-avatar {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 6px;
+
+    background-color: #eff6ff;
+    color: #2563eb;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.app-sidebar-workspace-loading,
+.app-sidebar-workspace-empty {
+    padding: 10px 8px;
+
+    color: #9ca3af;
+    font-size: 12px;
+    text-align: center;
+}
+
+.app-sidebar-workspace-divider {
+    height: 1px;
+
+    margin: 6px 0;
+
+    background-color: #f0f1f3;
+}
+
+.app-sidebar-new-workspace {
+    width: 100%;
+
+    padding: 9px 8px;
+
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+
+    color: #3b82f6;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
+.app-sidebar-new-workspace:hover {
+    background-color: #eff6ff;
+}
+
+/* =========================
+   Navigation
+========================= */
+
+.app-sidebar-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.app-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 9px 10px;
+
+    border-radius: 7px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.app-sidebar-link:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.app-sidebar-link.active {
+    background-color: #eff6ff;
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.app-sidebar-link-icon {
+    width: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: currentColor;
+
+    font-size: 17px;
+    line-height: 1;
+}

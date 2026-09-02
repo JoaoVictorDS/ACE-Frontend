@@ -8,8 +8,9 @@
 
     background-color: #ffffff;
     border-bottom: 1px solid #e5e7eb;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
+
+/* Header content */
 
 .app-header-content {
     width: 100%;
@@ -23,6 +24,8 @@
     justify-content: space-between;
 }
 
+/* Logo */
+
 .app-header-logo {
     display: flex;
     align-items: center;
@@ -32,35 +35,39 @@
     font-weight: 700;
     line-height: 1;
     text-decoration: none;
+
+    transition: color 0.15s ease;
 }
 
 .app-header-logo:hover {
     color: #2563eb;
 }
 
+/* Actions */
+
 .app-header-actions {
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
-.app-header-user-menu {
+/* Notifications */
+
+.app-header-notification-button {
     position: relative;
-}
 
-.app-header-user-button {
+    width: 40px;
+    height: 40px;
+
     display: flex;
     align-items: center;
-    gap: 8px;
-
-    padding: 8px 10px;
+    justify-content: center;
 
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     background: transparent;
 
-    color: #374151;
-    font-size: 14px;
-    font-weight: 500;
+    color: #6b7280;
 
     cursor: pointer;
 
@@ -69,54 +76,282 @@
         color 0.15s ease;
 }
 
+.app-header-notification-button:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.app-header-notification-icon {
+    font-size: 22px;
+    line-height: 1;
+}
+
+.app-header-notification-badge {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    min-width: 16px;
+    height: 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 4px;
+
+    border: 2px solid #ffffff;
+    border-radius: 999px;
+
+    background-color: #ef4444;
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* User */
+
+.app-header-user-menu {
+    position: relative;
+}
+
+.app-header-user-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 6px 8px;
+
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+
+    color: #374151;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
 .app-header-user-button:hover {
     background-color: #f3f4f6;
 }
 
-.app-header-user-arrow {
-    font-size: 12px;
-    color: #6b7280;
+.app-header-user-avatar {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: #dbeafe;
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 700;
 }
+
+.app-header-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+
+    max-width: 160px;
+}
+
+.app-header-user-info strong {
+    overflow: hidden;
+
+    width: 100%;
+
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-header-user-info span {
+    overflow: hidden;
+
+    width: 100%;
+
+    color: #9ca3af;
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-header-user-arrow {
+    margin-left: 2px;
+
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+/* Dropdown */
 
 .app-header-dropdown {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
 
-    min-width: 180px;
+    width: 260px;
 
-    padding: 6px;
+    padding: 8px;
 
     background-color: #ffffff;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.04);
 }
 
-.app-header-dropdown a,
-.app-header-dropdown button {
-    display: block;
+/* Dropdown user */
+
+.app-header-dropdown-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 10px;
+}
+
+.app-header-dropdown-avatar {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: #dbeafe;
+    color: #2563eb;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.app-header-dropdown-user-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.app-header-dropdown-user-info strong {
+    overflow: hidden;
+
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.app-header-dropdown-user-info span {
+    overflow: hidden;
+
+    color: #6b7280;
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Divider */
+
+.app-header-dropdown-divider {
+    height: 1px;
+
+    margin: 6px 0;
+
+    background-color: #f0f1f3;
+}
+
+/* Dropdown items */
+
+.app-header-dropdown-item,
+.app-header-dropdown-logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
     width: 100%;
+    box-sizing: border-box;
 
     padding: 10px 12px;
 
     border: none;
-    border-radius: 6px;
+    border-radius: 7px;
     background: transparent;
 
-    color: #374151;
-    font-size: 14px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
     text-align: left;
     text-decoration: none;
 
     cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
 }
 
-.app-header-dropdown a:hover,
-.app-header-dropdown button:hover {
+/* Links */
+
+.app-header-dropdown-item {
+    color: #374151;
+}
+
+.app-header-dropdown-item:hover {
     background-color: #f3f4f6;
+    color: #1f2937;
 }
 
-.app-header-dropdown button {
+/* Logout */
+
+.app-header-dropdown-logout {
     color: #dc2626;
+}
+
+.app-header-dropdown-logout:hover {
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+/* Responsive */
+
+@media (max-width: 600px) {
+    .app-header-content {
+        padding: 0 16px;
+    }
+
+    .app-header-user-info {
+        display: none;
+    }
+
+    .app-header-user-arrow {
+        display: none;
+    }
 }

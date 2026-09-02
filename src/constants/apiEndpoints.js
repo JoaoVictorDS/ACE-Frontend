@@ -16,6 +16,16 @@ export const API_ENDPOINTS = {
             UPDATE: (userId) => `/v1/users/${userId}`,
             DELETE: (userId) => `/v1/users/${userId}`,
         }
-    }
+    },
+
+    WORKSPACES: {
+        LIST: '/v1/workspaces',
+        CREATE: '/v1/workspaces',
+        GET: (workspaceId) => `/v1/workspaces/${workspaceId}`,
+        UPDATE: (workspaceId) => `/v1/workspaces/${workspaceId}`,
+        DELETE: (workspaceId) => `/v1/workspaces/${workspaceId}`,
+        MOVE: (workspaceId) => `/v1/workspaces/${workspaceId}`,
+        LOGS: (workspaceId) => `/v1/workspaces/${workspaceId}/logs`,
+    },
 
 }

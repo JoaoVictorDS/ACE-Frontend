@@ -10,7 +10,10 @@ export const Header = () => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+            if (
+                userMenuRef.current &&
+                !userMenuRef.current.contains(event.target)
+            ) {
                 setShowUserMenu(false)
             }
         }
@@ -30,15 +33,32 @@ export const Header = () => {
                 </Link>
 
                 <div className="app-header-actions">
+                    <button type="button" className="app-header-notification-button" aria-label="Notificações">
+                        <span className="app-header-notification-icon">
+                            ♢
+                        </span>
+                        <span className="app-header-notification-badge">
+                            3 {/* Quantidade de notificação não lidas */}
+                        </span>
+                    </button>
+
                     <div className="app-header-user-menu" ref={userMenuRef}>
-                        <button
-                            type="button"
-                            className="app-header-user-button"
-                            onClick={() => setShowUserMenu((current) => !current)}
-                        >
-                            <span className="app-header-user">
-                                {user?.name}
+                        <button type="button" className="app-header-user-button" onClick={() =>
+                            setShowUserMenu((current) => !current)
+                        }>
+                            <span className="app-header-user-avatar">
+                                {user?.name?.charAt(0).toUpperCase() || 'U'}
                             </span>
+
+                            <span className="app-header-user-info">
+                                <strong>
+                                    {user?.name || 'Usuário'}
+                                </strong>
+                                <span>
+                                    {user?.email || ''}
+                                </span>
+                            </span>
+
                             <span className="app-header-user-arrow">
                                 ▾
                             </span>
@@ -46,7 +66,36 @@ export const Header = () => {
 
                         {showUserMenu && (
                             <div className="app-header-dropdown">
-                                <button type="button" onClick={logout}>
+                                <div className="app-header-dropdown-user">
+                                    <div className="app-header-dropdown-avatar">
+                                        {user?.name?.charAt(0).toUpperCase() || 'U'}
+                                    </div>
+                                    <div className="app-header-dropdown-user-info">
+                                        <strong>
+                                            {user?.name || 'Usuário'}
+                                        </strong>
+                                        <span>
+                                            {user?.email || ''}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="app-header-dropdown-divider" />
+
+                                {/* Futuramente:
+                                    <Link to="/profile" className="app-header-dropdown-item">
+                                        Perfil
+                                    </Link>
+                                     <Link to="/trash" className="app-header-dropdown-item">
+                                        Lixeira
+                                    </Link>
+                                     <Link to="/config" className="app-header-dropdown-item">
+                                        Configurações
+                                    </Link>
+                                    etc.
+                                */}
+
+                                <button type="button" className="app-header-dropdown-logout" onClick={logout}>
                                     Sair
                                 </button>
                             </div>

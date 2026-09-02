@@ -1,0 +1,72 @@
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.task-item:last-child {
+    border-bottom: 0;
+}
+
+.task-status {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.task-status.pending {
+    background-color: #3b82f6;
+}
+
+.task-status.warning {
+    background-color: #f59e0b;
+}
+
+.task-status.completed {
+    background-color: #10b981;
+}
+
+.task-status.overdue {
+    background-color: #ef4444;
+}
+
+.task-info {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.task-info strong {
+    overflow: hidden;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 550;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-info span {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.task-date {
+    flex-shrink: 0;
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.task-date.today {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.task-date.overdue-text {
+    color: #ef4444;
+    font-weight: 600;
+}
