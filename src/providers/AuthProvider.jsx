@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react'
 import { STORAGE_KEYS } from '../constants/storageKeys'
 import { clearSession } from '../utils/auth'
 import { AuthContext } from '../contexts/AuthContext'
-import api from '../services/api'
+import { authenticateUser, logoutUser } from '../services/authService'
+import { getUserProfile } from '../services/userService'
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
@@ -22,9 +23,7 @@ export const AuthProvider = ({ children }) => {
             }
 
             try {
-                const response = await api.get(API_ENDPOINTS.USERS.PROFILE)
-
-                const profile = response.data
+                const profile = await getUserProfile()
 
                 localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(profile))
 
@@ -86,12 +85,7 @@ export const AuthProvider = ({ children }) => {
         setError(null)
 
         try {
-            const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, {
-                email,
-                password,
-            }, { skipAuthRefresh: true })
-
-            const { token, user: profile } = response.data
+            const { token, user: profile } = await authenticateUser(email, password)
 
             localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token)
             localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(profile))
@@ -112,7 +106,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = useCallback(async () => {
         try {
-            await api.post(API_ENDPOINTS.AUTH.LOGOUT, undefined, { skipAuthRefresh: true })
+            await logoutUser()
         } catch (err) {
             console.error('Erro ao fazer logout:', err)
         } finally {

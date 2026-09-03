@@ -1,0 +1,15 @@
+import api from './api'
+import { API_ENDPOINTS } from '../constants/apiEndpoints'
+
+export const authenticateUser = async (email, password) => {
+    const response = await api.post(API_ENDPOINTS.AUTH.LOGIN, {
+        email,
+        password
+    }, { skipAuthRefresh: true })
+
+    return response.data
+}
+
+export const logoutUser = async () => {
+    return await api.post(API_ENDPOINTS.AUTH.LOGOUT, undefined, { skipAuthRefresh: true })
+}
