@@ -5,13 +5,6 @@
     color: #1f2937;
 }
 
-.dashboard-main {
-    width: 100%;
-    min-width: 0;
-    padding: 36px 40px 48px;
-    box-sizing: border-box;
-}
-
 .dashboard-content {
     width: 100%;
     max-width: 1400px;
