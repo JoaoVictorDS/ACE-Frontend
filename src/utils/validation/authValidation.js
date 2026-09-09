@@ -1,5 +1,3 @@
-import { MESSAGES } from '../../constants/messages'
-
 export const isValidEmail = (email) => {
     if (!email) return false
 
@@ -16,15 +14,15 @@ export const validateLoginForm = (email, password) => {
     const errors = {}
 
     if (!email?.trim()) {
-        errors.email = MESSAGES.VALIDATION.REQUIRED_EMAIL
+        errors.email = 'O e-mail é obrigatório.'
     } else if (!isValidEmail(email)) {
-        errors.email = MESSAGES.VALIDATION.INVALID_EMAIL
+        errors.email = 'Informe um e-mail válido.'
     }
 
     if (!password) {
-        errors.password = MESSAGES.VALIDATION.REQUIRED_PASSWORD
+        errors.password = 'A senha é obrigatória.'
     } else if (!isValidPassword(password)) {
-        errors.password = MESSAGES.VALIDATION.PASSWORD_MIN_LENGTH
+        errors.password = 'A senha deve ter pelo menos 6 caracteres.'
     }
 
     return errors
