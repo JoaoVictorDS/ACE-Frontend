@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useWorkspaces } from '../../hooks/useWorkspaces'
-import { useAuth } from '../../hooks/useAuth'
+import { useUser } from '../../hooks/useUser'
 import './Sidebar.css'
 
 export const Sidebar = () => {
-    const { user, loading: authLoading } = useAuth()
+    const { data: user } = useUser()
     const { workspaces, loading, handleLoadWorkspaces, } = useWorkspaces()
     const location = useLocation()
     const [showWorkspaceMenu, setShowWorkspaceMenu] = useState(false)
     const [selectedWorkspace, setSelectedWorkspace] = useState(null)
 
     useEffect(() => {
-        if (!authLoading && user) {
+        if (user) {
             handleLoadWorkspaces()
         }
-    }, [authLoading, user, handleLoadWorkspaces])
+    }, [user, handleLoadWorkspaces])
 
     useEffect(() => {
         if (workspaces.length > 0 && !selectedWorkspace) {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useWorkspaces } from '../../hooks/useWorkspaces'
-import { useAuth } from '../../hooks/useAuth'
+import { useUser } from '../../hooks/useUser'
 import { Button } from '../../components/Button/Button'
 import { DashboardSection } from '../../components/DashboardSection/DashboardSection'
 import { DashboardSummaryCard } from '../../components/DashboardSummaryCard/DashboardSummaryCard'
@@ -10,16 +10,16 @@ import { ActivityItem } from '../../components/ActivityItem/ActivityItem'
 import './DashboardPage.css'
 
 export const DashboardPage = () => {
-    const { user, loading: authLoading } = useAuth()
+    const { data: user } = useUser()
     const { workspaces, loading, handleLoadWorkspaces, handleCreateWorkspace } = useWorkspaces()
     const [showNewWorkspaceModal, setShowNewWorkspaceModal] = useState(false)
     const [newWorkspaceName, setNewWorkspaceName] = useState('')
 
     useEffect(() => {
-        if (!authLoading && user) {
+        if (user) {
             handleLoadWorkspaces()
         }
-    }, [authLoading, user, handleLoadWorkspaces])
+    }, [user, handleLoadWorkspaces])
 
     return (
         <div className="dashboard-container">

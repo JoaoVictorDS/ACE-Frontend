@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import { useUser } from '../../hooks/useUser'
 import './Header.css'
 
 export const Header = () => {
-    const { user, logout } = useAuth()
+    const { logout } = useAuth()
+    const { data: user } = useUser()
     const [showUserMenu, setShowUserMenu] = useState(false)
     const userMenuRef = useRef(null)
 

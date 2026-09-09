@@ -1,130 +1,105 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { STORAGE_KEYS } from '../constants/storageKeys'
-import { clearSession } from '../utils/auth'
 import { AuthContext } from '../contexts/AuthContext'
 import { authenticateUser, logoutUser } from '../services/authService'
-import { getUserProfile } from '../services/userService'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null)
+    const queryClient = useQueryClient()
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [initializing, setInitializing] = useState(true)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        const initializeAuth = async () => {
-            const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+        const token = !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
 
-            if (!token) {
-                setUser(null)
-                setInitializing(false)
-
-                return
-            }
-
-            try {
-                const profile = await getUserProfile()
-
-                localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(profile))
-
-                setUser(profile)
-                setError(null)
-            } catch (err) {
-                if (err.response?.status !== 401) {
-                    console.error('Erro ao restaurar sessão:', err)
-                }
-            } finally {
-                setInitializing(false)
-            }
-        }
-
-        initializeAuth()
+        setIsAuthenticated(!!token)
+        setInitializing(false)
     }, [])
 
     useEffect(() => {
-        const handleStorageChange = (event) => {
+        const handleStorage = (event) => {
             if (event.key === STORAGE_KEYS.ACCESS_TOKEN && event.newValue === null) {
-                setUser(null)
-                setError(null)
+                queryClient.removeQueries({
+                    queryKey: ['user'],
+                })
 
-                if (window.location.pathname !== '/login') {
-                    window.location.href = '/login'
-                }
-
-                return
-            }
-
-            if (event.key === STORAGE_KEYS.USER) {
-                if (!event.newValue) {
-                    setUser(null)
-                    setError(null)
-
-                    if (window.location.pathname !== '/login') {
-                        window.location.href = '/login'
-                    }
-
-                    return
-                }
-
-                const profile = JSON.parse(event.newValue)
-
-                setUser(profile)
-                setError(null)
+                setIsAuthenticated(false)
             }
         }
 
-        window.addEventListener('storage', handleStorageChange)
-
+        window.addEventListener('storage', handleStorage)
         return () => {
-            window.removeEventListener('storage', handleStorageChange)
+            window.removeEventListener('storage', handleStorage)
         }
-    }, [])
+    }, [queryClient])
 
-    const login = useCallback(async (email, password) => {
+    useEffect(() => {
+        const handleSessionExpired = () => {
+            queryClient.removeQueries({
+                queryKey: ['user'],
+            })
+
+            setIsAuthenticated(false)
+        }
+
+        window.addEventListener('auth:session-expired', handleSessionExpired)
+        return () => {
+            window.removeEventListener('auth:session-expired', handleSessionExpired)
+        }
+    }, [queryClient])
+
+
+    const login = async (email, password) => {
         setLoading(true)
         setError(null)
 
         try {
-            const { token, user: profile } = await authenticateUser(email, password)
+            const { token, user } = await authenticateUser(email, password)
 
             localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token)
-            localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(profile))
 
-            setUser(profile)
+            queryClient.setQueryData(['user'], user)
 
-            return profile
+            setIsAuthenticated(true)
+
+            return user
         } catch (err) {
             const errorMessage = err.response?.data?.message || 'Erro ao fazer login'
-
             setError(errorMessage)
-
             throw err
         } finally {
             setLoading(false)
         }
-    }, [])
+    }
 
-    const logout = useCallback(async () => {
+    const logout = async () => {
+        setLoading(true)
+
         try {
             await logoutUser()
         } catch (err) {
             console.error('Erro ao fazer logout:', err)
         } finally {
-            clearSession()
-
-            setUser(null)
+            localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN)
+            queryClient.removeQueries({
+                queryKey: ['user'],
+            })
+            setIsAuthenticated(false)
             setError(null)
+            setLoading(false)
         }
-    }, [])
+    }
 
     const value = {
-        user,
-        loading,
+        isAuthenticated,
         initializing,
+        loading,
         error,
         login,
-        logout,
-        isAuthenticated: !!user,
+        logout
     }
 
     return (
