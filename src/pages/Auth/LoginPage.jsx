@@ -33,7 +33,7 @@ export const LoginPage = () => {
         }
 
         try {
-            await login(formData.email, formData.password)
+            await login(formData)
             navigate('/dashboard')
         } catch (error) {
             setApiError(getErrorMessage(error))
