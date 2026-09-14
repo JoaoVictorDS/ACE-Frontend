@@ -2,44 +2,68 @@ import axios from 'axios'
 import { API_ENDPOINTS } from '../constants/apiEndpoints'
 import { STORAGE_KEYS } from '../constants/storageKeys'
 
-const API_URL = import.meta.env.VITE_API_URL
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL
-
 const api = axios.create({
-    baseURL: API_URL,
+    baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
 })
 
-let refreshing = false
-let failedQueue = []
+const refreshApi = axios.create({
+    baseURL: import.meta.env.VITE_API_URL,
+    withCredentials: true,
+    headers: { 'Content-Type': 'application/json' },
+})
 
-const processQueue = (error, token = null) => {
-    failedQueue.forEach(prom => {
-        if (error) {
-            prom.reject(error)
-        } else {
-            prom.resolve(token)
-        }
-    })
+let refreshPromise = null
 
-    failedQueue = []
-}
+async function performRefresh() {
+    if (!refreshPromise) {
+        refreshPromise = (async () => {
+            try {
+                const response = await refreshApi.post(API_ENDPOINTS.AUTH.REFRESH)
+                const { token } = response.data
 
-api.interceptors.request.use((config) => {
-    const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+                localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token)
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
+                api.defaults.headers.common['Authorization'] = `Bearer ${token}`
+
+                return token
+            } catch (err) {
+                localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN)
+
+                delete api.defaults.headers.common['Authorization']
+
+                throw err
+            } finally {
+                refreshPromise = null
+            }
+        })()
     }
 
-    return config
-}, (error) => Promise.reject(error))
+    return refreshPromise
+}
+
+async function refreshToken() {
+    const tokenBeforeWaiting = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+
+    if (!navigator.locks) {
+        return performRefresh()
+    }
+
+    return navigator.locks.request('token-refresh', async () => {
+        const currentToken = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+
+        if (currentToken && currentToken !== tokenBeforeWaiting) {
+            return currentToken
+        }
+
+        return performRefresh()
+    })
+}
 
 api.interceptors.response.use((response) => response, async (error) => {
     const originalRequest = error.config
+
     const isAuthRoute =
         originalRequest?.url === API_ENDPOINTS.AUTH.LOGIN ||
         originalRequest?.url === API_ENDPOINTS.AUTH.REFRESH ||
@@ -49,45 +73,27 @@ api.interceptors.response.use((response) => response, async (error) => {
         return Promise.reject(error)
     }
 
-    if (refreshing) {
-        const token = await new Promise((resolve, reject) => {
-            failedQueue.push({ resolve, reject })
-        })
-
-        originalRequest.headers.Authorization = `Bearer ${token}`
-
-        return api(originalRequest)
-    }
-
     originalRequest._retry = true
-    refreshing = true
 
     try {
-        const response = await api.post(API_ENDPOINTS.AUTH.REFRESH)
-
-        const { token } = response.data
-
-        localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token)
+        const token = await refreshToken()
 
         originalRequest.headers.Authorization = `Bearer ${token}`
 
-        processQueue(null, token)
+        return await api(originalRequest)
+    } catch (err) {
+        window.dispatchEvent(new Event('auth:session-expired'))
 
-        return api(originalRequest)
-    } catch (refreshError) {
-        processQueue(refreshError, null)
-
-        if (refreshError.response?.status === 401) {
-            localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN)
-
-            window.dispatchEvent(new Event('auth:session-expired'))
-        }
-
-        return Promise.reject(refreshError)
-    } finally {
-        refreshing = false
+        return Promise.reject(err)
     }
 })
 
+api.interceptors.request.use((config) => {
+    const token = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+
+    if (token) config.headers.Authorization = `Bearer ${token}`
+
+    return config
+}, (error) => Promise.reject(error))
+
 export default api
-export { SOCKET_URL }
