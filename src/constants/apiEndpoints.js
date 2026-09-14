@@ -9,6 +9,7 @@ export const API_ENDPOINTS = {
         LIST: '/v1/users',
         PROFILE: '/v1/users/me',
         UPDATE: '/v1/users/me',
+        UPDATE_PASSWORD: '/v1/users/me/password',
         GET: (userId) => `/v1/users/${userId}`,
 
         ADMIN: {
@@ -24,7 +25,7 @@ export const API_ENDPOINTS = {
         GET: (workspaceId) => `/v1/workspaces/${workspaceId}`,
         UPDATE: (workspaceId) => `/v1/workspaces/${workspaceId}`,
         DELETE: (workspaceId) => `/v1/workspaces/${workspaceId}`,
-        MOVE: (workspaceId) => `/v1/workspaces/${workspaceId}`,
+        MOVE: (workspaceId) => `/v1/workspaces/${workspaceId}/move`,
         LOGS: (workspaceId) => `/v1/workspaces/${workspaceId}/logs`,
     },
 
