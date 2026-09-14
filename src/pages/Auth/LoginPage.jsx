@@ -9,35 +9,36 @@ import './LoginPage.css'
 
 export const LoginPage = () => {
     const navigate = useNavigate()
-    const { login, loading } = useAuth()
-    const [formData, setFormData] = useState({ email: '', password: '' })
+
+    const { login, loginLoading, loginError, } = useAuth()
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    })
     const [errors, setErrors] = useState({})
-    const [apiError, setApiError] = useState(null)
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setFormData((prev) => ({ ...prev, [name]: value }))
+        setFormData((prev) => ({ ...prev, [name]: value, }))
+
         if (errors[name]) {
-            setErrors((prev) => ({ ...prev, [name]: '' }))
+            setErrors((prev) => ({ ...prev, [name]: '', }))
         }
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        setApiError(null)
 
         const newErrors = validateLoginForm(formData)
+
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors)
             return
         }
 
-        try {
-            await login(formData)
-            navigate('/dashboard')
-        } catch (error) {
-            setApiError(getErrorMessage(error))
-        }
+        await login(formData)
+
+        navigate('/dashboard')
     }
 
     return (
@@ -48,9 +49,16 @@ export const LoginPage = () => {
                     <p>Bem-vindo!</p>
                 </div>
 
-                {apiError && <div className="auth-error">{apiError}</div>}
+                {loginError && (
+                    <div className="auth-error">
+                        {getErrorMessage(loginError)}
+                    </div>
+                )}
 
-                <form onSubmit={handleSubmit} className="auth-form">
+                <form
+                    onSubmit={handleSubmit}
+                    className="auth-form"
+                >
                     <Input
                         label="Email"
                         type="email"
@@ -75,10 +83,12 @@ export const LoginPage = () => {
 
                     <Button
                         type="submit"
-                        disabled={loading}
+                        disabled={loginLoading}
                         className="auth-button"
                     >
-                        {loading ? 'Entrando...' : 'Entrar'}
+                        {loginLoading
+                            ? 'Entrando...'
+                            : 'Entrar'}
                     </Button>
                 </form>
             </div>

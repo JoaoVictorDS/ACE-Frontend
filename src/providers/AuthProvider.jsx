@@ -1,32 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { STORAGE_KEYS } from '../constants/storageKeys'
 import { AuthContext } from '../contexts/AuthContext'
 import { authenticateUser, logoutUser } from '../services/authService'
-import { useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useUser } from '../hooks/useUser'
 
 export const AuthProvider = ({ children }) => {
     const queryClient = useQueryClient()
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [initializing, setInitializing] = useState(true)
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const { data: user, isPending: userLoading } = useUser()
 
-    useEffect(() => {
-        const token = !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+    const hasToken = !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
+    const initializing = hasToken && userLoading
 
-        setIsAuthenticated(!!token)
-        setInitializing(false)
-    }, [])
+    const _clearQuery = () => {
+        queryClient.setQueryData(['user'], null)
+        queryClient.clear()
+    }
 
     useEffect(() => {
         const handleStorage = (event) => {
             if (event.key === STORAGE_KEYS.ACCESS_TOKEN && event.newValue === null) {
-                queryClient.removeQueries({
-                    queryKey: ['user'],
-                })
-
-                setIsAuthenticated(false)
+                _clearQuery()
             }
         }
 
@@ -38,11 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const handleSessionExpired = () => {
-            queryClient.removeQueries({
-                queryKey: ['user'],
-            })
-
-            setIsAuthenticated(false)
+            _clearQuery()
         }
 
         window.addEventListener('auth:session-expired', handleSessionExpired)
@@ -51,58 +42,39 @@ export const AuthProvider = ({ children }) => {
         }
     }, [queryClient])
 
+    const loginMutation = useMutation({
+        mutationFn: authenticateUser,
 
-    const login = async (email, password) => {
-        setLoading(true)
-        setError(null)
-
-        try {
-            const { token, user } = await authenticateUser(email, password)
-
+        onSuccess: ({ token, user }) => {
             localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, token)
 
             queryClient.setQueryData(['user'], user)
-
-            setIsAuthenticated(true)
-
-            return user
-        } catch (err) {
-            const errorMessage = err.response?.data?.message || 'Erro ao fazer login'
-            setError(errorMessage)
-            throw err
-        } finally {
-            setLoading(false)
         }
-    }
+    })
 
-    const logout = async () => {
-        setLoading(true)
+    const logoutMutation = useMutation({
+        mutationFn: logoutUser,
 
-        try {
-            await logoutUser()
-        } catch (err) {
-            console.error('Erro ao fazer logout:', err)
-        } finally {
+        onSettled: () => {
             localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN)
-            queryClient.removeQueries({
-                queryKey: ['user'],
-            })
-            setIsAuthenticated(false)
-            setError(null)
-            setLoading(false)
-        }
-    }
-
-    const value = {
-        isAuthenticated,
-        initializing,
-        loading,
-        error,
-        login,
-        logout
-    }
+            _clearQuery()
+        },
+    })
 
     return (
-        <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{
+            isAuthenticated: !!user,
+
+            initializing,
+
+            login: loginMutation.mutateAsync,
+            logout: logoutMutation.mutateAsync,
+
+            loginLoading: loginMutation.isPending,
+            logoutLoading: logoutMutation.isPending,
+
+            loginError: loginMutation.error,
+            logoutError: logoutMutation.error,
+        }}>{children}</AuthContext.Provider>
     )
 }
