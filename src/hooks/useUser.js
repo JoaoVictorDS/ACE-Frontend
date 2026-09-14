@@ -9,7 +9,6 @@ export const useUser = () => {
         queryKey: ['user'],
         queryFn: getUserProfile,
         enabled: isAuthenticated,
-        retry: false
     })
 
     return {
