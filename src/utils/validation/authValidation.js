@@ -1,16 +1,6 @@
-export const isValidEmail = (email) => {
-    if (!email) return false
+import { isValidEmail, isValidPassword } from './commonFields'
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-    return emailRegex.test(email)
-}
-
-export const isValidPassword = (password) => {
-    return Boolean(password) && password.length >= 6
-}
-
-export const validateLoginForm = (email, password) => {
+export const validateLoginForm = ({ email, password }) => {
     const errors = {}
 
     if (!email?.trim()) {
@@ -24,6 +14,10 @@ export const validateLoginForm = (email, password) => {
     } else if (!isValidPassword(password)) {
         errors.password = 'A senha deve ter pelo menos 6 caracteres.'
     }
+
+    Object.keys(errors).forEach(key => {
+        if (!errors[key]) delete errors[key]
+    })
 
     return errors
 }

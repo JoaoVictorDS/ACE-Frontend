@@ -26,7 +26,7 @@ export const LoginPage = () => {
         e.preventDefault()
         setApiError(null)
 
-        const newErrors = validateLoginForm(formData.email, formData.password)
+        const newErrors = validateLoginForm(formData)
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors)
             return
