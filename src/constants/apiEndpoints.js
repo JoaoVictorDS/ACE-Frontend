@@ -32,6 +32,7 @@ export const API_ENDPOINTS = {
         DELETE: (workspaceId) => `/v1/workspaces/${workspaceId}`,
         MOVE: (workspaceId) => `/v1/workspaces/${workspaceId}/move`,
         LOGS: (workspaceId) => `/v1/workspaces/${workspaceId}/logs`,
+        BOARDS: (workspaceId) => `/v1/workspaces/${workspaceId}/boards`,
     },
 
 }

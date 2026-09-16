@@ -1,0 +1,236 @@
+/* =========================
+   Modal Overlay
+========================= */
+
+.create-workspace-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background-color: rgba(17, 24, 39, 0.45);
+
+    animation: create-workspace-modal-fade-in 0.15s ease;
+}
+
+/* =========================
+   Modal
+========================= */
+
+.create-workspace-modal {
+    width: 100%;
+    max-width: 640px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 8px 16px rgba(0, 0, 0, 0.06);
+
+    overflow: hidden;
+
+    animation: create-workspace-modal-slide-in 0.15s ease;
+}
+
+/* =========================
+   Modal Header
+========================= */
+
+.create-workspace-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 20px 20px 16px;
+
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.create-workspace-modal-header h3 {
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.create-workspace-modal-header p {
+    margin: 5px 0 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================
+   Close Button
+========================= */
+
+.create-workspace-modal-close {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: #9ca3af;
+
+    font-family: inherit;
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.create-workspace-modal-close:hover:not(:disabled) {
+    background-color: #f3f4f6;
+
+    color: #374151;
+}
+
+.create-workspace-modal-close:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* =========================
+   Modal Body
+========================= */
+
+.create-workspace-modal-body {
+    padding: 20px;
+}
+
+/* =========================
+   Workspace Name Field
+========================= */
+
+.create-workspace-modal-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #374151;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.create-workspace-modal-input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 10px 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+
+    background-color: #ffffff;
+
+    color: #111827;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.create-workspace-modal-input::placeholder {
+    color: #9ca3af;
+}
+
+.create-workspace-modal-input:focus {
+    border-color: #3b82f6;
+
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.create-workspace-modal-input:disabled {
+    background-color: #f9fafb;
+
+    cursor: not-allowed;
+}
+
+/* =========================
+   Form Feedback
+========================= */
+
+.create-workspace-modal-feedback {
+    padding: 0 20px;
+    margin-bottom: 22px;
+}
+
+.create-workspace-modal-feedback .form-feedback {
+    margin-top: 0;
+}
+
+/* =========================
+   Modal Actions
+========================= */
+
+.create-workspace-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 16px 20px;
+
+    background-color: #f9fafb;
+
+    border-top: 1px solid #f3f4f6;
+}
+
+/* =========================
+   Animations
+========================= */
+
+@keyframes create-workspace-modal-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes create-workspace-modal-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

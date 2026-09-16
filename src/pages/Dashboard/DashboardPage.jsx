@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-import { useWorkspaces } from '../../hooks/useWorkspaces'
 import { useUser } from '../../hooks/useUser'
 import { Button } from '../../components/Button/Button'
 import { DashboardSection } from '../../components/DashboardSection/DashboardSection'
@@ -11,15 +9,6 @@ import './DashboardPage.css'
 
 export const DashboardPage = () => {
     const { data: user } = useUser()
-    const { workspaces, loading, handleLoadWorkspaces, handleCreateWorkspace } = useWorkspaces()
-    const [showNewWorkspaceModal, setShowNewWorkspaceModal] = useState(false)
-    const [newWorkspaceName, setNewWorkspaceName] = useState('')
-
-    useEffect(() => {
-        if (user) {
-            handleLoadWorkspaces()
-        }
-    }, [user, handleLoadWorkspaces])
 
     return (
         <div className="dashboard-container">
@@ -204,60 +193,6 @@ export const DashboardPage = () => {
                     </DashboardSection>
                 </div>
             </div>
-
-            {showNewWorkspaceModal && (
-                <div
-                    className="modal-overlay"
-                    onClick={() =>
-                        setShowNewWorkspaceModal(false)
-                    }
-                >
-                    <div
-                        className="modal-content"
-                        onClick={(e) =>
-                            e.stopPropagation()
-                        }
-                    >
-                        <h3>Criar Novo Workspace</h3>
-
-                        <input
-                            type="text"
-                            placeholder="Nome do workspace"
-                            value={newWorkspaceName}
-                            onChange={(e) =>
-                                setNewWorkspaceName(e.target.value)
-                            }
-                            className="modal-input"
-                            disabled={loading}
-                        />
-
-                        <div className="modal-actions">
-                            <Button
-                                variant="secondary"
-                                onClick={() =>
-                                    setShowNewWorkspaceModal(false)
-                                }
-                                disabled={loading}
-                            >
-                                Cancelar
-                            </Button>
-
-                            <Button
-                                variant="primary"
-                                onClick={handleCreateWorkspace}
-                                disabled={
-                                    loading ||
-                                    !newWorkspaceName.trim()
-                                }
-                            >
-                                {loading
-                                    ? 'Criando...'
-                                    : 'Criar Workspace'}
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     )
 }

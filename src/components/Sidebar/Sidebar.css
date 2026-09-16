@@ -285,3 +285,121 @@
     font-size: 17px;
     line-height: 1;
 }
+
+/* =========================
+   Boards
+========================= */
+
+.app-sidebar-boards {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    margin-top: 10px;
+}
+
+.app-sidebar-boards-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 6px 10px 5px;
+
+    color: #9ca3af;
+
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.app-sidebar-boards-header button {
+    width: 22px;
+    height: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+
+    color: #9ca3af;
+
+    font-size: 16px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.app-sidebar-boards-header button:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.app-sidebar-board {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 8px 10px;
+
+    border-radius: 7px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.app-sidebar-board:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.app-sidebar-board.active {
+    background-color: #eff6ff;
+    color: #2563eb;
+
+    font-weight: 600;
+}
+
+.app-sidebar-board-icon {
+    width: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    color: currentColor;
+
+    font-size: 15px;
+    line-height: 1;
+}
+
+.app-sidebar-boards-loading,
+.app-sidebar-boards-empty {
+    padding: 8px 10px;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+}

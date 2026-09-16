@@ -23,6 +23,8 @@ export const AppRoutes = () => {
                         <Route path="security" element={<SecurityTab />} />
                         <Route path="account" element={<AccountTab />} />
                     </Route>
+                    <Route path="/workspaces/:workspaceId" element={<h1>WorkspacePage</h1>} />
+                    <Route path="/workspaces/:workspaceId/boards/:boardId" element={<h1>BoardPage</h1>} />
                 </Route>
             </Route>
 

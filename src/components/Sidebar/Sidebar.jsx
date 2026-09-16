@@ -1,30 +1,33 @@
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useWorkspaces } from '../../hooks/useWorkspaces'
-import { useUser } from '../../hooks/useUser'
+import { useBoards } from '../../hooks/useBoards'
 import './Sidebar.css'
 
-export const Sidebar = () => {
-    const { data: user } = useUser()
-    const { workspaces, loading, handleLoadWorkspaces, } = useWorkspaces()
-    const location = useLocation()
+export const Sidebar = ({ onCreateWorkspace }) => {
     const [showWorkspaceMenu, setShowWorkspaceMenu] = useState(false)
-    const [selectedWorkspace, setSelectedWorkspace] = useState(null)
 
-    useEffect(() => {
-        if (user) {
-            handleLoadWorkspaces()
-        }
-    }, [user, handleLoadWorkspaces])
+    const location = useLocation()
+    const navigate = useNavigate()
+    const { workspaceId, boardId } = useParams()
 
-    useEffect(() => {
-        if (workspaces.length > 0 && !selectedWorkspace) {
-            setSelectedWorkspace(workspaces[0])
-        }
-    }, [workspaces, selectedWorkspace])
+    const { data: workspaces = [], isLoading: loadingWorkspaces } = useWorkspaces()
+    const { data: workspaceBoards = [], isLoading: loadingWorkspaceBoards } = useBoards(workspaceId)
+
+    const selectedWorkspace = workspaces.find((workspace) => String(workspace.id) === String(workspaceId))
 
     const isActive = (path) => {
         return location.pathname === path
+    }
+
+    const handleSelectWorkspace = (id) => {
+        setShowWorkspaceMenu(false)
+
+        navigate(`/workspaces/${id}`)
+    }
+
+    const handleSelectBoard = () => {
+        setShowWorkspaceMenu(false)
     }
 
     return (
@@ -34,14 +37,9 @@ export const Sidebar = () => {
                     <button
                         type="button"
                         className="app-sidebar-workspace-button"
-                        onClick={() =>
-                            setShowWorkspaceMenu((current) => !current)
-                        }
-                    >
+                        onClick={() => setShowWorkspaceMenu((current) => !current)}>
                         <span className="app-sidebar-workspace-avatar">
-                            {selectedWorkspace?.name
-                                ?.charAt(0)
-                                .toUpperCase() || 'W'}
+                            {selectedWorkspace?.name?.charAt(0).toUpperCase() || 'W'}
                         </span>
 
                         <span className="app-sidebar-workspace-info">
@@ -50,8 +48,7 @@ export const Sidebar = () => {
                             </span>
 
                             <strong>
-                                {selectedWorkspace?.name ||
-                                    'Selecionar workspace'}
+                                {selectedWorkspace?.name || 'Selecionar workspace'}
                             </strong>
                         </span>
 
@@ -62,7 +59,7 @@ export const Sidebar = () => {
 
                     {showWorkspaceMenu && (
                         <div className="app-sidebar-workspace-menu">
-                            {loading ? (
+                            {loadingWorkspaces ? (
                                 <div className="app-sidebar-workspace-loading">
                                     Carregando...
                                 </div>
@@ -75,16 +72,11 @@ export const Sidebar = () => {
                                     <button
                                         key={workspace.id}
                                         type="button"
-                                        className="app-sidebar-workspace-option"
-                                        onClick={() => {
-                                            setSelectedWorkspace(workspace)
-                                            setShowWorkspaceMenu(false)
-                                        }}
+                                        className={`app-sidebar-workspace-option ${String(workspace.id) === String(workspaceId) ? 'active' : ''} `}
+                                        onClick={() => handleSelectWorkspace(workspace.id)}
                                     >
                                         <span className="app-sidebar-workspace-option-avatar">
-                                            {workspace.name
-                                                ?.charAt(0)
-                                                .toUpperCase()}
+                                            {workspace.name?.charAt(0).toUpperCase()}
                                         </span>
 
                                         <span>
@@ -99,6 +91,10 @@ export const Sidebar = () => {
                             <button
                                 type="button"
                                 className="app-sidebar-new-workspace"
+                                onClick={() => {
+                                    setShowWorkspaceMenu(false)
+                                    onCreateWorkspace()
+                                }}
                             >
                                 + Novo Workspace
                             </button>
@@ -109,10 +105,7 @@ export const Sidebar = () => {
                 <nav className="app-sidebar-navigation">
                     <Link
                         to="/dashboard"
-                        className={`app-sidebar-link ${isActive('/dashboard')
-                            ? 'active'
-                            : ''
-                            }`}
+                        className={`app-sidebar-link ${isActive('/dashboard') ? 'active' : ''} `}
                     >
                         <span className="app-sidebar-link-icon">
                             ⌂
@@ -122,16 +115,61 @@ export const Sidebar = () => {
                     </Link>
 
                     {selectedWorkspace && (
-                        <Link
-                            to={`/workspaces/${selectedWorkspace.id}/boards`}
-                            className="app-sidebar-link"
-                        >
-                            <span className="app-sidebar-link-icon">
-                                ▦
-                            </span>
+                        <>
+                            <Link
+                                to={`/workspaces/${workspaceId}`}
+                                className={`app-sidebar-link ${isActive(`/workspaces/${workspaceId}`) ? 'active' : ''} `}
+                            >
+                                <span className="app-sidebar-link-icon">
+                                    ▦
+                                </span>
+                                <span>Visão geral</span>
+                            </Link>
 
-                            <span>Boards</span>
-                        </Link>
+                            <div className="app-sidebar-boards">
+                                <div className="app-sidebar-boards-header">
+                                    <span>Boards</span>
+
+                                    <button
+                                        type="button"
+                                        title="Novo board"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+
+                                {loadingWorkspaceBoards ? (
+                                    <div className="app-sidebar-boards-loading">
+                                        Carregando...
+                                    </div>
+                                ) : workspaceBoards.length === 0 ? (
+                                    <div className="app-sidebar-boards-empty">
+                                        Nenhum board
+                                    </div>
+                                ) : (
+                                    workspaceBoards.map((board) => (
+                                        <Link
+                                            key={board.id}
+                                            to={`/workspaces/${workspaceId}/boards/${board.id}`}
+                                            onClick={handleSelectBoard}
+                                            className={`app-sidebar-board ${String(board.id) === String(boardId) ? 'active' : ''
+                                                }`}
+                                        >
+                                            <span
+                                                className="app-sidebar-board-icon"
+                                                style={{ color: board.color }}
+                                            >
+                                                ▦
+                                            </span>
+
+                                            <span>
+                                                {board.name}
+                                            </span>
+                                        </Link>
+                                    ))
+                                )}
+                            </div>
+                        </>
                     )}
                 </nav>
             </div>

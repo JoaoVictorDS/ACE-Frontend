@@ -7,7 +7,7 @@ export const getWorkspaces = async () => {
     return response.data
 }
 
-export const createWorkspace = async (data) => {
+export const createWorkspace = async (data = {}) => {
     const response = await api.post(API_ENDPOINTS.WORKSPACES.CREATE, data)
 
     return response.data
