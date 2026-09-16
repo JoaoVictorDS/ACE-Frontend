@@ -1,0 +1,21 @@
+.profile-account-placeholder {
+    padding: 4px 0;
+}
+
+.profile-account-placeholder strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.profile-account-placeholder p {
+    margin: 0;
+
+    color: #9ca3af;
+    font-size: 11px;
+    line-height: 1.5;
+}

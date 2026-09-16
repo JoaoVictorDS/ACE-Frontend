@@ -1,0 +1,141 @@
+.profile-container {
+    width: 100%;
+    min-height: 100%;
+
+    background-color: #f7f8fa;
+    color: #1f2937;
+}
+
+.profile-content {
+    width: 100%;
+}
+
+/* =========================
+   Header
+========================= */
+
+.profile-header {
+    margin-bottom: 24px;
+}
+
+.profile-greeting {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.profile-header h2 {
+    margin: 0 0 6px;
+
+    color: #111827;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.profile-header p {
+    margin: 0;
+
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* =========================
+   Tabs
+========================= */
+
+.profile-tabs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    margin-bottom: 24px;
+
+    overflow-x: auto;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    scrollbar-width: none;
+}
+
+.profile-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 10px 14px;
+    margin-bottom: -1px;
+
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+
+    color: #6b7280;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.profile-tab:hover {
+    color: #374151;
+}
+
+.profile-tab-active {
+    border-bottom-color: #2563eb;
+
+    color: #2563eb;
+    font-weight: 600;
+}
+
+/* =========================
+   Tab Content
+========================= */
+
+.profile-tab-content {
+    width: 100%;
+}
+
+/* =========================
+   Shared Tab Layout
+========================= */
+
+.profile-tab-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 600px) {
+    .profile-header h2 {
+        font-size: 26px;
+    }
+
+    .profile-tabs {
+        margin-right: -18px;
+        margin-left: -18px;
+        padding: 0 18px;
+    }
+}

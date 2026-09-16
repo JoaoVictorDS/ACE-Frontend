@@ -12,6 +12,11 @@ export const API_ENDPOINTS = {
         UPDATE_PASSWORD: '/v1/users/me/password',
         GET: (userId) => `/v1/users/${userId}`,
 
+        NOTIFICATION_SETTINGS: {
+            GET: 'v1/users/me/notification-settings',
+            UPDATE: 'v1/users/me/notification-settings'
+        },
+
         ADMIN: {
             CREATE: '/v1/users',
             UPDATE: (userId) => `/v1/users/${userId}`,

@@ -1,0 +1,96 @@
+/* =========================
+   Form Feedback
+========================= */
+
+.form-feedback {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 18px;
+
+    padding: 11px 14px;
+
+    border: 1px solid;
+    border-radius: 6px;
+
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.form-feedback-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.form-feedback-message {
+    min-width: 0;
+}
+
+.form-feedback-error {
+    border-color: #fecaca;
+
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+.form-feedback-error .form-feedback-icon {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+.form-feedback-success {
+    border-color: #bbf7d0;
+
+    background-color: #f0fdf4;
+    color: #15803d;
+}
+
+.form-feedback-success .form-feedback-icon {
+    background-color: #16a34a;
+    color: #ffffff;
+}
+
+/* =========================
+   Error
+========================= */
+
+.form-feedback-error {
+    border-color: #fecaca;
+
+    background-color: #fef2f2;
+    color: #b91c1c;
+}
+
+.form-feedback-error .form-feedback-icon {
+    background-color: #dc2626;
+    color: #ffffff;
+}
+
+
+/* =========================
+   Success
+========================= */
+
+.form-feedback-success {
+    border-color: #bbf7d0;
+
+    background-color: #f0fdf4;
+    color: #15803d;
+}
+
+.form-feedback-success .form-feedback-icon {
+    background-color: #16a34a;
+    color: #ffffff;
+}

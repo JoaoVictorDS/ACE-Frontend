@@ -1,0 +1,72 @@
+/* =========================
+   Password
+========================= */
+
+.profile-password-intro {
+    margin-bottom: 20px;
+}
+
+.profile-password-intro strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.profile-password-intro p {
+    margin: 0;
+
+    color: #9ca3af;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.profile-password-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.profile-password-confirm-field {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   Form Actions
+========================= */
+
+.profile-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding-top: 22px;
+    margin-top: 22px;
+
+    border-top: 1px solid #f0f1f3;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 900px) {
+    .profile-password-fields {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-form-actions {
+        justify-content: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .profile-form-actions button {
+        width: 100%;
+    }
+}

@@ -6,3 +6,15 @@ export const getUserProfile = async () => {
 
     return response.data
 }
+
+export const updateUserProfile = async (data = {}) => {
+    const response = await api.patch(API_ENDPOINTS.USERS.UPDATE, data)
+
+    return response.data
+}
+
+export const updateUserPassword = async (data = {}) => {
+    const response = await api.patch(API_ENDPOINTS.USERS.UPDATE_PASSWORD, data)
+
+    return response.data
+}

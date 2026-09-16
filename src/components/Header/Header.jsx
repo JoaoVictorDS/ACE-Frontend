@@ -84,18 +84,9 @@ export const Header = () => {
 
                                 <div className="app-header-dropdown-divider" />
 
-                                {/* Futuramente:
-                                    <Link to="/profile" className="app-header-dropdown-item">
-                                        Perfil
-                                    </Link>
-                                     <Link to="/trash" className="app-header-dropdown-item">
-                                        Lixeira
-                                    </Link>
-                                     <Link to="/config" className="app-header-dropdown-item">
-                                        Configurações
-                                    </Link>
-                                    etc.
-                                */}
+                                <Link to="/profile" className="app-header-dropdown-item">
+                                    Perfil
+                                </Link>
 
                                 <button type="button" className="app-header-dropdown-logout" onClick={logout}>
                                     Sair

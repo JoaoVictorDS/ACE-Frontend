@@ -1,0 +1,98 @@
+/* =========================
+   Notifications
+========================= */
+
+.profile-notifications {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-notification-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 16px 0;
+
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.profile-notification-row:first-child {
+    padding-top: 0;
+}
+
+.profile-notification-row:last-child {
+    padding-bottom: 0;
+
+    border-bottom: 0;
+}
+
+.profile-notification-row strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.profile-notification-row p {
+    max-width: 650px;
+
+    margin: 0;
+
+    color: #9ca3af;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* =========================
+   Configuration
+========================= */
+
+.profile-notification-settings {
+    padding: 20px 0;
+
+    border-bottom: 1px solid #f0f1f3;
+}
+
+/* =========================
+   Configuration Link
+========================= */
+
+.profile-section-link {
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: #2563eb;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: color 0.15s ease;
+}
+
+.profile-section-link:hover {
+    color: #1d4ed8;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 600px) {
+    .profile-notification-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+}

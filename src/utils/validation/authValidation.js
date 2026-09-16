@@ -1,13 +1,9 @@
-import { isValidEmail, isValidPassword } from './commonFields'
+import { isValidPassword, validateEmail } from './commonFields'
 
 export const validateLoginForm = ({ email, password }) => {
     const errors = {}
 
-    if (!email?.trim()) {
-        errors.email = 'O e-mail é obrigatório.'
-    } else if (!isValidEmail(email)) {
-        errors.email = 'Informe um e-mail válido.'
-    }
+    errors.email = validateEmail(email)
 
     if (!password) {
         errors.password = 'A senha é obrigatória.'

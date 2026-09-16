@@ -1,0 +1,47 @@
+.select-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.select-field label {
+    color: #374151;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.select-field select {
+    width: 100%;
+    max-width: 420px;
+
+    height: 38px;
+
+    padding: 0 12px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+
+    background-color: #ffffff;
+    color: #374151;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+    cursor: pointer;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.select-field select:hover {
+    border-color: #9ca3af;
+}
+
+.select-field select:focus {
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 2px rgb(37 99 235 / 10%);
+}
