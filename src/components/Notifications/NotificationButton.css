@@ -1,0 +1,190 @@
+/* =========================================================
+   Notification Menu, Button & Dropdown
+   ========================================================= */
+
+.app-header-notification-menu {
+    position: relative;
+}
+
+/* Button & Badge */
+.app-header-notification-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.app-header-notification-button:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.app-header-notification-badge {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-sizing: border-box;
+    border: 2px solid #ffffff;
+    border-radius: 999px;
+    background-color: #ef4444;
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Dropdown Container */
+.app-header-notification-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 380px;
+    max-width: calc(100vw - 32px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(0, 0, 0, 0.04);
+    z-index: 110;
+}
+
+/* Dropdown Header */
+
+.app-header-notification-dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f1f3;
+}
+
+.app-header-notification-dropdown-title {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.app-header-notification-dropdown-header strong {
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.app-header-notification-dropdown-count {
+    color: #6b7280;
+    font-size: 11px;
+}
+
+.app-header-notification-mark-all-button {
+    flex-shrink: 0;
+    padding: 5px 7px;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.app-header-notification-mark-all-button:hover {
+    background-color: #eff6ff;
+    color: #1d4ed8;
+}
+
+/* Notification List */
+.app-header-notification-list {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+/* Notification States (Loading / Empty) */
+.app-header-notification-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    padding: 20px;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+/* Pagination */
+.app-header-notification-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-top: 1px solid #f0f1f3;
+}
+
+.app-header-notification-pagination button {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 7px;
+    background-color: transparent;
+    color: #6b7280;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.app-header-notification-pagination button:hover:not(:disabled) {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.app-header-notification-pagination button:disabled {
+    color: #d1d5db;
+    cursor: not-allowed;
+}
+
+.app-header-notification-pagination span {
+    color: #6b7280;
+    font-size: 11px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .app-header-notification-dropdown {
+        position: fixed;
+        top: 64px;
+        right: 16px;
+        left: 16px;
+        width: auto;
+        max-width: none;
+    }
+}

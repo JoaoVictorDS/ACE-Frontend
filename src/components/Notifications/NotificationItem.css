@@ -1,0 +1,141 @@
+/* =========================================================
+   Notification Item
+   ========================================================= */
+
+.app-header-notification-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: calc(100% - 12px);
+    box-sizing: border-box;
+    margin: 4px 6px;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background-color: #ffffff;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.app-header-notification-item:hover {
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+}
+
+.app-header-notification-item--unread {
+    background-color: #eff6ff;
+    border-color: #dbeafe;
+}
+
+.app-header-notification-item--unread:hover {
+    background-color: #eaf3ff;
+    border-color: #bfdbfe;
+}
+
+/* Avatar */
+
+.app-header-notification-avatar {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: #dbeafe;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.app-header-notification-item--unread .app-header-notification-avatar {
+    background-color: #bfdbfe;
+    color: #1d4ed8;
+}
+
+/* Content */
+
+.app-header-notification-content {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.app-header-notification-message {
+    color: #374151;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.app-header-notification-message strong {
+    color: #111827;
+    font-weight: 600;
+}
+
+.app-header-notification-date {
+    color: #9ca3af;
+    font-size: 10px;
+}
+
+/* Read / Unread Button */
+
+.app-header-notification-read-button {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #9ca3af;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.app-header-notification-item:hover .app-header-notification-read-button,
+.app-header-notification-read-button:focus-visible {
+    opacity: 1;
+}
+
+.app-header-notification-read-button:hover {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.app-header-notification-read-button--unread {
+    color: #2563eb;
+}
+
+.app-header-notification-read-button--unread:hover {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* Accessibility */
+
+.app-header-notification-item:focus-visible {
+    outline: 2px solid #93c5fd;
+    outline-offset: 1px;
+}
+
+.app-header-notification-read-button:focus-visible {
+    outline: 2px solid #93c5fd;
+    outline-offset: 1px;
+}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { useUser } from '../../hooks/useUser'
+import { NotificationButton } from '../../components/Notifications/NotificationButton'
 import './Header.css'
 
 export const Header = () => {
@@ -35,14 +36,7 @@ export const Header = () => {
                 </Link>
 
                 <div className="app-header-actions">
-                    <button type="button" className="app-header-notification-button" aria-label="Notificações">
-                        <span className="app-header-notification-icon">
-                            ♢
-                        </span>
-                        <span className="app-header-notification-badge">
-                            3 {/* Quantidade de notificação não lidas */}
-                        </span>
-                    </button>
+                    <NotificationButton />
 
                     <div className="app-header-user-menu" ref={userMenuRef}>
                         <button type="button" className="app-header-user-button" onClick={() =>

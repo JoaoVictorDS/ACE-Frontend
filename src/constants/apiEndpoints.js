@@ -35,4 +35,11 @@ export const API_ENDPOINTS = {
         BOARDS: (workspaceId) => `/v1/workspaces/${workspaceId}/boards`,
     },
 
+    NOTIFICATIONS: {
+        GET: '/v1/notifications',
+        MARK_ALL_AS_READ: '/v1/notifications/read',
+        MARK_AS_READ: (notificationId) => `/v1/notifications/${notificationId}/read`,
+        MARK_AS_UNREAD: (notificationId) => `/v1/notifications/${notificationId}/unread`,
+    }
+
 }
