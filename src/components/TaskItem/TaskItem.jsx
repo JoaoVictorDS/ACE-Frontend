@@ -1,10 +1,6 @@
-export const TaskItem = ({
-    status,
-    title,
-    board,
-    date,
-    dateClassName = '',
-}) => {
+import './TaskItem.css'
+
+export const TaskItem = ({ status, title, board, date, dateClassName = '' }) => {
     return (
         <div className="task-item">
             <div className={`task-status ${status}`}></div>

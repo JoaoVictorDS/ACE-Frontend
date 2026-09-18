@@ -2,20 +2,33 @@
     display: flex;
     align-items: center;
     gap: 14px;
+
+    min-width: 0;
+
     padding: 20px;
+
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
+
     background-color: var(--color-surface);
 }
+
+/* =========================
+   Icon
+========================= */
 
 .summary-card-icon {
     width: 42px;
     height: 42px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     flex-shrink: 0;
+
     border-radius: var(--radius-lg);
+
     font-size: 18px;
     font-weight: 700;
 }
@@ -40,6 +53,10 @@
     color: var(--color-success);
 }
 
+/* =========================
+   Content
+========================= */
+
 .summary-card div:last-child {
     display: flex;
     flex-direction: column;
@@ -48,11 +65,13 @@
 
 .summary-card span {
     color: var(--color-text-secondary);
+
     font-size: 12px;
 }
 
 .summary-card strong {
     color: var(--color-text-primary);
+
     font-size: 24px;
     font-weight: 700;
 }

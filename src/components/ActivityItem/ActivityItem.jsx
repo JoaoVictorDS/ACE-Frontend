@@ -1,10 +1,6 @@
-export const ActivityItem = ({
-    avatar,
-    user,
-    action,
-    description,
-    time,
-}) => {
+import './ActivityItem.css'
+
+export const ActivityItem = ({ avatar, user, action, description, time }) => {
     return (
         <div className="activity-item">
             <div className="activity-avatar">

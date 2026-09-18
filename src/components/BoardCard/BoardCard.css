@@ -1,11 +1,18 @@
 .board-card {
     display: flex;
+
     overflow: hidden;
+
     min-height: 155px;
+    min-width: 0;
+
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
+
     background-color: var(--color-surface);
+
     cursor: pointer;
+
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease,
@@ -14,12 +21,19 @@
 
 .board-card:hover {
     border-color: var(--color-border-strong);
+
     box-shadow: var(--shadow-card-hover);
+
     transform: translateY(-2px);
 }
 
+/* =========================
+   Color
+========================= */
+
 .board-card-color {
     width: 5px;
+
     flex-shrink: 0;
 }
 
@@ -35,8 +49,15 @@
     background-color: var(--color-success);
 }
 
+/* =========================
+   Content
+========================= */
+
 .board-card-content {
     flex: 1;
+
+    min-width: 0;
+
     padding: 18px;
 }
 
@@ -49,35 +70,54 @@
 
 .board-card-header h4 {
     margin: 0;
+
     color: var(--color-text-primary);
+
     font-size: 15px;
     font-weight: 650;
 }
 
 .board-card-header button {
     padding: 4px;
+
     border: 0;
+
     background: transparent;
     color: var(--color-text-muted);
+
     cursor: pointer;
 }
 
+/* =========================
+   Description
+========================= */
+
 .board-card-content p {
     min-height: 38px;
+
     margin: 10px 0 16px;
+
     color: var(--color-text-secondary);
+
     font-size: 12px;
     line-height: 1.5;
 }
 
+/* =========================
+   Footer
+========================= */
+
 .board-card-footer {
     display: flex;
     gap: 14px;
+
     padding-top: 12px;
+
     border-top: 1px solid var(--color-divider);
 }
 
 .board-card-footer span {
     color: var(--color-text-muted);
+
     font-size: 11px;
 }

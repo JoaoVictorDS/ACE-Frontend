@@ -30,3 +30,15 @@
 
     padding: 36px 40px 48px;
 }
+
+@media (max-width: 800px) {
+    .app-layout-main {
+        padding: 28px 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .app-layout-main {
+        padding: 24px 16px;
+    }
+}

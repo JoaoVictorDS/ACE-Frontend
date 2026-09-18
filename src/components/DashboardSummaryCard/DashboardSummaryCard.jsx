@@ -1,9 +1,6 @@
-export const DashboardSummaryCard = ({
-    icon,
-    label,
-    value,
-    color,
-}) => {
+import './DashboardSummaryCard.css'
+
+export const DashboardSummaryCard = ({ icon, label, value, color }) => {
     return (
         <div className="summary-card">
             <div className={`summary-card-icon ${color}`}>

@@ -1,10 +1,6 @@
-export const BoardCard = ({
-    color,
-    title,
-    description,
-    tasks,
-    pending,
-}) => {
+import './BoardCard.css'
+
+export const BoardCard = ({ color, title, description, tasks, pending }) => {
     return (
         <div className="board-card">
             <div className={`board-card-color ${color}`}></div>

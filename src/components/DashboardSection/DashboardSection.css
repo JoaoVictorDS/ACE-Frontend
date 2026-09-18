@@ -2,40 +2,63 @@
     margin-bottom: 32px;
 }
 
+/* =========================
+   Header
+========================= */
+
 .section-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
+
     margin-bottom: 16px;
 }
 
 .section-header h3 {
     margin: 0 0 4px;
+
     color: var(--color-text-primary);
+
     font-size: 18px;
     font-weight: 650;
 }
 
 .section-header p {
     margin: 0;
+
     color: var(--color-text-muted);
+
     font-size: 13px;
 }
+
+/* =========================
+   Action
+========================= */
 
 .section-action {
     flex-shrink: 0;
 }
 
+/* =========================
+   Section Link
+========================= */
+
 .section-link {
     padding: 0;
+
     border: 0;
+
     background: transparent;
+
     color: var(--color-primary);
+
     font-family: inherit;
     font-size: 13px;
     font-weight: 600;
+
     cursor: pointer;
+
     transition: color 0.15s ease;
 }
 
