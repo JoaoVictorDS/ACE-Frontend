@@ -1,28 +1,219 @@
 :root {
-  /* Colors */
+  color-scheme: light;
+
+  /* =========================
+     Brand
+  ========================= */
+
   --color-primary: #3b82f6;
-  --color-primary-dark: #2563eb;
-  --color-secondary: #6b7280;
+  --color-primary-hover: #2563eb;
+  --color-primary-active: #1d4ed8;
+  --color-primary-light: #eff6ff;
+
+  /* =========================
+     Semantic
+  ========================= */
+
   --color-danger: #ef4444;
+  --color-danger-hover: #dc2626;
+  --color-danger-light: #fef2f2;
+  --color-danger-focus-ring: rgba(239, 68, 68, 0.1);
+
   --color-success: #10b981;
+  --color-success-hover: #059669;
+  --color-success-light: #ecfdf5;
+
   --color-warning: #f59e0b;
+  --color-warning-light: #fffbeb;
+
+  /* =========================
+     Accent
+  ========================= */
+
+  --color-purple: #7c3aed;
+  --color-purple-light: #f5f3ff;
+
+  /* =========================
+     Neutral
+  ========================= */
+
+  --color-neutral-action: #6b7280;
+  --color-neutral-action-hover: #4b5563;
+
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f3f4f6;
 
   --color-text-primary: #1f2937;
   --color-text-secondary: #6b7280;
-  --color-border: #e5e7eb;
-  --color-bg-light: #f9fafb;
-  --color-bg-white: #ffffff;
+  --color-text-muted: #9ca3af;
+  --color-text-inverse: #ffffff;
 
-  /* Border radius */
+  --color-border: #e5e7eb;
+  --color-border-strong: #d1d5db;
+  --color-divider: #f0f1f3;
+
+  /* =========================
+     Interaction
+  ========================= */
+
+  --color-focus: #3b82f6;
+  --color-focus-ring: rgba(59, 130, 246, 0.1);
+
+  --color-input-background: #ffffff;
+  --color-input-background-disabled: #f9fafb;
+  --color-input-border: #d1d5db;
+  --color-input-placeholder: #9ca3af;
+
+  --color-overlay: rgba(17, 24, 39, 0.45);
+
+  /* =========================
+     Layout
+  ========================= */
+
+  --header-height: 64px;
+
+  --sidebar-width: 250px;
+  --sidebar-width-min: 200px;
+  --sidebar-width-max: 360px;
+
+  --content-max-width: 1400px;
+
+  /* =========================
+     Border Radius
+  ========================= */
+
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
+  --radius-xl: 10px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  /* =========================
+     Shadows
+  ========================= */
+
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.05);
+
+  --shadow-md:
+    0 4px 6px rgba(0, 0, 0, 0.1);
+
+  --shadow-lg:
+    0 10px 15px rgba(0, 0, 0, 0.1);
+
+  --shadow-card-hover:
+    0 5px 16px rgba(0, 0, 0, 0.06);
+
+  --shadow-modal:
+    0 20px 40px rgba(0, 0, 0, 0.12),
+    0 8px 16px rgba(0, 0, 0, 0.06);
+
+  --shadow-dropdown:
+    0 10px 25px rgba(0, 0, 0, 0.08),
+    0 4px 10px rgba(0, 0, 0, 0.04);
+
+  --shadow-primary-button:
+    0 4px 12px rgba(59, 130, 246, 0.4);
 }
+
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* =========================
+     Brand
+  ========================= */
+
+  --color-primary: #60a5fa;
+  --color-primary-hover: #93c5fd;
+  --color-primary-active: #bfdbfe;
+  --color-primary-light: #1e3a5f;
+
+  /* =========================
+     Semantic
+  ========================= */
+
+  --color-danger: #f87171;
+  --color-danger-hover: #fca5a5;
+  --color-danger-light: #451a1a;
+  --color-danger-focus-ring: rgba(248, 113, 113, 0.15);
+
+  --color-success: #34d399;
+  --color-success-hover: #6ee7b7;
+  --color-success-light: #123c2c;
+
+  --color-warning: #fbbf24;
+  --color-warning-light: #422006;
+
+  /* =========================
+     Accent
+  ========================= */
+
+  --color-purple: #a78bfa;
+  --color-purple-light: #312e5a;
+
+  /* =========================
+     Neutral
+  ========================= */
+
+  --color-neutral-action: #6b7280;
+  --color-neutral-action-hover: #9ca3af;
+
+  --color-background: #111827;
+  --color-surface: #1f2937;
+  --color-surface-hover: #374151;
+
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #d1d5db;
+  --color-text-muted: #9ca3af;
+  --color-text-inverse: #111827;
+
+  --color-border: #374151;
+  --color-border-strong: #4b5563;
+  --color-divider: #374151;
+
+  /* =========================
+     Interaction
+  ========================= */
+
+  --color-focus: #60a5fa;
+  --color-focus-ring: rgba(96, 165, 250, 0.15);
+
+  --color-input-background: #1f2937;
+  --color-input-background-disabled: #111827;
+  --color-input-border: #4b5563;
+  --color-input-placeholder: #9ca3af;
+
+  --color-overlay: rgba(0, 0, 0, 0.65);
+
+  /* =========================
+     Shadows
+  ========================= */
+
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.25);
+
+  --shadow-md:
+    0 4px 6px rgba(0, 0, 0, 0.3);
+
+  --shadow-lg:
+    0 10px 15px rgba(0, 0, 0, 0.35);
+
+  --shadow-card-hover:
+    0 5px 16px rgba(0, 0, 0, 0.25);
+
+  --shadow-modal:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.25);
+
+  --shadow-dropdown:
+    0 10px 25px rgba(0, 0, 0, 0.4),
+    0 4px 10px rgba(0, 0, 0, 0.25);
+
+  --shadow-primary-button:
+    0 4px 12px rgba(96, 165, 250, 0.35);
+}
+
 
 * {
   margin: 0;
@@ -30,12 +221,14 @@
   box-sizing: border-box;
 }
 
+
 html,
 body,
 #root {
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
+
 
 body {
   font-family:
@@ -54,6 +247,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: var(--color-bg-light);
+  background-color: var(--color-background);
   color: var(--color-text-primary);
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }

@@ -1,11 +1,15 @@
+/* =========================================================
+   Profile Section
+   ========================================================= */
+
 .profile-section {
     min-width: 0;
     padding: 22px;
 
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
 
-    background-color: #ffffff;
+    background-color: var(--color-surface);
 }
 
 .profile-section-header {
@@ -15,7 +19,7 @@
 .profile-section-header h3 {
     margin: 0 0 4px;
 
-    color: #111827;
+    color: var(--color-text-primary);
     font-size: 18px;
     font-weight: 650;
 }
@@ -23,6 +27,6 @@
 .profile-section-header p {
     margin: 0;
 
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 13px;
 }

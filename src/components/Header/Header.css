@@ -8,9 +8,9 @@
     left: 0;
     z-index: 100;
     width: 100%;
-    height: 64px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    height: var(--header-height);
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .app-header-content {
@@ -28,7 +28,7 @@
 .app-header-logo {
     display: flex;
     align-items: center;
-    color: #3b82f6;
+    color: var(--color-primary);
     font-size: 22px;
     font-weight: 700;
     line-height: 1;
@@ -37,7 +37,7 @@
 }
 
 .app-header-logo:hover {
-    color: #2563eb;
+    color: var(--color-primary-hover);
 }
 
 /* Actions Wrapper */
@@ -61,16 +61,16 @@
     gap: 10px;
     padding: 6px 8px;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     background: transparent;
-    color: #374151;
+    color: var(--color-text-primary);
     font-family: inherit;
     cursor: pointer;
     transition: background-color 0.15s ease;
 }
 
 .app-header-user-button:hover {
-    background-color: #f3f4f6;
+    background-color: var(--color-surface-hover);
 }
 
 .app-header-user-avatar {
@@ -81,8 +81,8 @@
     justify-content: center;
     flex-shrink: 0;
     border-radius: 50%;
-    background-color: #dbeafe;
-    color: #2563eb;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
     font-size: 13px;
     font-weight: 700;
 }
@@ -104,19 +104,19 @@
 }
 
 .app-header-user-info strong {
-    color: #1f2937;
+    color: var(--color-text-primary);
     font-size: 13px;
     font-weight: 600;
 }
 
 .app-header-user-info span {
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 11px;
 }
 
 .app-header-user-arrow {
     margin-left: 2px;
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 12px;
 }
 
@@ -127,12 +127,10 @@
     right: 0;
     width: 260px;
     padding: 8px;
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.08),
-        0 4px 10px rgba(0, 0, 0, 0.04);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-dropdown);
 }
 
 .app-header-dropdown-user {
@@ -150,8 +148,8 @@
     justify-content: center;
     flex-shrink: 0;
     border-radius: 50%;
-    background-color: #dbeafe;
-    color: #2563eb;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
     font-size: 14px;
     font-weight: 700;
 }
@@ -171,20 +169,20 @@
 }
 
 .app-header-dropdown-user-info strong {
-    color: #1f2937;
+    color: var(--color-text-primary);
     font-size: 13px;
     font-weight: 600;
 }
 
 .app-header-dropdown-user-info span {
-    color: #6b7280;
+    color: var(--color-text-secondary);
     font-size: 11px;
 }
 
 .app-header-dropdown-divider {
     height: 1px;
     margin: 6px 0;
-    background-color: #f0f1f3;
+    background-color: var(--color-divider);
 }
 
 /* User Dropdown Items */
@@ -197,7 +195,7 @@
     box-sizing: border-box;
     padding: 10px 12px;
     border: none;
-    border-radius: 7px;
+    border-radius: var(--radius-lg);
     background: transparent;
     font-family: inherit;
     font-size: 13px;
@@ -211,21 +209,21 @@
 }
 
 .app-header-dropdown-item {
-    color: #374151;
+    color: var(--color-text-primary);
 }
 
 .app-header-dropdown-item:hover {
-    background-color: #f3f4f6;
-    color: #1f2937;
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
 }
 
 .app-header-dropdown-logout {
-    color: #dc2626;
+    color: var(--color-danger);
 }
 
 .app-header-dropdown-logout:hover {
-    background-color: #fef2f2;
-    color: #b91c1c;
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
 }
 
 /* Responsive */

@@ -12,14 +12,14 @@
 
 .section-header h3 {
     margin: 0 0 4px;
-    color: #111827;
+    color: var(--color-text-primary);
     font-size: 18px;
     font-weight: 650;
 }
 
 .section-header p {
     margin: 0;
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 13px;
 }
 
@@ -31,13 +31,18 @@
     padding: 0;
     border: 0;
     background: transparent;
-    color: #2563eb;
+    color: var(--color-primary);
     font-family: inherit;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
+    transition: color 0.15s ease;
 }
 
 .section-link:hover {
-    color: #1d4ed8;
+    color: var(--color-primary-hover);
+}
+
+.section-link:active {
+    color: var(--color-primary-active);
 }

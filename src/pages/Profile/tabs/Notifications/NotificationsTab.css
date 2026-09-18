@@ -15,7 +15,7 @@
 
     padding: 16px 0;
 
-    border-bottom: 1px solid #f0f1f3;
+    border-bottom: 1px solid var(--color-divider);
 }
 
 .profile-notification-row:first-child {
@@ -33,7 +33,7 @@
 
     margin-bottom: 4px;
 
-    color: #374151;
+    color: var(--color-text-primary);
     font-size: 13px;
     font-weight: 600;
 }
@@ -43,7 +43,7 @@
 
     margin: 0;
 
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 11px;
     line-height: 1.5;
 }
@@ -55,7 +55,7 @@
 .profile-notification-settings {
     padding: 20px 0;
 
-    border-bottom: 1px solid #f0f1f3;
+    border-bottom: 1px solid var(--color-divider);
 }
 
 /* =========================
@@ -70,7 +70,7 @@
     border: 0;
     background: transparent;
 
-    color: #2563eb;
+    color: var(--color-primary-hover);
 
     font-family: inherit;
     font-size: 12px;
@@ -82,7 +82,7 @@
 }
 
 .profile-section-link:hover {
-    color: #1d4ed8;
+    color: var(--color-primary-active);
 }
 
 /* =========================

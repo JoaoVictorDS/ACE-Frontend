@@ -3,9 +3,9 @@
     align-items: center;
     gap: 14px;
     padding: 20px;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface);
 }
 
 .summary-card-icon {
@@ -15,29 +15,29 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    border-radius: 9px;
+    border-radius: var(--radius-lg);
     font-size: 18px;
     font-weight: 700;
 }
 
 .summary-card-icon.blue {
-    background-color: #eff6ff;
-    color: #2563eb;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
 }
 
 .summary-card-icon.purple {
-    background-color: #f5f3ff;
-    color: #7c3aed;
+    background-color: var(--color-purple-light);
+    color: var(--color-purple);
 }
 
 .summary-card-icon.red {
-    background-color: #fef2f2;
-    color: #ef4444;
+    background-color: var(--color-danger-light);
+    color: var(--color-danger);
 }
 
 .summary-card-icon.green {
-    background-color: #ecfdf5;
-    color: #10b981;
+    background-color: var(--color-success-light);
+    color: var(--color-success);
 }
 
 .summary-card div:last-child {
@@ -47,12 +47,12 @@
 }
 
 .summary-card span {
-    color: #6b7280;
+    color: var(--color-text-secondary);
     font-size: 12px;
 }
 
 .summary-card strong {
-    color: #111827;
+    color: var(--color-text-primary);
     font-size: 24px;
     font-weight: 700;
 }

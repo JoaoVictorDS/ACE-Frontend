@@ -1,3 +1,7 @@
+/* =========================================================
+   Select Field
+   ========================================================= */
+
 .select-field {
     display: flex;
     flex-direction: column;
@@ -5,7 +9,7 @@
 }
 
 .select-field label {
-    color: #374151;
+    color: var(--color-text-primary);
 
     font-size: 12px;
     font-weight: 600;
@@ -19,11 +23,11 @@
 
     padding: 0 12px;
 
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
 
-    background-color: #ffffff;
-    color: #374151;
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
 
     font-family: inherit;
     font-size: 13px;
@@ -37,11 +41,11 @@
 }
 
 .select-field select:hover {
-    border-color: #9ca3af;
+    border-color: var(--color-border-strong);
 }
 
 .select-field select:focus {
-    border-color: #2563eb;
+    border-color: var(--color-focus);
 
-    box-shadow: 0 0 0 2px rgb(37 99 235 / 10%);
+    box-shadow: 0 0 0 2px var(--color-focus-ring);
 }

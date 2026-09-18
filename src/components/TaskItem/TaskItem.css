@@ -3,7 +3,7 @@
     align-items: center;
     gap: 12px;
     padding: 13px 0;
-    border-bottom: 1px solid #f0f1f3;
+    border-bottom: 1px solid var(--color-divider);
 }
 
 .task-item:last-child {
@@ -13,29 +13,32 @@
 .task-status {
     width: 8px;
     height: 8px;
+
     flex-shrink: 0;
+
     border-radius: 50%;
 }
 
 .task-status.pending {
-    background-color: #3b82f6;
+    background-color: var(--color-primary);
 }
 
 .task-status.warning {
-    background-color: #f59e0b;
+    background-color: var(--color-warning);
 }
 
 .task-status.completed {
-    background-color: #10b981;
+    background-color: var(--color-success);
 }
 
 .task-status.overdue {
-    background-color: #ef4444;
+    background-color: var(--color-danger);
 }
 
 .task-info {
     min-width: 0;
     flex: 1;
+
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -43,30 +46,33 @@
 
 .task-info strong {
     overflow: hidden;
-    color: #374151;
+
+    color: var(--color-text-primary);
     font-size: 13px;
     font-weight: 550;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .task-info span {
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 11px;
 }
 
 .task-date {
     flex-shrink: 0;
-    color: #9ca3af;
+
+    color: var(--color-text-muted);
     font-size: 11px;
 }
 
 .task-date.today {
-    color: #2563eb;
+    color: var(--color-primary-hover);
     font-weight: 600;
 }
 
 .task-date.overdue-text {
-    color: #ef4444;
+    color: var(--color-danger);
     font-weight: 600;
 }

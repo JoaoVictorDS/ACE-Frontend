@@ -1,3 +1,7 @@
+/* =========================================================
+   Notification Toggle List
+   ========================================================= */
+
 .notification-toggle-list {
     display: flex;
     flex-direction: column;
@@ -5,8 +9,7 @@
 
 .notification-toggle-list .profile-toggle-row {
     padding: 16px 0;
-
-    border-bottom: 1px solid #f0f1f3;
+    border-bottom: 1px solid var(--color-divider);
 }
 
 .notification-toggle-list .profile-toggle-row:first-child {
@@ -15,6 +18,5 @@
 
 .notification-toggle-list .profile-toggle-row:last-child {
     padding-bottom: 0;
-
     border-bottom: 0;
 }

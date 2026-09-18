@@ -15,9 +15,9 @@
     align-items: center;
     justify-content: center;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     background: transparent;
-    color: #6b7280;
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition:
         background-color 0.15s ease,
@@ -25,8 +25,8 @@
 }
 
 .app-header-notification-button:hover {
-    background-color: #f3f4f6;
-    color: #374151;
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
 }
 
 .app-header-notification-badge {
@@ -40,10 +40,10 @@
     justify-content: center;
     padding: 0 4px;
     box-sizing: border-box;
-    border: 2px solid #ffffff;
+    border: 2px solid var(--color-surface);
     border-radius: 999px;
-    background-color: #ef4444;
-    color: #ffffff;
+    background-color: var(--color-danger);
+    color: var(--color-text-inverse);
     font-size: 9px;
     font-weight: 700;
     line-height: 1;
@@ -59,12 +59,10 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.08),
-        0 4px 10px rgba(0, 0, 0, 0.04);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-dropdown);
     z-index: 110;
 }
 
@@ -76,7 +74,7 @@
     justify-content: space-between;
     gap: 12px;
     padding: 14px 16px;
-    border-bottom: 1px solid #f0f1f3;
+    border-bottom: 1px solid var(--color-divider);
 }
 
 .app-header-notification-dropdown-title {
@@ -87,13 +85,13 @@
 }
 
 .app-header-notification-dropdown-header strong {
-    color: #1f2937;
+    color: var(--color-text-primary);
     font-size: 14px;
     font-weight: 600;
 }
 
 .app-header-notification-dropdown-count {
-    color: #6b7280;
+    color: var(--color-text-secondary);
     font-size: 11px;
 }
 
@@ -101,9 +99,9 @@
     flex-shrink: 0;
     padding: 5px 7px;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     background-color: transparent;
-    color: #2563eb;
+    color: var(--color-primary);
     font-size: 10px;
     font-weight: 600;
     cursor: pointer;
@@ -113,8 +111,8 @@
 }
 
 .app-header-notification-mark-all-button:hover {
-    background-color: #eff6ff;
-    color: #1d4ed8;
+    background-color: var(--color-primary-surface-hover);
+    color: var(--color-primary-active);
 }
 
 /* Notification List */
@@ -130,7 +128,7 @@
     justify-content: center;
     min-height: 120px;
     padding: 20px;
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 12px;
 }
 
@@ -141,7 +139,7 @@
     justify-content: center;
     gap: 12px;
     padding: 10px 14px;
-    border-top: 1px solid #f0f1f3;
+    border-top: 1px solid var(--color-divider);
 }
 
 .app-header-notification-pagination button {
@@ -152,9 +150,9 @@
     justify-content: center;
     padding: 0;
     border: none;
-    border-radius: 7px;
+    border-radius: var(--radius-lg);
     background-color: transparent;
-    color: #6b7280;
+    color: var(--color-text-secondary);
     font-size: 14px;
     cursor: pointer;
     transition:
@@ -163,17 +161,17 @@
 }
 
 .app-header-notification-pagination button:hover:not(:disabled) {
-    background-color: #f3f4f6;
-    color: #374151;
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
 }
 
 .app-header-notification-pagination button:disabled {
-    color: #d1d5db;
+    color: var(--color-border-strong);
     cursor: not-allowed;
 }
 
 .app-header-notification-pagination span {
-    color: #6b7280;
+    color: var(--color-text-secondary);
     font-size: 11px;
 }
 

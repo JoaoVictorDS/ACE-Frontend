@@ -12,8 +12,8 @@
     margin: 4px 6px;
     padding: 12px;
     border: 1px solid transparent;
-    border-radius: 12px;
-    background-color: #ffffff;
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface);
     text-align: left;
     cursor: pointer;
     transition:
@@ -23,18 +23,18 @@
 }
 
 .app-header-notification-item:hover {
-    background-color: #f9fafb;
-    border-color: #e5e7eb;
+    background-color: var(--color-surface-hover);
+    border-color: var(--color-border);
 }
 
 .app-header-notification-item--unread {
-    background-color: #eff6ff;
-    border-color: #dbeafe;
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary-light);
 }
 
 .app-header-notification-item--unread:hover {
-    background-color: #eaf3ff;
-    border-color: #bfdbfe;
+    background-color: var(--color-primary-light);
+    border-color: var(--color-primary);
 }
 
 /* Avatar */
@@ -47,15 +47,15 @@
     justify-content: center;
     flex-shrink: 0;
     border-radius: 50%;
-    background-color: #dbeafe;
-    color: #2563eb;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
     font-size: 11px;
     font-weight: 700;
 }
 
 .app-header-notification-item--unread .app-header-notification-avatar {
-    background-color: #bfdbfe;
-    color: #1d4ed8;
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
 }
 
 /* Content */
@@ -69,18 +69,18 @@
 }
 
 .app-header-notification-message {
-    color: #374151;
+    color: var(--color-text-secondary);
     font-size: 12px;
     line-height: 1.5;
 }
 
 .app-header-notification-message strong {
-    color: #111827;
+    color: var(--color-text-primary);
     font-weight: 600;
 }
 
 .app-header-notification-date {
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 10px;
 }
 
@@ -96,9 +96,9 @@
     margin-top: 2px;
     padding: 0;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-lg);
     background-color: transparent;
-    color: #9ca3af;
+    color: var(--color-text-muted);
     font-size: 15px;
     line-height: 1;
     cursor: pointer;
@@ -115,27 +115,27 @@
 }
 
 .app-header-notification-read-button:hover {
-    background-color: #e5e7eb;
-    color: #374151;
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
 }
 
 .app-header-notification-read-button--unread {
-    color: #2563eb;
+    color: var(--color-primary);
 }
 
 .app-header-notification-read-button--unread:hover {
-    background-color: #dbeafe;
-    color: #1d4ed8;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-active);
 }
 
 /* Accessibility */
 
 .app-header-notification-item:focus-visible {
-    outline: 2px solid #93c5fd;
+    outline: 2px solid var(--color-focus);
     outline-offset: 1px;
 }
 
 .app-header-notification-read-button:focus-visible {
-    outline: 2px solid #93c5fd;
+    outline: 2px solid var(--color-focus);
     outline-offset: 1px;
 }
