@@ -168,7 +168,7 @@ export const NotificationButton = () => {
                         </button>
 
                         <span>
-                            {page} / {totalPages}
+                            {totalPages === 0 ? 0 : page} / {totalPages}
                         </span>
 
                         <button
