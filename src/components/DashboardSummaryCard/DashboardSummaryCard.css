@@ -1,9 +1,10 @@
 .summary-card {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
 
     min-width: 0;
+    min-height: 104px;
 
     padding: 20px;
 
@@ -11,6 +12,20 @@
     border-radius: var(--radius-xl);
 
     background-color: var(--color-surface);
+
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.summary-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-card-hover);
+
+    transform: translateY(-1px);
 }
 
 /* =========================
@@ -18,37 +33,34 @@
 ========================= */
 
 .summary-card-icon {
-    width: 42px;
-    height: 42px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
     flex-shrink: 0;
 
-    border-radius: var(--radius-lg);
+    width: 46px;
+    height: 46px;
 
-    font-size: 18px;
-    font-weight: 700;
+    border-radius: var(--radius-lg);
 }
 
-.summary-card-icon.blue {
+.summary-card--blue .summary-card-icon {
     background-color: var(--color-primary-light);
     color: var(--color-primary);
 }
 
-.summary-card-icon.purple {
+.summary-card--purple .summary-card-icon {
     background-color: var(--color-purple-light);
     color: var(--color-purple);
 }
 
-.summary-card-icon.red {
+.summary-card--red .summary-card-icon {
     background-color: var(--color-danger-light);
     color: var(--color-danger);
 }
 
-.summary-card-icon.green {
+.summary-card--green .summary-card-icon {
     background-color: var(--color-success-light);
     color: var(--color-success);
 }
@@ -57,21 +69,50 @@
    Content
 ========================= */
 
-.summary-card div:last-child {
+.summary-card-content {
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.summary-card span {
+.summary-card-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
     color: var(--color-text-secondary);
 
-    font-size: 12px;
+    font-size: 13px;
+    font-weight: 500;
 }
 
-.summary-card strong {
+.summary-card-value {
     color: var(--color-text-primary);
 
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
+    line-height: 1.2;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 600px) {
+    .summary-card {
+        min-height: 92px;
+
+        padding: 16px;
+    }
+
+    .summary-card-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .summary-card-value {
+        font-size: 24px;
+    }
 }

@@ -2,18 +2,25 @@ import './TaskItem.css'
 
 export const TaskItem = ({ status, title, board, date, dateClassName = '' }) => {
     return (
-        <div className="task-item">
-            <div className={`task-status ${status}`}></div>
+        <article className="task-item">
+            <span
+                className={`task-status task-status--${status}`}
+                aria-label={`Status: ${status}`}
+            />
 
             <div className="task-info">
-                <strong>{title}</strong>
+                <strong className="task-title">
+                    {title}
+                </strong>
 
-                <span>{board}</span>
+                <span className="task-board">
+                    {board}
+                </span>
             </div>
 
             <span className={`task-date ${dateClassName}`}>
                 {date}
             </span>
-        </div>
+        </article>
     )
 }

@@ -8,18 +8,26 @@ import './AppLayout.css'
 export const AppLayout = () => {
     const [showCreateWorkspaceModal, setShowCreateWorkspaceModal] = useState(false)
 
+    const openCreateWorkspaceModal = () => {
+        setShowCreateWorkspaceModal(true)
+    }
+
+    const closeCreateWorkspaceModal = () => {
+        setShowCreateWorkspaceModal(false)
+    }
+
     return (
         <div className="app-layout">
             <Header />
             <div className="app-layout-body">
-                <Sidebar onCreateWorkspace={() => setShowCreateWorkspaceModal(true)} />
+                <Sidebar onCreateWorkspace={openCreateWorkspaceModal} />
                 <main className="app-layout-main">
-                    <Outlet />
+                    <Outlet context={{ openCreateWorkspaceModal }} />
                 </main>
             </div>
             <CreateWorkspaceModal
                 open={showCreateWorkspaceModal}
-                onClose={() => setShowCreateWorkspaceModal(false)}
+                onClose={closeCreateWorkspaceModal}
             />
         </div>
     )

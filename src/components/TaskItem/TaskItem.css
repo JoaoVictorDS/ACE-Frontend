@@ -2,13 +2,19 @@
     display: flex;
     align-items: center;
     gap: 12px;
+
     padding: 13px 0;
+
     border-bottom: 1px solid var(--color-divider);
 }
 
 .task-item:last-child {
     border-bottom: 0;
 }
+
+/* =========================
+   Status
+========================= */
 
 .task-status {
     width: 8px;
@@ -17,54 +23,75 @@
     flex-shrink: 0;
 
     border-radius: 50%;
+
+    box-shadow: 0 0 0 3px var(--color-surface);
 }
 
-.task-status.pending {
+.task-status--pending {
     background-color: var(--color-primary);
 }
 
-.task-status.warning {
+.task-status--warning {
     background-color: var(--color-warning);
 }
 
-.task-status.completed {
+.task-status--completed {
     background-color: var(--color-success);
 }
 
-.task-status.overdue {
+.task-status--overdue {
     background-color: var(--color-danger);
 }
 
-.task-info {
-    min-width: 0;
-    flex: 1;
+/* =========================
+   Info
+========================= */
 
+.task-info {
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    min-width: 0;
+    flex: 1;
 }
 
-.task-info strong {
+.task-title {
     overflow: hidden;
 
     color: var(--color-text-primary);
+
     font-size: 13px;
-    font-weight: 550;
+    font-weight: 600;
+    line-height: 1.4;
 
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.task-info span {
+.task-board {
+    overflow: hidden;
+
     color: var(--color-text-muted);
+
     font-size: 11px;
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+/* =========================
+   Date
+========================= */
 
 .task-date {
     flex-shrink: 0;
 
     color: var(--color-text-muted);
+
     font-size: 11px;
+    font-weight: 500;
 }
 
 .task-date.today {

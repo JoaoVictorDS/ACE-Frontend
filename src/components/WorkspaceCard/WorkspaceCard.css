@@ -1,0 +1,221 @@
+.workspace-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: 148px;
+
+    padding: 20px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+
+    box-shadow: var(--shadow-sm);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.workspace-card::before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 3px;
+
+    background-color: var(--color-primary);
+
+    opacity: 0;
+
+    transition: opacity 0.2s ease;
+}
+
+.workspace-card:hover {
+    border-color: var(--color-border-strong);
+
+    box-shadow: var(--shadow-card-hover);
+
+    transform: translateY(-2px);
+}
+
+.workspace-card:hover::before {
+    opacity: 1;
+}
+
+.workspace-card:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+/* =========================
+   Top
+========================= */
+
+.workspace-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.workspace-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--color-primary-light);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.workspace-card-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+
+    background-color: var(--color-surface);
+    color: var(--color-text-muted);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.workspace-card:hover .workspace-card-arrow {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+
+    transform: translateX(2px);
+}
+
+/* =========================
+   Content
+========================= */
+
+.workspace-card-content {
+    min-width: 0;
+
+    margin-top: 16px;
+}
+
+.workspace-card-title {
+    margin: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: var(--color-text-primary);
+
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.workspace-card-description {
+    margin-top: 5px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================
+   Footer
+========================= */
+
+.workspace-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+.workspace-card-role {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 8px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-secondary);
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.workspace-card-access {
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+    font-weight: 500;
+
+    transition: color 0.2s ease;
+}
+
+.workspace-card:hover .workspace-card-access {
+    color: var(--color-primary);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 640px) {
+    .workspace-card {
+        min-height: 140px;
+
+        padding: 16px;
+    }
+
+    .workspace-card-access {
+        display: none;
+    }
+}

@@ -1,21 +1,34 @@
 import './ActivityItem.css'
 
 export const ActivityItem = ({ avatar, user, action, description, time }) => {
+    const fallbackAvatar = user?.charAt(0)?.toUpperCase() || '?'
+
     return (
-        <div className="activity-item">
+        <article className="activity-item">
             <div className="activity-avatar">
-                {avatar}
+                {avatar || fallbackAvatar}
             </div>
 
             <div className="activity-info">
-                <p>
-                    <strong>{user}</strong> {action}
+                <p className="activity-action">
+                    <strong>{user}</strong>
+                    <span>{action}</span>
                 </p>
 
-                <span>
-                    {description} · {time}
-                </span>
+                <div className="activity-meta">
+                    <span className="activity-description">
+                        {description}
+                    </span>
+
+                    <span className="activity-separator">
+                        ·
+                    </span>
+
+                    <span className="activity-time">
+                        {time}
+                    </span>
+                </div>
             </div>
-        </div>
+        </article>
     )
 }

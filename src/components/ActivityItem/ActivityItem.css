@@ -1,7 +1,10 @@
 .activity-item {
     display: flex;
+    align-items: flex-start;
     gap: 12px;
+
     padding: 13px 0;
+
     border-bottom: 1px solid var(--color-divider);
 }
 
@@ -9,36 +12,112 @@
     border-bottom: 0;
 }
 
+/* =========================
+   Avatar
+========================= */
+
 .activity-avatar {
-    width: 32px;
-    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
     flex-shrink: 0;
+
+    border: 1px solid var(--color-border);
     border-radius: 50%;
-    background-color: var(--color-surface-hover);
-    color: var(--color-text-secondary);
+
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+
     font-size: 11px;
     font-weight: 700;
 }
 
+/* =========================
+   Info
+========================= */
+
 .activity-info {
     min-width: 0;
+    flex: 1;
 }
 
-.activity-info p {
-    margin: 0 0 4px;
+.activity-action {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+
+    margin: 0;
+
     color: var(--color-text-secondary);
+
     font-size: 12px;
+    line-height: 1.45;
+}
+
+.activity-action strong {
+    color: var(--color-text-primary);
+
+    font-weight: 600;
+}
+
+.activity-meta {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 3px;
+
+    min-width: 0;
+
+    font-size: 11px;
     line-height: 1.4;
 }
 
-.activity-info p strong {
-    color: var(--color-text-primary);
+.activity-description {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: var(--color-text-secondary);
 }
 
-.activity-info span {
+.activity-separator {
+    flex-shrink: 0;
+
     color: var(--color-text-muted);
-    font-size: 10px;
+}
+
+.activity-time {
+    flex-shrink: 0;
+
+    color: var(--color-text-muted);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 480px) {
+    .activity-item {
+        gap: 10px;
+    }
+
+    .activity-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    .activity-action {
+        font-size: 11px;
+    }
+
+    .activity-meta {
+        font-size: 10px;
+    }
 }

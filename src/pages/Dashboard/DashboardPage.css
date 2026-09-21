@@ -8,7 +8,7 @@
 
 .dashboard-content {
     width: 100%;
-    max-width: 1400px;
+    max-width: var(--content-max-width);
     margin: 0 auto;
 }
 
@@ -63,10 +63,10 @@
 }
 
 /* =========================
-   Boards Layout
+   Workspaces Layout
 ========================= */
 
-.boards-grid {
+.workspaces-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
@@ -94,6 +94,16 @@
 }
 
 /* =========================
+   Lists
+========================= */
+
+.tasks-list,
+.activity-list {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
    Responsive
 ========================= */
 
@@ -102,7 +112,7 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .boards-grid {
+    .workspaces-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -121,7 +131,7 @@
 @media (max-width: 600px) {
 
     .dashboard-summary-grid,
-    .boards-grid {
+    .workspaces-grid {
         grid-template-columns: 1fr;
     }
 
