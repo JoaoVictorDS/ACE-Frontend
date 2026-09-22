@@ -14,7 +14,7 @@ export const DashboardPage = () => {
     const { openCreateWorkspaceModal } = useOutletContext()
 
     const { data: user } = useUser()
-    const { data: workspaces = [], isPending: workspacesLoading, isError: workspacesError, refetch: refetchWorkspaces } = useWorkspaces()
+    const { data: workspaces = [], isLoading: workspacesLoading, isError: workspacesError, refetch: refetchWorkspaces } = useWorkspaces()
 
     const handleWorkspaceClick = (workspace) => {
         navigate(`/workspaces/${workspace.id}`)

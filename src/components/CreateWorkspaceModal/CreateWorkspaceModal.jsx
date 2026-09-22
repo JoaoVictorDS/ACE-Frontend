@@ -8,7 +8,7 @@ import './CreateWorkspaceModal.css'
 
 export const CreateWorkspaceModal = ({ open, onClose }) => {
     const [workspaceName, setWorkspaceName] = useState('')
-    const { creatingWorkspace: isLoading, resetCreateWorkspace, createWorkspace, createWorkspaceError } = useCreateWorkspace()
+    const { creatingWorkspace, resetCreateWorkspace, createWorkspace, createWorkspaceError } = useCreateWorkspace()
     const navigate = useNavigate()
 
     if (!open) {
@@ -22,7 +22,7 @@ export const CreateWorkspaceModal = ({ open, onClose }) => {
 
         const name = workspaceName.trim()
 
-        if (!name || isLoading) {
+        if (!name || creatingWorkspace) {
             return
         }
 
@@ -35,7 +35,7 @@ export const CreateWorkspaceModal = ({ open, onClose }) => {
     }
 
     const handleClose = () => {
-        if (isLoading) {
+        if (creatingWorkspace) {
             return
         }
 
@@ -67,7 +67,7 @@ export const CreateWorkspaceModal = ({ open, onClose }) => {
                         type="button"
                         className="create-workspace-modal-close"
                         onClick={handleClose}
-                        disabled={isLoading}
+                        disabled={creatingWorkspace}
                         aria-label="Fechar"
                     >
                         ×
@@ -90,7 +90,7 @@ export const CreateWorkspaceModal = ({ open, onClose }) => {
                             placeholder="Ex: Meu Projeto"
                             value={workspaceName}
                             onChange={(event) => setWorkspaceName(event.target.value)}
-                            disabled={isLoading}
+                            disabled={creatingWorkspace}
                             autoFocus
                         />
                     </div>
@@ -111,7 +111,7 @@ export const CreateWorkspaceModal = ({ open, onClose }) => {
                             type="button"
                             variant="secondary"
                             onClick={handleClose}
-                            disabled={isLoading}
+                            disabled={creatingWorkspace}
                         >
                             Cancelar
                         </Button>
@@ -119,9 +119,9 @@ export const CreateWorkspaceModal = ({ open, onClose }) => {
                         <Button
                             type="submit"
                             variant="primary"
-                            disabled={isLoading || !workspaceName.trim()}
+                            disabled={creatingWorkspace || !workspaceName.trim()}
                         >
-                            {isLoading ? 'Criando...' : 'Criar Workspace'}
+                            {creatingWorkspace ? 'Criando...' : 'Criar Workspace'}
                         </Button>
                     </div>
                 </form>

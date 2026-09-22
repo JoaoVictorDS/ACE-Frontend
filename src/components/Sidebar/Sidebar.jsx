@@ -11,8 +11,8 @@ export const Sidebar = ({ onCreateWorkspace }) => {
     const navigate = useNavigate()
     const { workspaceId, boardId } = useParams()
 
-    const { data: workspaces = [], isLoading: loadingWorkspaces } = useWorkspaces()
-    const { data: workspaceBoards = [], isLoading: loadingWorkspaceBoards } = useBoards(workspaceId)
+    const { data: workspaces = [], isLoading: workspacesLoading } = useWorkspaces()
+    const { data: workspaceBoards = [], isLoading: workspaceBoardsLoading } = useBoards(workspaceId)
 
     const selectedWorkspace = workspaces.find((workspace) => String(workspace.id) === String(workspaceId))
 
@@ -59,7 +59,7 @@ export const Sidebar = ({ onCreateWorkspace }) => {
 
                     {showWorkspaceMenu && (
                         <div className="app-sidebar-workspace-menu">
-                            {loadingWorkspaces ? (
+                            {workspacesLoading ? (
                                 <div className="app-sidebar-workspace-loading">
                                     Carregando...
                                 </div>
@@ -138,7 +138,7 @@ export const Sidebar = ({ onCreateWorkspace }) => {
                                     </button>
                                 </div>
 
-                                {loadingWorkspaceBoards ? (
+                                {workspaceBoardsLoading ? (
                                     <div className="app-sidebar-boards-loading">
                                         Carregando...
                                     </div>

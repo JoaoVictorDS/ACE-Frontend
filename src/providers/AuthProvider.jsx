@@ -8,7 +8,7 @@ import { useUser } from '../hooks/useUser'
 export const AuthProvider = ({ children }) => {
     const queryClient = useQueryClient()
 
-    const { data: user, isPending: userLoading } = useUser()
+    const { data: user, isLoading: userLoading } = useUser()
 
     const hasToken = !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
     const initializing = hasToken && userLoading

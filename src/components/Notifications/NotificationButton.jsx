@@ -13,7 +13,7 @@ export const NotificationButton = () => {
     const [page, setPage] = useState(1)
     const containerRef = useRef(null)
 
-    const { data: notifications = [], isPending: notificationsLoading, isFetching: notificationsFetching } = useNotifications({ page, limit: 10 })
+    const { data: notifications = [], isLoading: notificationsLoading, isFetching: notificationsFetching } = useNotifications({ page, limit: 10 })
     const { markNotificationAsRead } = useMarkNotificationAsRead()
     const { markNotificationAsUnread } = useMarkNotificationAsUnread()
     const { markAllNotificationsAsRead } = useMarkAllNotificationsAsRead()
