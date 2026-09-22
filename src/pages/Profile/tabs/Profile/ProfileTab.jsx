@@ -4,14 +4,15 @@ import { ProfileSection } from '../../../../components/ProfileSection/ProfileSec
 import { Input } from '../../../../components/Input/Input'
 import { Toggle } from '../../../../components/Toggle/Toggle'
 import { ProfileUserSummary } from '../../../../components/ProfileUserSummary/ProfileUserSummary'
-import { useUser } from '../../../../hooks/useUser'
+import { useUser, useUpdateUserProfile } from '../../../../hooks/useUser'
 import { FormFeedback } from '../../../../components/FormFeedback/FormFeedback'
 import { getErrorMessage } from '../../../../utils/error'
 import { validateProfileForm } from '../../../../utils/validation/userValidation'
 import './ProfileTab.css'
 
 export const ProfileTab = () => {
-    const { data: user, updateUserProfile, updatingUserProfile, updateUserProfileError, updateUserProfileSuccess, resetUpdateUserProfile } = useUser()
+    const { data: user } = useUser()
+    const { updateUserProfile, updatingUserProfile, updateUserProfileError, updateUserProfileSuccess, resetUpdateUserProfile } = useUpdateUserProfile()
     const [formData, setFormData] = useState({
         name: '',
         email: '',

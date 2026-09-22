@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useWorkspace } from '../../hooks/useWorkspace'
+import { useCreateWorkspace } from '../../hooks/useWorkspaces'
 import { Button } from '../Button/Button'
 import { FormFeedback } from '../FormFeedback/FormFeedback'
 import { getErrorMessage } from '../../utils/error'
@@ -8,7 +8,7 @@ import './CreateWorkspaceModal.css'
 
 export const CreateWorkspaceModal = ({ open, onClose }) => {
     const [workspaceName, setWorkspaceName] = useState('')
-    const { creatingWorkspace: isLoading, resetCreateWorkspace, createWorkspace, createWorkspaceError } = useWorkspace()
+    const { creatingWorkspace: isLoading, resetCreateWorkspace, createWorkspace, createWorkspaceError } = useCreateWorkspace()
     const navigate = useNavigate()
 
     if (!open) {

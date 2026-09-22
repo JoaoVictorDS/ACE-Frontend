@@ -2,14 +2,16 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getUserNotificationSettings, updateUserNotificationSettings } from '../services/userNotificationSettingsService'
 
 export const useUserNotificationSettings = () => {
-    const queryClient = useQueryClient()
-
-    const userNotificationSettingsQuery = useQuery({
+    return useQuery({
         queryKey: ['notification-settings'],
         queryFn: getUserNotificationSettings,
         staleTime: 60 * 1000,
         gcTime: 60 * 1000,
     })
+}
+
+export const useUpdateUserNotificationSettings = () => {
+    const queryClient = useQueryClient()
 
     const updateUserNotificationSettingsMutation = useMutation({
         mutationFn: updateUserNotificationSettings,
@@ -20,8 +22,6 @@ export const useUserNotificationSettings = () => {
     })
 
     return {
-        ...userNotificationSettingsQuery,
-
         updateUserNotificationSettings: updateUserNotificationSettingsMutation.mutateAsync,
         updatingUserNotificationSettings: updateUserNotificationSettingsMutation.isPending,
         updateUserNotificationSettingsError: updateUserNotificationSettingsMutation.error,

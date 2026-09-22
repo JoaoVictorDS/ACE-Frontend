@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { Button } from '../../../../components/Button/Button'
 import { ProfileSection } from '../../../../components/ProfileSection/ProfileSection'
 import { Input } from '../../../../components/Input/Input'
-import { useUser } from '../../../../hooks/useUser'
+import { useUpdateUserPassword } from '../../../../hooks/useUser'
 import { FormFeedback } from '../../../../components/FormFeedback/FormFeedback'
 import { getErrorMessage } from '../../../../utils/error'
 import { validateChangePasswordForm } from '../../../../utils/validation/userValidation'
 import './SecurityTab.css'
 
 export const SecurityTab = () => {
-    const { updateUserPassword, updatingUserPassword, updateUserPasswordError, updateUserPasswordSuccess, resetUpdateUserPassword } = useUser()
+    const { updateUserPassword, updatingUserPassword, updateUserPasswordError, updateUserPasswordSuccess, resetUpdateUserPassword } = useUpdateUserPassword()
     const [formData, setFormData] = useState({
         currentPassword: '',
         newPassword: '',

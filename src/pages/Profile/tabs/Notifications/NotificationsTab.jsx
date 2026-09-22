@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import { Button } from '../../../../components/Button/Button'
 import { ProfileSection } from '../../../../components/ProfileSection/ProfileSection'
 import { NotificationToggleList } from '../../../../components/NotificationToggleList/NotificationToggleList'
-import { useUserNotificationSettings } from '../../../../hooks/useUserNotificationSettings'
+import { useUserNotificationSettings, useUpdateUserNotificationSettings } from '../../../../hooks/useUserNotificationSettings'
 import './NotificationsTab.css'
 import { FormFeedback } from '../../../../components/FormFeedback/FormFeedback'
 import { getErrorMessage } from '../../../../utils/error'
 
 export const NotificationsTab = () => {
-    const { data: userNotificationSettings = [], resetUpdateUserNotificationSettings, updateUserNotificationSettings, updatingUserNotificationSettings, updateUserNotificationSettingsError, updateUserNotificationSettingsSuccess } = useUserNotificationSettings()
+    const { data: userNotificationSettings = [] } = useUserNotificationSettings()
+    const { resetUpdateUserNotificationSettings, updateUserNotificationSettings, updatingUserNotificationSettings, updateUserNotificationSettingsError, updateUserNotificationSettingsSuccess } = useUpdateUserNotificationSettings()
     const [globalSettings, setGlobalSettings] = useState([])
 
     useEffect(() => {

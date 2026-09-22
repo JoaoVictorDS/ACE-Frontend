@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useNotifications } from '../../hooks/useNotifications'
+import { useNotifications, useMarkNotificationAsRead, useMarkNotificationAsUnread, useMarkAllNotificationsAsRead } from '../../hooks/useNotifications'
 import { NotificationItem } from './NotificationItem'
 import { getNotificationTarget } from './notificationNavigation'
 import { Bell } from 'lucide-react'
@@ -13,13 +13,10 @@ export const NotificationButton = () => {
     const [page, setPage] = useState(1)
     const containerRef = useRef(null)
 
-    const { data: notifications = [],
-        isPending: notificationsLoading,
-        isFetching,
-        markNotificationAsRead,
-        markNotificationAsUnread,
-        markAllNotificationsAsRead
-    } = useNotifications({ page, limit: 10 })
+    const { data: notifications = [], isPending: notificationsLoading, isFetching: notificationsFetching } = useNotifications({ page, limit: 10 })
+    const { markNotificationAsRead } = useMarkNotificationAsRead()
+    const { markNotificationAsUnread } = useMarkNotificationAsUnread()
+    const { markAllNotificationsAsRead } = useMarkAllNotificationsAsRead()
 
     const unreadCount = notifications?.meta?.unreadCount ?? 0
     const totalPages = notifications?.meta?.totalPages ?? 1
@@ -162,7 +159,7 @@ export const NotificationButton = () => {
                             type="button"
                             aria-label="Página anterior"
                             onClick={handlePreviousPage}
-                            disabled={page === 1 || isFetching}
+                            disabled={page === 1 || notificationsFetching}
                         >
                             ←
                         </button>
@@ -175,7 +172,7 @@ export const NotificationButton = () => {
                             type="button"
                             aria-label="Próxima página"
                             onClick={handleNextPage}
-                            disabled={page >= totalPages || isFetching}
+                            disabled={page >= totalPages || notificationsFetching}
                         >
                             →
                         </button>

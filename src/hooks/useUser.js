@@ -4,14 +4,17 @@ import { STORAGE_KEYS } from '../constants/storageKeys'
 
 export const useUser = () => {
     const hasToken = !!localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)
-    const queryClient = useQueryClient()
 
-    const userQuery = useQuery({
+    return useQuery({
         queryKey: ['user'],
         queryFn: getUserProfile,
         enabled: hasToken,
         staleTime: 5 * 60 * 1000,
     })
+}
+
+export const useUpdateUserProfile = () => {
+    const queryClient = useQueryClient()
 
     const updateUserProfileMutation = useMutation({
         mutationFn: updateUserProfile,
@@ -21,19 +24,21 @@ export const useUser = () => {
         },
     })
 
-    const updateUserPasswordMutation = useMutation({
-        mutationFn: updateUserPassword
-    })
-
     return {
-        ...userQuery,
-
         updateUserProfile: updateUserProfileMutation.mutateAsync,
         updatingUserProfile: updateUserProfileMutation.isPending,
         updateUserProfileError: updateUserProfileMutation.error,
         updateUserProfileSuccess: updateUserProfileMutation.isSuccess,
         resetUpdateUserProfile: updateUserProfileMutation.reset,
+    }
+}
 
+export const useUpdateUserPassword = () => {
+    const updateUserPasswordMutation = useMutation({
+        mutationFn: updateUserPassword
+    })
+
+    return {
         updateUserPassword: updateUserPasswordMutation.mutateAsync,
         updatingUserPassword: updateUserPasswordMutation.isPending,
         updateUserPasswordError: updateUserPasswordMutation.error,
