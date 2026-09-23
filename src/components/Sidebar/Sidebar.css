@@ -183,7 +183,6 @@
     font-weight: 700;
 }
 
-.app-sidebar-workspace-loading,
 .app-sidebar-workspace-empty {
     padding: 10px 8px;
 
@@ -390,7 +389,6 @@
     line-height: 1;
 }
 
-.app-sidebar-boards-loading,
 .app-sidebar-boards-empty {
     padding: 8px 10px;
 

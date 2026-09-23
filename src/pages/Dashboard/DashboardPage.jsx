@@ -7,6 +7,8 @@ import { DashboardSummaryCard } from '../../components/DashboardSummaryCard/Dash
 import { WorkspaceCard } from '../../components/WorkspaceCard/WorkspaceCard'
 import { FeedbackState } from '../../components/FeedbackState/FeedbackState'
 import { AlertCircle, Building2, CircleCheck, ListTodo, Plus, RefreshCw, TriangleAlert } from 'lucide-react'
+import { getErrorMessage } from '../../utils/error'
+import { LoadingState } from '../../components/LoadingState/LoadingState'
 import './DashboardPage.css'
 
 export const DashboardPage = () => {
@@ -14,10 +16,60 @@ export const DashboardPage = () => {
     const { openCreateWorkspaceModal } = useOutletContext()
 
     const { data: user } = useUser()
-    const { data: workspaces = [], isLoading: workspacesLoading, isError: workspacesError, refetch: refetchWorkspaces } = useWorkspaces()
+    const { data: workspaces = [], isLoading: workspacesLoading, error: workspacesError, refetch: refetchWorkspaces } = useWorkspaces()
 
     const handleWorkspaceClick = (workspace) => {
         navigate(`/workspaces/${workspace.id}`)
+    }
+
+    const renderWorkspaces = () => {
+        if (workspacesLoading) return (
+            <LoadingState message="Buscando os workspaces dos quais você faz parte." />
+        )
+
+        if (workspacesError) return (
+            <FeedbackState
+                icon={<AlertCircle size={22} strokeWidth={2} />}
+                title="Não foi possível carregar os workspaces"
+                message={getErrorMessage(workspacesError)}
+                action={
+                    <Button
+                        variant="secondary"
+                        type="button"
+                        onClick={() => refetchWorkspaces()}
+                    >
+                        <RefreshCw size={16} />
+                        Tentar novamente
+                    </Button>
+                }
+            />
+        )
+
+        if (workspaces.length === 0) return (
+            <FeedbackState
+                icon={<Building2 size={22} strokeWidth={2} />}
+                title="Nenhum workspace encontrado"
+                message="Você ainda não participa de nenhum workspace."
+                action={
+                    <Button
+                        variant="primary"
+                        type="button"
+                        onClick={openCreateWorkspaceModal}
+                    >
+                        <Plus size={17} />
+                        Criar workspace
+                    </Button>
+                }
+            />
+        )
+
+        return workspaces.map((workspace) => (
+            <WorkspaceCard
+                key={workspace.id}
+                workspace={workspace}
+                onClick={handleWorkspaceClick}
+            />
+        ))
     }
 
     return (
@@ -84,76 +136,7 @@ export const DashboardPage = () => {
                     }
                 >
                     <div className="workspaces-grid">
-                        {workspacesLoading && (
-                            <FeedbackState
-                                icon={
-                                    <Building2
-                                        size={22}
-                                        strokeWidth={2}
-                                    />
-                                }
-                                title="Carregando workspaces"
-                                message="Buscando os workspaces dos quais você faz parte."
-                            />
-                        )}
-
-                        {workspacesError && (
-                            <FeedbackState
-                                icon={
-                                    <AlertCircle
-                                        size={22}
-                                        strokeWidth={2}
-                                    />
-                                }
-                                title="Não foi possível carregar os workspaces"
-                                message="Ocorreu um erro ao buscar seus workspaces. Tente novamente."
-                                action={
-                                    <Button
-                                        variant="secondary"
-                                        type="button"
-                                        onClick={() => refetchWorkspaces()}
-                                    >
-                                        <RefreshCw size={16} />
-                                        Tentar novamente
-                                    </Button>
-                                }
-                            />
-                        )}
-
-                        {!workspacesLoading &&
-                            !workspacesError &&
-                            workspaces.length === 0 && (
-                                <FeedbackState
-                                    icon={
-                                        <Building2
-                                            size={22}
-                                            strokeWidth={2}
-                                        />
-                                    }
-                                    title="Nenhum workspace encontrado"
-                                    message="Você ainda não participa de nenhum workspace."
-                                    action={
-                                        <Button
-                                            variant="primary"
-                                            type="button"
-                                            onClick={openCreateWorkspaceModal}
-                                        >
-                                            <Plus size={17} />
-                                            Criar workspace
-                                        </Button>
-                                    }
-                                />
-                            )}
-
-                        {!workspacesLoading &&
-                            !workspacesError &&
-                            workspaces.map((workspace) => (
-                                <WorkspaceCard
-                                    key={workspace.id}
-                                    workspace={workspace}
-                                    onClick={handleWorkspaceClick}
-                                />
-                            ))}
+                        {renderWorkspaces()}
                     </div>
                 </Section>
             </div>

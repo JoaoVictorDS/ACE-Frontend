@@ -4,6 +4,7 @@ import { useNotifications, useMarkNotificationAsRead, useMarkNotificationAsUnrea
 import { NotificationItem } from './NotificationItem'
 import { getNotificationTarget } from './notificationNavigation'
 import { Bell } from 'lucide-react'
+import { LoadingState } from '../LoadingState/LoadingState'
 import './NotificationButton.css'
 
 export const NotificationButton = () => {
@@ -70,6 +71,30 @@ export const NotificationButton = () => {
         setPage((currentPage) => Math.min(totalPages, currentPage + 1))
     }
 
+    const renderNotifications = () => {
+        if (notificationsLoading) return (
+            <div className="app-header-notification-state">
+                <LoadingState message="Carregando notificações" />
+            </div>
+        )
+
+        if (notifications?.data.length === 0) return (
+            <div className="app-header-notification-state">
+                Nenhuma notificação.
+            </div>
+        )
+
+        return notifications?.data.map((notification) => (
+            <NotificationItem
+                key={notification.id}
+                notification={notification}
+                onClick={handleNotificationClick}
+                onMarkAsRead={handleMarkAsRead}
+                onMarkAsUnread={handleMarkAsUnread}
+            />
+        ))
+    }
+
     return (
         <div
             className="app-header-notification-menu"
@@ -129,29 +154,7 @@ export const NotificationButton = () => {
                     </div>
 
                     <div className="app-header-notification-list">
-                        {notificationsLoading && (
-                            <div className="app-header-notification-state">
-                                Carregando...
-                            </div>
-                        )}
-
-                        {!notificationsLoading &&
-                            notifications?.data.length === 0 && (
-                                <div className="app-header-notification-state">
-                                    Nenhuma notificação.
-                                </div>
-                            )}
-
-                        {!notificationsLoading &&
-                            notifications?.data.map((notification) => (
-                                <NotificationItem
-                                    key={notification.id}
-                                    notification={notification}
-                                    onClick={handleNotificationClick}
-                                    onMarkAsRead={handleMarkAsRead}
-                                    onMarkAsUnread={handleMarkAsUnread}
-                                />
-                            ))}
+                        {renderNotifications()}
                     </div>
 
                     <div className="app-header-notification-pagination">
