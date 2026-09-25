@@ -1,0 +1,82 @@
+.user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--color-primary-light);
+    border-radius: 50%;
+
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+
+    font-weight: 700;
+    font-family: inherit;
+
+    cursor: default;
+}
+
+/* =========================
+   Sizes
+========================= */
+
+.user-avatar--sm {
+    width: 28px;
+    height: 28px;
+
+    font-size: 9px;
+}
+
+.user-avatar--md {
+    width: 36px;
+    height: 36px;
+
+    font-size: 11px;
+}
+
+.user-avatar--lg {
+    width: 44px;
+    height: 44px;
+
+    font-size: 13px;
+}
+
+/* =========================
+   Interactive
+========================= */
+
+button.user-avatar {
+    padding: 0;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+}
+
+button.user-avatar:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+button.user-avatar:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 500px) {
+    .user-avatar--md {
+        width: 34px;
+        height: 34px;
+
+        font-size: 10px;
+    }
+}
