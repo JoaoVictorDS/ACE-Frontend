@@ -1,11 +1,20 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getWorkspaces, createWorkspace } from '../services/workspaceService'
+import { getWorkspaces, getWorkspace, createWorkspace } from '../services/workspaceService'
 
 export const useWorkspaces = () => {
     return useQuery({
         queryKey: ['workspaces'],
         queryFn: getWorkspaces,
         staleTime: 15 * 60 * 1000
+    })
+}
+
+export const useWorkspace = (workspaceId) => {
+    return useQuery({
+        queryKey: ['workspace', workspaceId],
+        queryFn: () => getWorkspace(workspaceId),
+        staleTime: 15 * 60 * 1000,
+        enabled: !!workspaceId
     })
 }
 

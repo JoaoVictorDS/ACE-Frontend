@@ -1,0 +1,102 @@
+.member-item {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    min-width: 0;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.member-item:last-child {
+    border-bottom: 0;
+}
+
+/* =========================
+   Info
+========================= */
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    flex: 1;
+
+    gap: 3px;
+}
+
+.member-name {
+    min-width: 0;
+    overflow: hidden;
+
+    color: var(--color-text-primary);
+
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.member-email {
+    min-width: 0;
+    overflow: hidden;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* =========================
+   Role
+========================= */
+
+.member-role {
+    display: inline-flex;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    padding: 4px 8px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-secondary);
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 500px) {
+    .member-item {
+        gap: 10px;
+    }
+
+    .member-avatar {
+        width: 34px;
+        height: 34px;
+    }
+
+    .member-role {
+        padding: 3px 6px;
+
+        font-size: 9px;
+    }
+}

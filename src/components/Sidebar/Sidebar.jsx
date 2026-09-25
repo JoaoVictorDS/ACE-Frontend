@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useWorkspaces } from '../../hooks/useWorkspaces'
-import { useBoards } from '../../hooks/useBoards'
+import { useWorkspaces, useWorkspace } from '../../hooks/useWorkspaces'
 import { LoadingState } from '../LoadingState/LoadingState'
 import './Sidebar.css'
 
@@ -13,7 +12,8 @@ export const Sidebar = ({ onCreateWorkspace }) => {
     const { workspaceId, boardId } = useParams()
 
     const { data: workspaces = [], isLoading: workspacesLoading } = useWorkspaces()
-    const { data: workspaceBoards = [], isLoading: workspaceBoardsLoading } = useBoards(workspaceId)
+    const { data: workspace = [], isLoading: workspaceLoading } = useWorkspace(workspaceId)
+    const workspaceBoards = workspace?.boards ?? []
 
     const selectedWorkspace = workspaces.find((workspace) => String(workspace.id) === String(workspaceId))
 
@@ -60,7 +60,7 @@ export const Sidebar = ({ onCreateWorkspace }) => {
     }
 
     const renderWorkspaceBoards = () => {
-        if (workspaceBoardsLoading) return (
+        if (workspaceLoading) return (
             <LoadingState message="Carregando boards" />
         )
 

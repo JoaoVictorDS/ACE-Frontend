@@ -12,3 +12,9 @@ export const createWorkspace = async (data = {}) => {
 
     return response.data
 }
+
+export const getWorkspace = async (workspaceId) => {
+    const response = await api.get(API_ENDPOINTS.WORKSPACES.GET(workspaceId))
+
+    return response.data
+}

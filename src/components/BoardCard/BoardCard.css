@@ -1,10 +1,11 @@
 .board-card {
     display: flex;
 
-    overflow: hidden;
-
+    width: 100%;
     min-height: 155px;
     min-width: 0;
+
+    overflow: hidden;
 
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
@@ -27,6 +28,11 @@
     transform: translateY(-2px);
 }
 
+.board-card:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
 /* =========================
    Color
 ========================= */
@@ -37,23 +43,14 @@
     flex-shrink: 0;
 }
 
-.board-card-color.blue {
-    background-color: var(--color-primary);
-}
-
-.board-card-color.purple {
-    background-color: var(--color-purple);
-}
-
-.board-card-color.green {
-    background-color: var(--color-success);
-}
-
 /* =========================
    Content
 ========================= */
 
 .board-card-content {
+    display: flex;
+    flex-direction: column;
+
     flex: 1;
 
     min-width: 0;
@@ -65,27 +62,96 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 12px;
 }
 
-.board-card-header h4 {
+/* =========================
+   Title
+========================= */
+
+.board-card-title {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+
+    gap: 8px;
+}
+
+.board-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    flex-shrink: 0;
+
+    border: 1px solid var(--color-primary-light);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.board-card-title h4 {
+    min-width: 0;
+    overflow: hidden;
+
     margin: 0;
 
     color: var(--color-text-primary);
 
     font-size: 15px;
     font-weight: 650;
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.board-card-header button {
-    padding: 4px;
+/* =========================
+   Menu
+========================= */
 
-    border: 0;
+.board-card-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    background: transparent;
+    width: 32px;
+    height: 32px;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+
+    background-color: transparent;
     color: var(--color-text-muted);
 
     cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-card-menu:hover {
+    border-color: var(--color-border);
+
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.board-card-menu:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
 }
 
 /* =========================
@@ -109,8 +175,10 @@
 
 .board-card-footer {
     display: flex;
+
     gap: 14px;
 
+    margin-top: auto;
     padding-top: 12px;
 
     border-top: 1px solid var(--color-divider);
@@ -120,4 +188,28 @@
     color: var(--color-text-muted);
 
     font-size: 11px;
+    line-height: 1.4;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 500px) {
+    .board-card-content {
+        padding: 16px;
+    }
+
+    .board-card-title {
+        gap: 7px;
+    }
+
+    .board-card-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .board-card-footer {
+        gap: 10px;
+    }
 }
