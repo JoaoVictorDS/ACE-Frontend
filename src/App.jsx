@@ -3,6 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from './providers/AuthProvider'
 import { ToastProvider } from './providers/ToastProvider'
 import { SocketProvider } from './providers/SocketProvider'
+import { NotificationSocketListener } from './listeners/NotificationSocketListener'
 import { ThemeProvider } from './providers/ThemeProvider'
 import { AppRoutes } from './routes/AppRoutes'
 import { queryClient } from './config/queryClient'
@@ -13,6 +14,7 @@ function App() {
       <AuthProvider>
         <ToastProvider>
           <SocketProvider>
+            <NotificationSocketListener />
             <ThemeProvider>
               <Router>
                 <AppRoutes />

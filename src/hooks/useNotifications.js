@@ -30,6 +30,16 @@ const _updateNotification = (queryClient, { notification, unreadCount }) => {
     })
 }
 
+export const useInvalidateNotifications = () => {
+    const queryClient = useQueryClient()
+
+    const invalidateNotifications = () => {
+        queryClient.invalidateQueries({ queryKey: ['notifications'] })
+    }
+
+    return { invalidateNotifications }
+}
+
 export const useMarkNotificationAsRead = () => {
     const queryClient = useQueryClient()
 
