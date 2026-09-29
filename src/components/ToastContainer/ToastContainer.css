@@ -1,0 +1,14 @@
+.toast-container {
+    position: fixed;
+    top: calc(var(--header-height) + 16px);
+    right: 24px;
+    z-index: 1000;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    width: min(380px, calc(100vw - 32px));
+
+    pointer-events: none;
+}
