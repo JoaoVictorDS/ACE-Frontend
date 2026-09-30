@@ -7,6 +7,12 @@ export const getUserProfile = async () => {
     return response.data
 }
 
+export const getUsers = async () => {
+    const response = await api.get(API_ENDPOINTS.USERS.LIST)
+
+    return response.data
+}
+
 export const updateUserProfile = async (data = {}) => {
     const response = await api.patch(API_ENDPOINTS.USERS.UPDATE, data)
 

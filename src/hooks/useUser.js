@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getUserProfile, updateUserProfile, updateUserPassword } from '../services/userService'
+import { getUserProfile, getUsers, updateUserProfile, updateUserPassword } from '../services/userService'
 import { STORAGE_KEYS } from '../constants/storageKeys'
 
 export const useUser = () => {
@@ -10,6 +10,14 @@ export const useUser = () => {
         queryFn: getUserProfile,
         enabled: hasToken,
         staleTime: 5 * 60 * 1000,
+    })
+}
+
+export const useUsers = () => {
+    return useQuery({
+        queryKey: ['users'],
+        queryFn: getUsers,
+        staleTime: 15 * 60 * 1000
     })
 }
 
