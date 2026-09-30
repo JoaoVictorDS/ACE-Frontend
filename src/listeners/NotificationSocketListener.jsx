@@ -1,25 +1,25 @@
 import { useEffect } from 'react'
 import { useSocket } from '../hooks/useSocket'
 import { useToast } from '../hooks/useToast'
-import { useInvalidateNotifications } from '../hooks/useNotifications'
+import { useReceiveNotification } from '../hooks/useNotifications'
 import { NotificationMessage } from '../components/Notifications/NotificationMessage'
 
 export const NotificationSocketListener = () => {
     const { socket } = useSocket()
     const { info } = useToast()
-    const { invalidateNotifications } = useInvalidateNotifications()
+    const { receiveNotification } = useReceiveNotification()
 
     const event = 'notification:received'
 
     useEffect(() => {
-        const handleNotificationReceived = ({ data, unread_count }) => {
+        const handleNotificationReceived = ({ data, unreadCount }) => {
 
             info({
                 title: 'Nova notificação',
                 message: NotificationMessage({ message: data.message })
             })
 
-            invalidateNotifications()
+            receiveNotification({ notification: data, unreadCount })
         }
 
         socket.on(event, handleNotificationReceived)
