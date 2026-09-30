@@ -75,17 +75,21 @@ api.interceptors.response.use((response) => response, async (error) => {
 
     originalRequest._retry = true
 
+    let token
+
     try {
-        const token = await refreshToken()
-
-        originalRequest.headers.Authorization = `Bearer ${token}`
-
-        return await api(originalRequest)
+        token = await refreshToken()
     } catch (err) {
-        window.dispatchEvent(new Event('auth:session-expired'))
+        if (err.response?.status === 401) {
+            window.dispatchEvent(new Event('auth:session-expired'))
+        }
 
         return Promise.reject(err)
     }
+
+    originalRequest.headers.Authorization = `Bearer ${token}`
+
+    return await api(originalRequest)
 })
 
 api.interceptors.request.use((config) => {
