@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSocket } from '../hooks/useSocket'
 import { useToast } from '../hooks/useToast'
-import { useReceiveNotification } from '../hooks/useNotifications'
+import { useReceiveNotification } from '../hooks/useNotification'
 import { NotificationMessage } from '../components/Notifications/NotificationMessage'
 
 export const NotificationSocketListener = () => {

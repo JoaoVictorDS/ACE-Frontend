@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useCreateWorkspace } from '../../hooks/useWorkspaces'
+import { useCreateWorkspace } from '../../hooks/useWorkspace'
 import { Button } from '../Button/Button'
 import { FormFeedback } from '../FormFeedback/FormFeedback'
 import { getErrorMessage } from '../../utils/error'

@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { AlertCircle, ArrowRight, Building2, CirclePlus, MoreHorizontal, RefreshCw, Users } from 'lucide-react'
-import { useWorkspace } from '../../hooks/useWorkspaces'
+import { useWorkspace } from '../../hooks/useWorkspace'
 import { getErrorMessage } from '../../utils/error'
 import { Button } from '../../components/Button/Button'
 import { FeedbackState } from '../../components/FeedbackState/FeedbackState'

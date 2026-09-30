@@ -1,6 +1,6 @@
 import { useNavigate, useOutletContext } from 'react-router-dom'
 import { useUser } from '../../hooks/useUser'
-import { useWorkspaces } from '../../hooks/useWorkspaces'
+import { useWorkspaces } from '../../hooks/useWorkspace'
 import { Button } from '../../components/Button/Button'
 import { Section } from '../../components/Section/Section'
 import { DashboardSummaryCard } from '../../components/DashboardSummaryCard/DashboardSummaryCard'

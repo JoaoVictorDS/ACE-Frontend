@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getUserNotificationSettings, updateUserNotificationSettings } from '../services/userNotificationSettingsService'
+import { getUserNotificationSettings, updateUserNotificationSettings } from '../services/userNotificationSettingService'
 
 export const useUserNotificationSettings = () => {
     return useQuery({

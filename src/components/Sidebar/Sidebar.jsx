@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useWorkspaces, useWorkspace } from '../../hooks/useWorkspaces'
+import { useWorkspaces, useWorkspace } from '../../hooks/useWorkspace'
 import { LoadingState } from '../LoadingState/LoadingState'
 import './Sidebar.css'
 

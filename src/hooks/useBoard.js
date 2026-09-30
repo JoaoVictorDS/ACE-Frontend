@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getBoardsByWorkspace } from '../services/boardService'
+import { getBoardsByWorkspace, getBoard } from '../services/boardService'
 
 export const useBoards = (workspaceId) => {
     return useQuery({

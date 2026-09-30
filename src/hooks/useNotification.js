@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getNotifications, markNotificationAsRead, markNotificationAsUnread, markAllNotificationsAsRead } from '../services/notificationsService'
+import { getNotifications, markNotificationAsRead, markNotificationAsUnread, markAllNotificationsAsRead } from '../services/notificationService'
 
 export const useNotifications = ({ page = 1, limit = 10 } = {}) => {
     return useQuery({
