@@ -9,9 +9,11 @@ export const NotificationSocketListener = () => {
     const { info } = useToast()
     const { invalidateNotifications } = useInvalidateNotifications()
 
-    const event = 'notification:received'
-
     useEffect(() => {
+        if (!socket) {
+            return
+        }
+
         const handleNotificationReceived = ({ data, unreadCount }) => {
 
             info({
@@ -22,12 +24,12 @@ export const NotificationSocketListener = () => {
             invalidateNotifications()
         }
 
-        socket.on(event, handleNotificationReceived)
+        socket.on('notification:received', handleNotificationReceived)
 
         return () => {
-            socket.off(event, handleNotificationReceived)
+            socket.off('notification:received', handleNotificationReceived)
         }
-    }, [])
+    }, [socket, info, invalidateNotifications])
 
     return null
 }
