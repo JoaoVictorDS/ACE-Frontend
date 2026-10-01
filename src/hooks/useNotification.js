@@ -22,10 +22,7 @@ const _updateNotification = (queryClient, { notification, unreadCount }) => {
         return {
             ...currentData,
             data: updatedData,
-            meta: {
-                ...currentData.meta,
-                unreadCount
-            }
+            unreadCount
         }
     })
 }
@@ -82,10 +79,7 @@ export const useMarkAllNotificationsAsRead = () => {
                 return {
                     ...currentData,
                     data: updatedData,
-                    meta: {
-                        ...currentData.meta,
-                        unreadCount
-                    }
+                    unreadCount
                 }
             })
         }

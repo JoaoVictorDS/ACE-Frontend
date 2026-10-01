@@ -19,7 +19,7 @@ export const NotificationButton = () => {
     const { markNotificationAsUnread } = useMarkNotificationAsUnread()
     const { markAllNotificationsAsRead } = useMarkAllNotificationsAsRead()
 
-    const unreadCount = notifications?.meta?.unreadCount ?? 0
+    const unreadCount = notifications?.unreadCount ?? 0
     const totalPages = notifications?.meta?.totalPages ?? 1
 
     useEffect(() => {
