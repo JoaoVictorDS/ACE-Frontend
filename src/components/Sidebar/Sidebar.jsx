@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useWorkspaces, useWorkspace } from '../../hooks/useWorkspace'
 import { LoadingState } from '../LoadingState/LoadingState'
+import { LayoutDashboard, LayoutGrid, PanelsTopLeft } from 'lucide-react'
 import './Sidebar.css'
 
 export const Sidebar = ({ onCreateWorkspace }) => {
@@ -81,7 +82,7 @@ export const Sidebar = ({ onCreateWorkspace }) => {
                     className="app-sidebar-board-icon"
                     style={{ color: board.color }}
                 >
-                    ▦
+                    <LayoutGrid color={board.color ?? '#3b82f6'} />
                 </span>
                 <span>
                     {board.name}
@@ -140,7 +141,7 @@ export const Sidebar = ({ onCreateWorkspace }) => {
                         className={`app-sidebar-link ${isActive('/dashboard') ? 'active' : ''} `}
                     >
                         <span className="app-sidebar-link-icon">
-                            ⌂
+                            <LayoutDashboard />
                         </span>
 
                         <span>Dashboard</span>
@@ -153,7 +154,7 @@ export const Sidebar = ({ onCreateWorkspace }) => {
                                 className={`app-sidebar-link ${isActive(`/workspaces/${workspaceId}`) ? 'active' : ''} `}
                             >
                                 <span className="app-sidebar-link-icon">
-                                    ▦
+                                    <PanelsTopLeft />
                                 </span>
                                 <span>Visão geral</span>
                             </Link>
