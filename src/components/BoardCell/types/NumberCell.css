@@ -1,0 +1,13 @@
+.board-cell-number {
+    justify-content: center;
+
+    text-align: center;
+}
+
+.board-cell-number-editing {
+    justify-content: center;
+}
+
+.board-cell-number-editing .board-cell-input {
+    text-align: center;
+}

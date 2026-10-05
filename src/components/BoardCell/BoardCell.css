@@ -1,0 +1,84 @@
+.board-cell {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 0 14px;
+
+    border: 0;
+    border-right: 1px solid var(--color-border);
+
+    background-color: transparent;
+    color: var(--color-text-secondary);
+
+    font-family: inherit;
+    font-size: 11px;
+
+    text-align: left;
+
+    cursor: text;
+
+    transition: background-color 0.15s ease;
+}
+
+.board-cell:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.board-cell:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+}
+
+.board-cell>span {
+    min-width: 0;
+}
+
+
+/* ========================================
+   Edição
+======================================== */
+
+.board-cell-editing {
+    cursor: text;
+
+    background-color: var(--color-surface);
+}
+
+.board-cell-input {
+    width: 100%;
+    min-width: 0;
+
+    height: 30px;
+
+    padding: 5px 8px;
+
+    border: 1px solid var(--color-focus);
+    border-radius: var(--radius-md);
+
+    outline: 0;
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 11px;
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.board-cell-long-text-input {
+    display: block;
+
+    height: auto;
+    min-height: 30px;
+
+    box-sizing: border-box;
+
+    line-height: 1.4;
+
+    overflow-y: auto;
+    resize: none;
+}

@@ -6,3 +6,9 @@ export const getBoardsByWorkspace = async (workspaceId) => {
 
     return response.data
 }
+
+export const getBoard = async (boardId) => {
+    const response = await api.get(API_ENDPOINTS.BOARDS.GET(boardId))
+
+    return response.data
+}

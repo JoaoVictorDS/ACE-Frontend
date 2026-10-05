@@ -1,0 +1,122 @@
+.board-item-title {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 0 14px;
+
+    border-right: 1px solid var(--color-divider);
+}
+
+.board-item-title-edit {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    min-width: 0;
+    flex: 1;
+
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: inherit;
+
+    font-family: inherit;
+
+    text-align: left;
+
+    cursor: text;
+}
+
+.board-item-title-dot {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primary);
+}
+
+.board-item-title-text {
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: var(--color-text-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.board-item-title-input {
+    width: 100%;
+    min-width: 0;
+
+    height: 30px;
+
+    padding: 5px 8px;
+
+    border: 1px solid var(--color-focus);
+    border-radius: var(--radius-md);
+
+    outline: 0;
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 12px;
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.board-item-updates {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background-color: transparent;
+    color: var(--color-text-muted);
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.15s ease,
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-item-row:hover .board-item-updates,
+.board-item-updates:focus-visible {
+    opacity: 1;
+}
+
+.board-item-updates:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.board-item-updates:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
+}

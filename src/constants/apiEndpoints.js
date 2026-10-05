@@ -35,6 +35,23 @@ export const API_ENDPOINTS = {
         BOARDS: (workspaceId) => `/v1/workspaces/${workspaceId}/boards`,
     },
 
+    BOARDS: {
+        GET: (boardId) => `/v1/boards/${boardId}`,
+    },
+
+    BOARD_MEMBERS: {
+        GET: (boardId) => `/v1/boards/${boardId}/members`,
+        UPDATE_PREFERENCES: (boardId) => `/v1/boards/${boardId}/preferences`,
+    },
+
+    ITEM: {
+        UPDATE: (itemId) => `/v1/items/${itemId}`
+    },
+
+    ITEM_VALUES: {
+        UPSERT: (itemId, columnId) => `/v1/items/${itemId}/columns/${columnId}/values`
+    },
+
     NOTIFICATIONS: {
         GET: '/v1/notifications',
         MARK_ALL_AS_READ: '/v1/notifications/read',

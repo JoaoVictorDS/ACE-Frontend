@@ -1,0 +1,90 @@
+.board-cell-date {
+    justify-content: center;
+    gap: 6px;
+
+    color: var(--color-text-secondary);
+}
+
+.board-cell-date svg {
+    flex-shrink: 0;
+
+    color: var(--color-text-muted);
+
+    transition: color 0.15s ease;
+}
+
+.board-cell-date:hover svg {
+    color: var(--color-primary);
+}
+
+.board-cell-date-text {
+    overflow: hidden;
+
+    max-width: 100%;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   Edição
+======================================== */
+
+.board-cell-date-editing {
+    justify-content: center;
+
+    background-color: var(--color-surface);
+}
+
+.board-cell-date-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    width: 100%;
+    min-width: 0;
+
+    height: 30px;
+
+    padding: 0 8px;
+
+    border: 1px solid var(--color-focus);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-muted);
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.board-cell-date-input-wrapper:focus-within {
+    color: var(--color-primary);
+}
+
+.board-cell-date-input {
+    width: 100%;
+    min-width: 0;
+
+    padding: 0;
+
+    border: 0;
+    outline: 0;
+
+    background-color: transparent;
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 10px;
+
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.board-cell-date-input:disabled {
+    cursor: default;
+
+    opacity: 0.6;
+}

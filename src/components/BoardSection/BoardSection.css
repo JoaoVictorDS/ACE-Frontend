@@ -1,0 +1,147 @@
+.board-section {
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.board-section:last-child {
+    border-bottom: 0;
+}
+
+.board-section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    min-height: 42px;
+
+    padding: 0 10px;
+
+    background-color: var(--color-surface);
+}
+
+.board-section-toggle,
+.board-section-add,
+.board-section-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 5px;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background-color: transparent;
+    color: var(--color-text-muted);
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-section-toggle:hover,
+.board-section-add:hover,
+.board-section-more:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.board-section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    min-width: 0;
+    flex: 1;
+
+    color: var(--color-text-primary);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.board-section-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 6px;
+
+    border-radius: 999px;
+
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.board-section-items {
+    width: 100%;
+}
+
+.board-item-row {
+    display: grid;
+    grid-template-columns: var(--board-grid-columns);
+
+    width: 100%;
+    min-height: 48px;
+
+    border-top: 1px solid var(--color-divider);
+
+    transition: background-color 0.15s ease;
+
+    background-color: var(--color-surface);
+}
+
+.board-item-row:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.board-item-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 0;
+    border-left: 1px solid var(--color-divider);
+
+    background-color: transparent;
+    color: var(--color-text-muted);
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.15s ease,
+        color 0.15s ease,
+        background-color 0.15s ease;
+}
+
+.board-item-row:hover .board-item-more {
+    opacity: 1;
+}
+
+.board-item-more:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.board-section-empty {
+    padding: 14px 20px 14px 48px;
+
+    border-top: 1px solid var(--color-divider);
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+}

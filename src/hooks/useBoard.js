@@ -8,3 +8,11 @@ export const useBoards = (workspaceId) => {
         enabled: !!workspaceId
     })
 }
+
+export const useBoard = (boardId) => {
+    return useQuery({
+        queryKey: ['board', boardId],
+        queryFn: () => getBoard(boardId),
+        enabled: !!boardId
+    })
+}

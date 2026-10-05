@@ -9,6 +9,7 @@ import { NotificationsTab } from '../pages/Profile/tabs/Notifications/Notificati
 import { SecurityTab } from '../pages/Profile/tabs/Security/SecurityTab'
 import { AccountTab } from '../pages/Profile/tabs/Account/AccountTab'
 import { WorkspacePage } from '../pages/Workspace/WorkspacePage'
+import { BoardPage } from '../pages/Board/BoardPage'
 
 export const AppRoutes = () => {
     return (
@@ -25,7 +26,7 @@ export const AppRoutes = () => {
                         <Route path="account" element={<AccountTab />} />
                     </Route>
                     <Route path="/workspaces/:workspaceId" element={<WorkspacePage />} />
-                    <Route path="/workspaces/:workspaceId/boards/:boardId" element={<h1>BoardPage</h1>} />
+                    <Route path="/workspaces/:workspaceId/boards/:boardId" element={<BoardPage />} />
                 </Route>
             </Route>
 

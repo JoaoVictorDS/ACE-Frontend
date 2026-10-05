@@ -1,0 +1,101 @@
+.board-cell-select-value {
+    justify-content: center;
+}
+
+.board-cell-select-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 5px 9px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.board-cell-select-value:hover .board-cell-select-badge {
+    border-color: var(--color-border-strong);
+
+    background-color: var(--color-primary-light);
+}
+
+.board-cell-select-text {
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   Edição
+======================================== */
+
+.board-cell-select-editing {
+    background-color: var(--color-surface);
+}
+
+.board-cell-select-wrapper {
+    position: relative;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.board-cell-select-input {
+    width: 100%;
+    min-width: 0;
+
+    height: 30px;
+
+    padding: 5px 28px 5px 8px;
+
+    appearance: none;
+
+    border: 1px solid var(--color-focus);
+    border-radius: var(--radius-md);
+
+    outline: 0;
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 10px;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.board-cell-select-input:disabled {
+    cursor: default;
+    opacity: 0.6;
+}
+
+.board-cell-select-icon {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+
+    pointer-events: none;
+
+    transform: translateY(-50%);
+
+    color: var(--color-text-muted);
+}
