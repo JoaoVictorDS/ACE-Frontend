@@ -3,7 +3,7 @@ import { BoardSection } from '../BoardSection/BoardSection'
 import { useResize } from '../../hooks/useResize'
 import './BoardTable.css'
 
-const MIN_ITEM_WIDTH = 220
+const MIN_ITEM_WIDTH = 150
 const MAX_ITEM_WIDTH = 600
 const DEFAULT_ITEM_WIDTH = 260
 
@@ -11,7 +11,7 @@ const MIN_COLUMN_WIDTH = 150
 const MAX_COLUMN_WIDTH = 600
 const DEFAULT_COLUMN_WIDTH = 170
 
-export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCellCommit, onUpdatePreferences }) => {
+export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCellCommit, onUpdatePreferences, onCreateItem, addItemSectionId, onOpenAddItem, onCloseAddItem }) => {
     const columns = [...board.columns]
         .filter((column) => !column.deleted_at)
         .sort((a, b) => a.order - b.order)
@@ -21,7 +21,6 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
         .sort((a, b) => a.order - b.order)
 
     const [itemWidth, setItemWidth] = useState(board.preferences?.item_width ?? DEFAULT_ITEM_WIDTH)
-
     const [columnWidths, setColumnWidths] = useState(board.preferences?.column_widths ?? {})
 
     useEffect(() => {
@@ -63,6 +62,7 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
     const { resizingId, handlePointerDown, handlePointerMove, handlePointerUp, handlePointerCancel } = useResize({ onResize: handleResize, onCommit: handleResizeCommit })
 
     const gridTemplateColumns = [
+        '42px',
         `${itemWidth}px`,
         ...columns.map((column) => {
             const width = columnWidths[column.id]
@@ -70,8 +70,7 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
             return width
                 ? `${width}px`
                 : `minmax(${DEFAULT_COLUMN_WIDTH}px, 1fr)`
-        }),
-        '42px'
+        })
     ].join(' ')
 
     return (
@@ -81,9 +80,8 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
                 style={{ '--board-grid-columns': gridTemplateColumns }}
             >
                 <div className="board-table-header">
-                    <div
-                        className={`board-table-item-header ${columns.length === 0 ? 'board-table-item-header-empty' : ''} ${resizingId === 'item' ? 'is-resizing' : ''}`}
-                    >
+                    <div className="board-table-actions-header" />
+                    <div className={`board-table-item-header ${columns.length === 0 ? 'board-table-item-header-empty' : ''} ${resizingId === 'item' ? 'is-resizing' : ''}`}>
                         <span>{board.item_label_plural}</span>
 
                         <div
@@ -125,10 +123,6 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
                             </div>
                         )
                     })}
-
-                    {columns.length > 0 && (
-                        <div className="board-table-end-header" />
-                    )}
                 </div>
 
                 <div className="board-table-body">
@@ -143,6 +137,10 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
                             onItemTitleCommit={onItemTitleCommit}
                             onItemOpen={onItemOpen}
                             onCellCommit={onCellCommit}
+                            onCreateItem={onCreateItem}
+                            addItemOpen={section.id === addItemSectionId}
+                            onOpenAddItem={onOpenAddItem}
+                            onCloseAddItem={onCloseAddItem}
                         />
                     ))}
                 </div>

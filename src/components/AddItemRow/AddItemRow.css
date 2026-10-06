@@ -1,0 +1,83 @@
+.board-add-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+    min-height: 40px;
+
+    padding: 0 12px;
+
+    border: 0;
+    border-top: 1px solid var(--color-divider);
+
+    background: transparent;
+    color: var(--color-text-muted);
+
+    font: inherit;
+    font-size: 13px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-add-item:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-secondary);
+}
+
+.board-add-item svg {
+    flex-shrink: 0;
+}
+
+.board-add-item-editing {
+    cursor: default;
+}
+
+.board-add-item-editing:hover {
+    color: var(--color-text-muted);
+}
+
+.board-add-item input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 28px;
+
+    padding: 0 8px;
+
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-sm);
+
+    outline: none;
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font: inherit;
+    font-size: 13px;
+}
+
+.board-add-item input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
+.board-add-item input:focus {
+    border-color: var(--color-focus);
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.board-add-item-status {
+    flex-shrink: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+}

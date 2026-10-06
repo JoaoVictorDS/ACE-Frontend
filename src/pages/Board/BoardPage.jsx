@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useBoard } from '../../hooks/useBoard'
-import { useUpdateItemTitle } from '../../hooks/useItem'
+import { useUpdateItemTitle, useCreateItem } from '../../hooks/useItem'
 import { useUpsertItemValue } from '../../hooks/useItemValue'
 import { useBoardMembers, useUpdateBoardMemberPreferences } from '../../hooks/useBoardMember'
 import { useToast } from '../../hooks/useToast'
@@ -20,9 +21,12 @@ export const BoardPage = () => {
     const { data: board = {}, isLoading: boardLoading, error: boardError, refetch: refetchBoard } = useBoard(boardId)
     const { data: boardMembers = [] } = useBoardMembers(boardId)
     const { updateItemTitle } = useUpdateItemTitle()
+    const { createItem } = useCreateItem(boardId)
     const { upsertItemValue } = useUpsertItemValue()
     const { updateBoardMemberPreferences } = useUpdateBoardMemberPreferences(boardId)
     const { error } = useToast()
+
+    const [addItemSectionId, setAddItemSectionId] = useState(null)
 
     if (boardLoading) {
         return <LoadingScreen />
@@ -50,11 +54,19 @@ export const BoardPage = () => {
 
     const totalItems = board.sections.reduce((total, section) => total + section.items.length, 0)
 
+    const handleOpenAddItem = (sectionId) => {
+        setAddItemSectionId(sectionId)
+    }
+
+    const handleCloseAddItem = () => {
+        setAddItemSectionId(null)
+    }
+
     const handleItemOpen = (item) => {
         console.log('Abrir item:', item.id)
     }
 
-    const handleItemTitleCommit = async (item, title) => {
+    const handleItemTitleCommit = async ({ item, title }) => {
         try {
             await updateItemTitle({
                 itemId: item.id,
@@ -78,6 +90,31 @@ export const BoardPage = () => {
         } catch (err) {
             error({
                 title: 'Erro ao salvar dados',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleCreateItem = async ({ sectionId, title }) => {
+        try {
+            await createItem({
+                sectionId,
+                title
+            })
+        } catch (err) {
+            error({
+                title: 'Erro ao criar o item',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleUpdatePreferences = async (preferences) => {
+        try {
+            await updateBoardMemberPreferences(preferences)
+        } catch (err) {
+            error({
+                title: 'Erro ao salvar preferências',
                 message: getErrorMessage(err)
             })
         }
@@ -121,7 +158,10 @@ export const BoardPage = () => {
                 </div>
             </div>
 
-            <BoardToolbar board={board} />
+            <BoardToolbar
+                board={board}
+                onNewItem={handleOpenAddItem}
+            />
 
             <main className="board-page-content">
                 <BoardTable
@@ -130,7 +170,11 @@ export const BoardPage = () => {
                     onItemTitleCommit={handleItemTitleCommit}
                     onItemOpen={handleItemOpen}
                     onCellCommit={handleCellCommit}
-                    onUpdatePreferences={updateBoardMemberPreferences}
+                    onUpdatePreferences={handleUpdatePreferences}
+                    onCreateItem={handleCreateItem}
+                    addItemSectionId={addItemSectionId}
+                    onOpenAddItem={handleOpenAddItem}
+                    onCloseAddItem={handleCloseAddItem}
                 />
             </main>
         </div>

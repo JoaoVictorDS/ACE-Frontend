@@ -52,7 +52,10 @@ export const BoardItemTitle = ({ item, onCommit, onOpen }) => {
         try {
             setSaving(true)
 
-            await onCommit(item, nextValue)
+            await onCommit({
+                item,
+                title: nextValue
+            })
 
             setEditing(false)
         } catch {

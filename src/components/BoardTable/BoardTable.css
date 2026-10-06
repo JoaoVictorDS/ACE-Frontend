@@ -29,9 +29,16 @@
     background-color: var(--color-surface-hover);
 }
 
+.board-table-actions-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-right: 1px solid var(--color-border);
+}
+
 .board-table-item-header,
-.board-table-column-header,
-.board-table-end-header {
+.board-table-column-header {
     display: flex;
     align-items: center;
 
@@ -44,6 +51,7 @@
 
 .board-table-item-header,
 .board-table-column-header {
+    justify-content: center;
     position: relative;
 }
 
@@ -70,11 +78,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-
-.board-table-end-header {
-    border-right: 0;
-}
-
 
 /* ========================================
    Resize

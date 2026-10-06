@@ -45,7 +45,8 @@ export const API_ENDPOINTS = {
     },
 
     ITEM: {
-        UPDATE: (itemId) => `/v1/items/${itemId}`
+        UPDATE: (itemId) => `/v1/items/${itemId}`,
+        CREATE: (sectionId)=> `/v1/sections/${sectionId}/items`
     },
 
     ITEM_VALUES: {

@@ -13,3 +13,28 @@ export const updateItem = (board, event) => {
         }))
     }
 }
+
+export const createItem = (board, event) => {
+    const newItem = {
+        ...event.resource.item,
+        section_id: event.resource.sectionId,
+        item_values: []
+    }
+
+    return {
+        ...board,
+        sections: board.sections.map(section => {
+            if (section.id !== newItem.section_id) {
+                return section
+            }
+
+            const alreadyExists = section.items.some(item => item.id === newItem.id)
+
+            if (alreadyExists) {
+                return section
+            }
+
+            return { ...section, items: [...section.items, newItem] }
+        })
+    }
+}

@@ -6,3 +6,9 @@ export const updateItemTitle = async ({ itemId, title }) => {
 
     return response.data
 }
+
+export const createItem = async ({ sectionId, title }) => {
+    const response = await api.post(API_ENDPOINTS.ITEM.CREATE(sectionId), { title })
+
+    return response.data
+}
