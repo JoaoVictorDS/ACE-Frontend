@@ -1,6 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BoardSection } from '../BoardSection/BoardSection'
+import { useResize } from '../../hooks/useResize'
 import './BoardTable.css'
+
+const MIN_ITEM_WIDTH = 220
+const MAX_ITEM_WIDTH = 600
+const DEFAULT_ITEM_WIDTH = 260
 
 const MIN_COLUMN_WIDTH = 150
 const MAX_COLUMN_WIDTH = 600
@@ -15,100 +20,56 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
         .filter((section) => !section.deleted_at)
         .sort((a, b) => a.order - b.order)
 
+    const [itemWidth, setItemWidth] = useState(board.preferences?.item_width ?? DEFAULT_ITEM_WIDTH)
+
     const [columnWidths, setColumnWidths] = useState(board.preferences?.column_widths ?? {})
-    const [resizingColumnId, setResizingColumnId] = useState(null)
-    const resizeRef = useRef(null)
 
     useEffect(() => {
+        setItemWidth(board.preferences?.item_width ?? DEFAULT_ITEM_WIDTH)
         setColumnWidths(board.preferences?.column_widths ?? {})
     }, [board.id])
 
-    const handleResizeStart = (event, column) => {
-        event.preventDefault()
-        event.stopPropagation()
-
-        const startWidth = columnWidths[column.id] ?? DEFAULT_COLUMN_WIDTH
-
-        resizeRef.current = {
-            columnId: column.id,
-            startX: event.clientX,
-            startWidth,
-            currentWidth: startWidth,
-            initialWidths: board.preferences?.column_widths ?? {}
-        }
-
-        setResizingColumnId(column.id)
-
-        document.body.style.userSelect = 'none'
-    }
-
-    useEffect(() => {
-        if (!resizingColumnId) {
+    const handleResize = ({ id, value }) => {
+        if (id === 'item') {
+            setItemWidth(value)
             return
         }
 
-        const handleMouseMove = (event) => {
-            const resize = resizeRef.current
+        setColumnWidths((current) => ({
+            ...current,
+            [id]: value
+        }))
+    }
 
-            if (!resize) return
+    const handleResizeCommit = async ({ id, value }) => {
+        if (id === 'item') {
+            await onUpdatePreferences({
+                item_width: value
+            })
 
-            const newWidth = Math.min(
-                MAX_COLUMN_WIDTH,
-                Math.max(
-                    MIN_COLUMN_WIDTH,
-                    resize.startWidth + (event.clientX - resize.startX)
-                )
-            )
-
-            resize.currentWidth = newWidth
-
-            setColumnWidths((current) => ({
-                ...current,
-                [resize.columnId]: newWidth
-            }))
+            return
         }
 
-        const handleMouseUp = async () => {
-            const resize = resizeRef.current
-
-            if (!resize) return
-
-            try {
-                if (resize.currentWidth !== resize.startWidth) {
-                    const newWidths = {
-                        ...resize.initialWidths,
-                        [resize.columnId]: resize.currentWidth
-                    }
-
-                    await onUpdatePreferences({
-                        column_widths: newWidths
-                    })
-                }
-            } finally {
-                resizeRef.current = null
-                setResizingColumnId(null)
-                document.body.style.userSelect = ''
-            }
+        const newWidths = {
+            ...columnWidths,
+            [id]: value
         }
 
-        document.addEventListener('mousemove', handleMouseMove)
-        document.addEventListener('mouseup', handleMouseUp)
+        await onUpdatePreferences({
+            column_widths: newWidths
+        })
+    }
 
-        return () => {
-            document.removeEventListener('mousemove', handleMouseMove)
-            document.removeEventListener('mouseup', handleMouseUp)
-            document.body.style.userSelect = ''
-        }
-    }, [resizingColumnId, onUpdatePreferences])
+    const { resizingId, handlePointerDown, handlePointerMove, handlePointerUp, handlePointerCancel } = useResize({ onResize: handleResize, onCommit: handleResizeCommit })
 
     const gridTemplateColumns = [
-        'minmax(220px, 1.5fr)',
+        `${itemWidth}px`,
         ...columns.map((column) => {
             const width = columnWidths[column.id]
 
             return width
                 ? `${width}px`
-                : 'minmax(170px, 1fr)'
+                : `minmax(${DEFAULT_COLUMN_WIDTH}px, 1fr)`
         }),
         '42px'
     ].join(' ')
@@ -121,24 +82,49 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
             >
                 <div className="board-table-header">
                     <div
-                        className={`board-table-item-header ${columns.length === 0 ? 'board-table-item-header-empty' : ''}`}
+                        className={`board-table-item-header ${columns.length === 0 ? 'board-table-item-header-empty' : ''} ${resizingId === 'item' ? 'is-resizing' : ''}`}
                     >
                         <span>{board.item_label_plural}</span>
+
+                        <div
+                            className="board-resize-handle board-item-resize-handle"
+                            onPointerDown={(event) => handlePointerDown(event, {
+                                id: 'item',
+                                value: itemWidth,
+                                min: MIN_ITEM_WIDTH,
+                                max: MAX_ITEM_WIDTH
+                            })}
+                            onPointerMove={handlePointerMove}
+                            onPointerUp={handlePointerUp}
+                            onPointerCancel={handlePointerCancel}
+                        />
                     </div>
 
-                    {columns.map((column) => (
-                        <div
-                            key={column.id}
-                            className={`board-table-column-header ${resizingColumnId === column.id ? 'is-resizing' : ''}`}
-                        >
-                            <span>{column.name}</span>
+                    {columns.map((column) => {
+                        const width = columnWidths[column.id] ?? DEFAULT_COLUMN_WIDTH
 
+                        return (
                             <div
-                                className="board-column-resize-handle"
-                                onMouseDown={(event) => handleResizeStart(event, column)}
-                            />
-                        </div>
-                    ))}
+                                key={column.id}
+                                className={`board-table-column-header ${resizingId === column.id ? 'is-resizing' : ''}`}
+                            >
+                                <span>{column.name}</span>
+
+                                <div
+                                    className="board-resize-handle board-column-resize-handle"
+                                    onPointerDown={(event) => handlePointerDown(event, {
+                                        id: column.id,
+                                        value: width,
+                                        min: MIN_COLUMN_WIDTH,
+                                        max: MAX_COLUMN_WIDTH
+                                    })}
+                                    onPointerMove={handlePointerMove}
+                                    onPointerUp={handlePointerUp}
+                                    onPointerCancel={handlePointerCancel}
+                                />
+                            </div>
+                        )
+                    })}
 
                     {columns.length > 0 && (
                         <div className="board-table-end-header" />

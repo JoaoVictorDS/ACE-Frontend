@@ -1,5 +1,6 @@
 .board-table-wrapper {
     width: 100%;
+
     overflow-x: auto;
     overflow-y: hidden;
 
@@ -24,6 +25,7 @@
     min-height: 46px;
 
     border-bottom: 1px solid var(--color-border);
+
     background-color: var(--color-surface-hover);
 }
 
@@ -40,48 +42,29 @@
     border-right: 1px solid var(--color-border);
 }
 
+.board-table-item-header,
+.board-table-column-header {
+    position: relative;
+}
+
 .board-table-item-header {
     color: var(--color-text-primary);
+
     font-size: 11px;
     font-weight: 700;
 }
 
 .board-table-column-header {
     color: var(--color-text-primary);
+
     font-size: 11px;
     font-weight: 700;
+}
 
-    position: relative;
-
-    display: flex;
-    align-items: center;
-
+.board-table-item-header span,
+.board-table-column-header span {
     min-width: 0;
 
-    padding: 0 14px;
-
-    border-right: 1px solid var(--color-border);
-}
-
-.board-column-resize-handle {
-    position: absolute;
-    top: 0;
-    right: -4px;
-    bottom: 0;
-
-    width: 8px;
-
-    cursor: col-resize;
-    z-index: 2;
-}
-
-.board-column-resize-handle:hover,
-.board-table-column-header.is-resizing .board-column-resize-handle {
-    background-color: var(--color-primary);
-    opacity: 0.25;
-}
-
-.board-table-column-header span {
     overflow: hidden;
 
     text-overflow: ellipsis;
@@ -91,6 +74,45 @@
 .board-table-end-header {
     border-right: 0;
 }
+
+
+/* ========================================
+   Resize
+======================================== */
+
+.board-resize-handle {
+    position: absolute;
+    top: 0;
+    right: -4px;
+    bottom: 0;
+
+    width: 8px;
+
+    z-index: 2;
+
+    cursor: col-resize;
+    touch-action: none;
+}
+
+.board-resize-handle:hover,
+.board-table-item-header.is-resizing .board-resize-handle,
+.board-table-column-header.is-resizing .board-resize-handle {
+    background-color: var(--color-primary);
+
+    opacity: 0.25;
+}
+
+body.is-resizing,
+body.is-resizing * {
+    cursor: col-resize !important;
+
+    user-select: none !important;
+}
+
+
+/* ========================================
+   Corpo
+======================================== */
 
 .board-table-body {
     width: 100%;

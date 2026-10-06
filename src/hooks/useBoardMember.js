@@ -21,7 +21,10 @@ export const useUpdateBoardMemberPreferences = (boardId) => {
 
                 return {
                     ...currentBoard,
-                    preferences: data.preferences
+                    preferences: {
+                        ...currentBoard.preferences,
+                        ...data.preferences
+                    }
                 }
             })
 
