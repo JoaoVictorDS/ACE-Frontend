@@ -38,3 +38,15 @@ export const createItem = (board, event) => {
         })
     }
 }
+
+export const deleteItem = (board, event) => {
+    const itemId = event.entityId
+
+    return {
+        ...board,
+        sections: board.sections.map(section => ({
+            ...section,
+            items: section.items.filter(item => item.id !== itemId)
+        }))
+    }
+}

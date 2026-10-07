@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateItemTitle, createItem } from '../services/itemService'
+import { updateItemTitle, createItem, deleteItem } from '../services/itemService'
 
 export const useUpdateItemTitle = () => {
     const updateItemTitleMutation = useMutation({
@@ -56,5 +56,19 @@ export const useCreateItem = (boardId) => {
         createItemError: createItemMutation.error,
         createItemSuccess: createItemMutation.isSuccess,
         resetCreateItem: createItemMutation.reset
+    }
+}
+
+export const useDeleteItem = () => {
+    const deleteItemMutation = useMutation({
+        mutationFn: deleteItem
+    })
+
+    return {
+        deleteItem: deleteItemMutation.mutateAsync,
+        deletingItem: deleteItemMutation.isPending,
+        deleteItemError: deleteItemMutation.error,
+        deleteItemSuccess: deleteItemMutation.isSuccess,
+        resetDeleteItem: deleteItemMutation.reset
     }
 }

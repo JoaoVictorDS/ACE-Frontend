@@ -11,7 +11,7 @@ const MIN_COLUMN_WIDTH = 150
 const MAX_COLUMN_WIDTH = 600
 const DEFAULT_COLUMN_WIDTH = 170
 
-export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCellCommit, onUpdatePreferences, onCreateItem, addItemSectionId, onOpenAddItem, onCloseAddItem }) => {
+export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCellCommit, onUpdatePreferences, onCreateItem, onDeleteItem, addItemSectionId, onOpenAddItem, onCloseAddItem }) => {
     const columns = [...board.columns]
         .filter((column) => !column.deleted_at)
         .sort((a, b) => a.order - b.order)
@@ -138,6 +138,7 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
                             onItemOpen={onItemOpen}
                             onCellCommit={onCellCommit}
                             onCreateItem={onCreateItem}
+                            onDeleteItem={onDeleteItem}
                             addItemOpen={section.id === addItemSectionId}
                             onOpenAddItem={onOpenAddItem}
                             onCloseAddItem={onCloseAddItem}

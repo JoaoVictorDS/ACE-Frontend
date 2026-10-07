@@ -3,9 +3,10 @@ import { ChevronDown, ChevronRight, Ellipsis, Plus } from 'lucide-react'
 import { BoardCell } from '../BoardCell/BoardCell'
 import { BoardItemTitle } from '../BoardItemTitle/BoardItemTitle'
 import { AddItemRow } from '../AddItemRow/AddItemRow'
+import { BoardItemMenu } from '../BoardItemMenu/BoardItemMenu'
 import './BoardSection.css'
 
-export const BoardSection = ({ section, columns, users, board, gridTemplateColumns, onItemTitleCommit, onItemOpen, onCellCommit, onCreateItem, addItemOpen, onOpenAddItem, onCloseAddItem }) => {
+export const BoardSection = ({ section, columns, users, board, gridTemplateColumns, onItemTitleCommit, onItemOpen, onCellCommit, onCreateItem, onDeleteItem, addItemOpen, onOpenAddItem, onCloseAddItem }) => {
     const [collapsed, setCollapsed] = useState(false)
 
     const items = [...section.items]
@@ -33,13 +34,10 @@ export const BoardSection = ({ section, columns, users, board, gridTemplateColum
                 className="board-item-row"
                 style={{ gridTemplateColumns }}
             >
-                <button
-                    type="button"
-                    className="board-item-more"
-                    aria-label={`Mais opções de ${item.title}`}
-                >
-                    <Ellipsis size={16} />
-                </button>
+                <BoardItemMenu
+                    item={item}
+                    onDelete={onDeleteItem}
+                />
 
                 <BoardItemTitle
                     item={item}

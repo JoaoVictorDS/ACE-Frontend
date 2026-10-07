@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useBoard } from '../../hooks/useBoard'
-import { useUpdateItemTitle, useCreateItem } from '../../hooks/useItem'
+import { useUpdateItemTitle, useCreateItem, useDeleteItem } from '../../hooks/useItem'
 import { useUpsertItemValue } from '../../hooks/useItemValue'
 import { useBoardMembers, useUpdateBoardMemberPreferences } from '../../hooks/useBoardMember'
 import { useToast } from '../../hooks/useToast'
@@ -22,6 +22,7 @@ export const BoardPage = () => {
     const { data: boardMembers = [] } = useBoardMembers(boardId)
     const { updateItemTitle } = useUpdateItemTitle()
     const { createItem } = useCreateItem(boardId)
+    const { deleteItem } = useDeleteItem()
     const { upsertItemValue } = useUpsertItemValue()
     const { updateBoardMemberPreferences } = useUpdateBoardMemberPreferences(boardId)
     const { error } = useToast()
@@ -109,6 +110,17 @@ export const BoardPage = () => {
         }
     }
 
+    const handleDeleteItem = async (item) => {
+        try {
+            await deleteItem(item.id)
+        } catch (err) {
+            error({
+                title: 'Erro ao deletar o item',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
     const handleUpdatePreferences = async (preferences) => {
         try {
             await updateBoardMemberPreferences(preferences)
@@ -172,6 +184,7 @@ export const BoardPage = () => {
                     onCellCommit={handleCellCommit}
                     onUpdatePreferences={handleUpdatePreferences}
                     onCreateItem={handleCreateItem}
+                    onDeleteItem={handleDeleteItem}
                     addItemSectionId={addItemSectionId}
                     onOpenAddItem={handleOpenAddItem}
                     onCloseAddItem={handleCloseAddItem}

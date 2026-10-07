@@ -12,3 +12,9 @@ export const createItem = async ({ sectionId, title }) => {
 
     return response.data
 }
+
+export const deleteItem = async (itemId) => {
+    const response = await api.delete(API_ENDPOINTS.ITEM.DELETE(itemId))
+
+    return response.data
+}
