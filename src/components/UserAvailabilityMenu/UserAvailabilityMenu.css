@@ -1,0 +1,103 @@
+.user-availability-menu {
+    padding: 6px 4px;
+}
+
+.user-availability-menu-title {
+    display: block;
+    padding: 4px 8px 7px;
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.user-availability-options {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-availability-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background-color: transparent;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.user-availability-option:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.user-availability-option.selected {
+    font-weight: 600;
+}
+
+.user-availability-option.selected:has(.availability-available) {
+    background-color: var(--color-success-light);
+    color: var(--color-success);
+}
+
+.user-availability-option.selected:has(.availability-break) {
+    background-color: var(--color-warning-light);
+    color: var(--color-warning);
+}
+
+.user-availability-option.selected:has(.availability-external_activities) {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.user-availability-option.selected:has(.availability-end_of_activities) {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-secondary);
+}
+
+.user-availability-option svg {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.user-availability-option-label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-availability-dot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--color-text-muted);
+}
+
+.user-availability-dot.availability-available {
+    background-color: var(--color-success);
+}
+
+.user-availability-dot.availability-break {
+    background-color: var(--color-warning);
+}
+
+.user-availability-dot.availability-external_activities {
+    background-color: var(--color-primary);
+}
+
+.user-availability-dot.availability-end_of_activities {
+    background-color: var(--color-text-muted);
+}
