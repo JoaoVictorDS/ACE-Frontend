@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { Check, X } from 'lucide-react'
 import { EmptyCell } from './EmptyCell'
 import { UserAvatar } from '../../UserAvatar/UserAvatar'
@@ -7,9 +7,27 @@ import './UserCell.css'
 const parseIds = (value) => (value || '').split(',').map((id) => Number(id.trim())).filter(Boolean)
 
 export const UserCell = ({ value, setValue, initialValue, editing, saving, users, column, handleStartEditing, handleCancel, handleCommit }) => {
+    const containerRef = useRef(null)
+
     const usersData = useMemo(() => users.map(({ user }) => user), [users])
     const selectedUserIds = useMemo(() => parseIds(value), [value])
     const initialUserIds = useMemo(() => parseIds(initialValue), [initialValue])
+
+    useEffect(() => {
+        if (!editing || saving) return
+
+        const handlePointerDown = (event) => {
+            if (!containerRef.current?.contains(event.target)) {
+                handleCancel()
+            }
+        }
+
+        document.addEventListener('pointerdown', handlePointerDown)
+
+        return () => {
+            document.removeEventListener('pointerdown', handlePointerDown)
+        }
+    }, [editing, saving, handleCancel])
 
     const handleToggleUser = (userId, checked) => {
         if (saving) return
@@ -23,7 +41,10 @@ export const UserCell = ({ value, setValue, initialValue, editing, saving, users
 
     if (editing) {
         return (
-            <div className="board-cell board-cell-user-editing">
+            <div
+                ref={containerRef}
+                className="board-cell board-cell-user-editing"
+            >
                 <div className="board-cell-user-options">
                     {usersData.map((user) => {
                         const selected = selectedUserIds.includes(user.id)
@@ -40,7 +61,9 @@ export const UserCell = ({ value, setValue, initialValue, editing, saving, users
                                     onChange={(event) => handleToggleUser(user.id, event.target.checked)}
                                 />
 
-                                <UserAvatar user={user} />
+                                <span className="board-cell-user-option-avatar">
+                                    <UserAvatar user={user} />
+                                </span>
 
                                 <span className="board-cell-user-option-name">{user.name}</span>
                             </label>

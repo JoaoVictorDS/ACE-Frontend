@@ -41,9 +41,19 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    align-self: center;
     gap: 5px;
 
-    padding: 5px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+
+    margin: 4px 0;
+    padding: 4px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
 
     background-color: var(--color-surface);
 }
@@ -53,8 +63,10 @@
     flex-direction: column;
 
     width: 100%;
-    max-height: 180px;
+    min-width: 0;
+    max-height: 130px;
 
+    overflow-x: hidden;
     overflow-y: auto;
 
     border: 1px solid var(--color-border);
@@ -63,8 +75,149 @@
     background-color: var(--color-input-background);
 
     scrollbar-width: thin;
-    scrollbar-color:
-        var(--color-border-strong) transparent;
+    scrollbar-color: var(--color-border-strong) transparent;
+}
+
+
+/* ========================================
+   Opções
+======================================== */
+
+.board-cell-user-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    min-width: 0;
+    min-height: 28px;
+
+    padding: 3px 6px;
+
+    border: 0;
+
+    background-color: transparent;
+    color: var(--color-text-primary);
+
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-cell-user-option+.board-cell-user-option {
+    border-top: 1px solid var(--color-divider);
+}
+
+.board-cell-user-option:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.board-cell-user-option.selected {
+    background-color: var(--color-surface-hover);
+
+    box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.board-cell-user-option input {
+    width: 14px;
+    height: 14px;
+
+    margin: 0;
+
+    flex-shrink: 0;
+
+    accent-color: var(--color-primary);
+
+    cursor: pointer;
+}
+
+.board-cell-user-option-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    flex-shrink: 0;
+
+    pointer-events: none;
+}
+
+.board-cell-user-option-avatar>* {
+    width: 24px;
+    height: 24px;
+
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.board-cell-user-option-name {
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: var(--color-text-primary);
+
+    font-size: 10px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   Ações
+======================================== */
+
+.board-cell-user-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding-top: 5px;
+
+    border-top: 1px solid var(--color-divider);
+}
+
+.board-cell-user-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    min-width: 0;
+
+    flex: 1;
+
+    padding: 4px 6px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    overflow: hidden;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        opacity 0.15s ease;
 }
 
 
