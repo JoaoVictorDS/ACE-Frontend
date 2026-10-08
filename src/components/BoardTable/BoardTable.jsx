@@ -1,24 +1,39 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BoardSection } from '../BoardSection/BoardSection'
 import { useResize } from '../../hooks/useResize'
 import './BoardTable.css'
 
 const MIN_ITEM_WIDTH = 150
-const MAX_ITEM_WIDTH = 600
+const MAX_ITEM_WIDTH = 1000
 const DEFAULT_ITEM_WIDTH = 260
 
 const MIN_COLUMN_WIDTH = 150
-const MAX_COLUMN_WIDTH = 600
+const MAX_COLUMN_WIDTH = 1000
 const DEFAULT_COLUMN_WIDTH = 170
 
-export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCellCommit, onUpdatePreferences, onCreateItem, onDeleteItem, addItemSectionId, onOpenAddItem, onCloseAddItem }) => {
-    const columns = [...board.columns]
-        .filter((column) => !column.deleted_at)
-        .sort((a, b) => a.order - b.order)
+export const BoardTable = ({
+    board,
+    users,
+    onItemTitleCommit,
+    onItemOpen,
+    onCellCommit,
+    onUpdatePreferences,
+    onCreateItem,
+    onDeleteItem,
+    addItemSectionId,
+    onOpenAddItem,
+    onCloseAddItem,
+    selectedItemIds,
+    onToggleItemSelection,
+    allItemsSelected,
+    someItemsSelected,
+    onToggleAllItems,
+    onToggleSectionSelection
+}) => {
+    const selectAllRef = useRef(null)
 
-    const sections = [...board.sections]
-        .filter((section) => !section.deleted_at)
-        .sort((a, b) => a.order - b.order)
+    const columns = [...board.columns].filter((column) => !column.deleted_at).sort((a, b) => a.order - b.order)
+    const sections = [...board.sections].filter((section) => !section.deleted_at).sort((a, b) => a.order - b.order)
 
     const [itemWidth, setItemWidth] = useState(board.preferences?.item_width ?? DEFAULT_ITEM_WIDTH)
     const [columnWidths, setColumnWidths] = useState(board.preferences?.column_widths ?? {})
@@ -27,6 +42,12 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
         setItemWidth(board.preferences?.item_width ?? DEFAULT_ITEM_WIDTH)
         setColumnWidths(board.preferences?.column_widths ?? {})
     }, [board.id])
+
+    useEffect(() => {
+        if (selectAllRef.current) {
+            selectAllRef.current.indeterminate = someItemsSelected
+        }
+    }, [someItemsSelected])
 
     const handleResize = ({ id, value }) => {
         if (id === 'item') {
@@ -70,7 +91,8 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
             return width
                 ? `${width}px`
                 : `minmax(${DEFAULT_COLUMN_WIDTH}px, 1fr)`
-        })
+        }),
+        '42px'
     ].join(' ')
 
     return (
@@ -80,7 +102,16 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
                 style={{ '--board-grid-columns': gridTemplateColumns }}
             >
                 <div className="board-table-header">
-                    <div className="board-table-actions-header" />
+                    <div className="board-table-selection-header">
+                        <input
+                            ref={selectAllRef}
+                            type="checkbox"
+                            checked={allItemsSelected}
+                            onChange={onToggleAllItems}
+                            aria-label="Selecionar todos os itens"
+                        />
+                    </div>
+
                     <div className={`board-table-item-header ${columns.length === 0 ? 'board-table-item-header-empty' : ''} ${resizingId === 'item' ? 'is-resizing' : ''}`}>
                         <span>{board.item_label_plural}</span>
 
@@ -142,6 +173,9 @@ export const BoardTable = ({ board, users, onItemTitleCommit, onItemOpen, onCell
                             addItemOpen={section.id === addItemSectionId}
                             onOpenAddItem={onOpenAddItem}
                             onCloseAddItem={onCloseAddItem}
+                            selectedItemIds={selectedItemIds}
+                            onToggleItemSelection={onToggleItemSelection}
+                            onToggleSectionSelection={onToggleSectionSelection}
                         />
                     ))}
                 </div>

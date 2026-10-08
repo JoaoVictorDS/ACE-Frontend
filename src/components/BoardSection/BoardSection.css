@@ -145,3 +145,30 @@
 
     font-size: 11px;
 }
+
+.board-section-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 100%;
+
+    flex-shrink: 0;
+}
+
+.board-section-selection input {
+    width: 15px;
+    height: 15px;
+
+    margin: 0;
+
+    accent-color: var(--color-primary);
+
+    cursor: pointer;
+}
+
+.board-section-selection input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

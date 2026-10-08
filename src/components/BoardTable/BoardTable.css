@@ -29,14 +29,6 @@
     background-color: var(--color-surface-hover);
 }
 
-.board-table-actions-header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-right: 1px solid var(--color-border);
-}
-
 .board-table-item-header,
 .board-table-column-header {
     display: flex;
@@ -77,6 +69,37 @@
 
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.board-table-selection-header,
+.board-item-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+
+    border-right: 1px solid var(--color-border);
+}
+
+.board-table-selection-header input,
+.board-item-selection input {
+    width: 15px;
+    height: 15px;
+
+    margin: 0;
+
+    accent-color: var(--color-primary);
+
+    cursor: pointer;
+}
+
+.board-item-selection {
+    background-color: var(--color-surface);
+}
+
+.board-item-selection:hover {
+    background-color: var(--color-surface-hover);
 }
 
 /* ========================================

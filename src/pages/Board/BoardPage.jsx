@@ -28,6 +28,7 @@ export const BoardPage = () => {
     const { error } = useToast()
 
     const [addItemSectionId, setAddItemSectionId] = useState(null)
+    const [selectedItemIds, setSelectedItemIds] = useState([])
 
     if (boardLoading) {
         return <LoadingScreen />
@@ -54,6 +55,14 @@ export const BoardPage = () => {
     }
 
     const totalItems = board.sections.reduce((total, section) => total + section.items.length, 0)
+    const visibleItemIds = board.sections?.flatMap((section) =>
+        section.items
+            .filter((item) => !item.deleted_at)
+            .map((item) => item.id)
+    ) ?? []
+    const selectedVisibleItemIds = selectedItemIds.filter((itemId) => visibleItemIds.includes(itemId))
+    const allItemsSelected = visibleItemIds.length > 0 && visibleItemIds.every((itemId) => selectedItemIds.includes(itemId))
+    const someItemsSelected = selectedVisibleItemIds.length > 0 && !allItemsSelected
 
     const handleOpenAddItem = (sectionId) => {
         setAddItemSectionId(sectionId)
@@ -113,6 +122,8 @@ export const BoardPage = () => {
     const handleDeleteItem = async (item) => {
         try {
             await deleteItem(item.id)
+
+            setSelectedItemIds((current) => current.filter((id) => id !== item.id))
         } catch (err) {
             error({
                 title: 'Erro ao deletar o item',
@@ -130,6 +141,46 @@ export const BoardPage = () => {
                 message: getErrorMessage(err)
             })
         }
+    }
+
+    const handleToggleItemSelection = (itemId) => {
+        setSelectedItemIds((current) => {
+            if (current.includes(itemId)) {
+                return current.filter((id) => id !== itemId)
+            }
+
+            return [...current, itemId]
+        })
+    }
+
+    const handleClearItemSelection = () => {
+        setSelectedItemIds([])
+    }
+
+    const handleToggleAllItems = () => {
+        setSelectedItemIds((current) => {
+            if (allItemsSelected) {
+                return []
+            }
+
+            return visibleItemIds
+        })
+    }
+
+    const handleToggleSectionSelection = (itemIds) => {
+        setSelectedItemIds((current) => {
+            const allSelected =
+                itemIds.length > 0 &&
+                itemIds.every((itemId) => current.includes(itemId))
+
+            if (allSelected) {
+                return current.filter((id) => !itemIds.includes(id))
+            }
+
+            const newItemIds = itemIds.filter((itemId) => !current.includes(itemId))
+
+            return [...current, ...newItemIds]
+        })
     }
 
     return (
@@ -188,6 +239,12 @@ export const BoardPage = () => {
                     addItemSectionId={addItemSectionId}
                     onOpenAddItem={handleOpenAddItem}
                     onCloseAddItem={handleCloseAddItem}
+                    selectedItemIds={selectedItemIds}
+                    onToggleItemSelection={handleToggleItemSelection}
+                    allItemsSelected={allItemsSelected}
+                    someItemsSelected={someItemsSelected}
+                    onToggleAllItems={handleToggleAllItems}
+                    onToggleSectionSelection={handleToggleSectionSelection}
                 />
             </main>
         </div>
