@@ -1,12 +1,18 @@
-.board-item-menu {
-    position: relative;
+.board-item-menu-container {
+    width: 100%;
 
+    align-items: center;
+}
+
+.board-item-menu-cell {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    width: 100%;
-    height: 100%;
+    min-width: 0;
+
+    border-left: 1px solid var(--color-border);
+    background-color: var(--color-surface);
 }
 
 .board-item-more {
@@ -22,7 +28,7 @@
     border: 0;
     border-radius: var(--radius-sm);
 
-    background: transparent;
+    background-color: transparent;
     color: var(--color-text-muted);
 
     cursor: pointer;
@@ -34,16 +40,14 @@
 
 .board-item-more:hover,
 .board-item-more[aria-expanded='true'] {
-    background-color: var(--color-surface-hover);
-    color: var(--color-text-primary);
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    opacity: 1;
 }
 
 .board-item-menu-dropdown {
-    position: absolute;
-    top: calc(100% - 2px);
-    left: 0;
-
-    z-index: 30;
+    position: fixed;
+    z-index: 1000;
 
     min-width: 150px;
 
@@ -69,11 +73,12 @@
     border: 0;
     border-radius: var(--radius-sm);
 
-    background: transparent;
+    background-color: transparent;
     color: var(--color-text-primary);
 
-    font: inherit;
+    font-family: inherit;
     font-size: 12px;
+    font-weight: 500;
 
     text-align: left;
 

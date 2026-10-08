@@ -55,10 +55,11 @@ export const BoardSection = ({
         }
 
         return items.map((item) => (
-            <div
+            <BoardItemMenu
                 key={item.id}
-                className="board-item-row"
-                style={{ gridTemplateColumns }}
+                item={item}
+                onDelete={onDeleteItem}
+                gridTemplateColumns={gridTemplateColumns}
             >
                 <div className="board-item-selection">
                     <input
@@ -84,12 +85,7 @@ export const BoardSection = ({
                         onCommit={onCellCommit}
                     />
                 ))}
-
-                <BoardItemMenu
-                    item={item}
-                    onDelete={onDeleteItem}
-                />
-            </div>
+            </BoardItemMenu>
         ))
     }
 
