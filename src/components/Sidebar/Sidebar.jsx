@@ -5,7 +5,7 @@ import { LoadingState } from '../LoadingState/LoadingState'
 import { LayoutDashboard, LayoutGrid, PanelsTopLeft } from 'lucide-react'
 import './Sidebar.css'
 
-export const Sidebar = ({ onCreateWorkspace }) => {
+export const Sidebar = ({ onCreateWorkspace, onCreateBoard }) => {
     const [showWorkspaceMenu, setShowWorkspaceMenu] = useState(false)
 
     const location = useLocation()
@@ -164,6 +164,7 @@ export const Sidebar = ({ onCreateWorkspace }) => {
                                     <button
                                         type="button"
                                         title="Novo board"
+                                        onClick={onCreateBoard}
                                     >
                                         +
                                     </button>

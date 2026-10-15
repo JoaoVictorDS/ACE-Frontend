@@ -37,6 +37,7 @@ export const API_ENDPOINTS = {
 
     BOARDS: {
         GET: (boardId) => `/v1/boards/${boardId}`,
+        CREATE: (workspaceId) => `/v1/workspaces/${workspaceId}/boards`
     },
 
     BOARD_MEMBERS: {

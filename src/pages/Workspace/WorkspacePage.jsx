@@ -1,5 +1,5 @@
-import { useParams, useNavigate } from 'react-router-dom'
-import { AlertCircle, ArrowRight, Building2, CirclePlus, MoreHorizontal, RefreshCw, Users } from 'lucide-react'
+import { useParams, useNavigate, useOutletContext } from 'react-router-dom'
+import { AlertCircle, ArrowRight, Building2, CirclePlus, MoreHorizontal, Plus, RefreshCw, Users } from 'lucide-react'
 import { useWorkspace } from '../../hooks/useWorkspace'
 import { getErrorMessage } from '../../utils/error'
 import { Button } from '../../components/Button/Button'
@@ -14,6 +14,8 @@ import './WorkspacePage.css'
 export const WorkspacePage = () => {
     const { workspaceId } = useParams()
     const navigate = useNavigate()
+
+    const { openCreateBoardModal } = useOutletContext()
 
     const { data: workspace, isLoading: workspaceLoading, error: workspaceError, refetch: refetchWorkspace } = useWorkspace(workspaceId)
 
@@ -63,6 +65,16 @@ export const WorkspacePage = () => {
                 icon={<Building2 size={22} strokeWidth={2} />}
                 title="Nenhum board encontrado"
                 message="Este workspace ainda não possui nenhum board."
+                action={
+                    <Button
+                        variant="primary"
+                        type="button"
+                        onClick={openCreateBoardModal}
+                    >
+                        <Plus size={17} />
+                        Criar board
+                    </Button>
+                }
             />
         )
 
@@ -173,6 +185,7 @@ export const WorkspacePage = () => {
                         <Button
                             variant="primary"
                             type="button"
+                            onClick={openCreateBoardModal}
                         >
                             {/* TODO: Abrir modal de criação de board */}
                             <CirclePlus size={17} />

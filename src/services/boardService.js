@@ -12,3 +12,9 @@ export const getBoard = async (boardId) => {
 
     return response.data
 }
+
+export const createBoard = async ({ workspaceId, data = {} }) => {
+    const response = await api.post(API_ENDPOINTS.BOARDS.CREATE(workspaceId), data)
+
+    return response.data
+}

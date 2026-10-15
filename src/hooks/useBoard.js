@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query"
-import { getBoardsByWorkspace, getBoard } from '../services/boardService'
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { getBoardsByWorkspace, getBoard, createBoard } from '../services/boardService'
 
 export const useBoards = (workspaceId) => {
     return useQuery({
@@ -15,4 +15,25 @@ export const useBoard = (boardId) => {
         queryFn: () => getBoard(boardId),
         enabled: !!boardId
     })
+}
+
+export const useCreateBoard = () => {
+    const queryClient = useQueryClient()
+
+    const createBoardMutation = useMutation({
+        mutationFn: createBoard,
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['workspace']
+            })
+        }
+    })
+
+    return {
+        createBoard: createBoardMutation.mutateAsync,
+        creatingBoard: createBoardMutation.isPending,
+        createBoardError: createBoardMutation.error,
+        resetCreateBoard: createBoardMutation.reset,
+    }
 }

@@ -1,0 +1,233 @@
+/* =========================
+   Modal Overlay
+========================= */
+
+.create-board-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background-color: var(--color-overlay);
+
+    animation: create-board-modal-fade-in 0.15s ease;
+}
+
+/* =========================
+   Modal
+========================= */
+
+.create-board-modal {
+    width: 100%;
+    max-width: 640px;
+
+    background-color: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+
+    box-shadow: var(--shadow-modal);
+
+    overflow: hidden;
+
+    animation: create-board-modal-slide-in 0.15s ease;
+}
+
+/* =========================
+   Modal Header
+========================= */
+
+.create-board-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 20px 20px 16px;
+
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.create-board-modal-header h3 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.create-board-modal-header p {
+    margin: 5px 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================
+   Close Button
+========================= */
+
+.create-board-modal-close {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background: transparent;
+
+    color: var(--color-text-muted);
+
+    font-family: inherit;
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.create-board-modal-close:hover:not(:disabled) {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.create-board-modal-close:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* =========================
+   Modal Body
+========================= */
+
+.create-board-modal-body {
+    padding: 20px;
+}
+
+/* =========================
+   Board Name Field
+========================= */
+
+.create-board-modal-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--color-text-primary);
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.create-board-modal-input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 10px 12px;
+
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--color-input-background);
+
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.create-board-modal-input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
+.create-board-modal-input:focus {
+    border-color: var(--color-focus);
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.create-board-modal-input:disabled {
+    background-color: var(--color-input-background-disabled);
+
+    cursor: not-allowed;
+}
+
+/* =========================
+   Form Feedback
+========================= */
+
+.create-board-modal-feedback {
+    padding: 0 20px;
+    margin-bottom: 22px;
+}
+
+.create-board-modal-feedback .form-feedback {
+    margin-top: 0;
+}
+
+/* =========================
+   Modal Actions
+========================= */
+
+.create-board-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 16px 20px;
+
+    background-color: var(--color-surface-hover);
+
+    border-top: 1px solid var(--color-divider);
+}
+
+/* =========================
+   Animations
+========================= */
+
+@keyframes create-board-modal-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes create-board-modal-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
