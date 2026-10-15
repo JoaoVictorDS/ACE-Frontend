@@ -148,3 +148,16 @@
 .board-item-row:has(.board-item-more[aria-expanded='true']) .board-item-menu-cell {
     background-color: var(--color-primary-light);
 }
+
+.board-section.is-drop-target>.board-section-header {
+    background-color: var(--color-primary-light);
+}
+
+.board-section.is-drop-target .board-section-empty {
+    background-color: var(--color-primary-light);
+}
+
+.board-section.is-drop-target>.board-section-items {
+    outline: 2px dashed var(--color-primary);
+    outline-offset: -2px;
+}

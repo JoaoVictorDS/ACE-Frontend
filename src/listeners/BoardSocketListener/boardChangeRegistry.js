@@ -1,5 +1,5 @@
 import { createItemValue, updateItemValue, deleteItemValue } from './handlers/itemValueHandlers'
-import { updateItem, createItem, deleteItem } from './handlers/itemHandlers'
+import { updateItem, createItem, deleteItem, moveItem } from './handlers/itemHandlers'
 
 export const BOARD_CHANGE_REGISTRY = {
     ITEM_VALUE: {
@@ -12,7 +12,7 @@ export const BOARD_CHANGE_REGISTRY = {
         CREATE: createItem,
         UPDATE: updateItem,
         DELETE: deleteItem,
-        // MOVE: moveItem,
+        MOVE: moveItem,
     },
 
     SECTION: {

@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useBoard } from '../../hooks/useBoard'
-import { useUpdateItemTitle, useCreateItem, useDeleteItem } from '../../hooks/useItem'
+import { useUpdateItemTitle, useCreateItem, useDeleteItem, useMoveItem } from '../../hooks/useItem'
 import { useUpsertItemValue } from '../../hooks/useItemValue'
 import { useBoardMembers, useUpdateBoardMemberPreferences } from '../../hooks/useBoardMember'
 import { useToast } from '../../hooks/useToast'
 import { BoardSocketListener } from '../../listeners/BoardSocketListener/BoardSocketListener'
 import { LoadingScreen } from '../../components/LoadingScreen/LoadingScreen'
-import { AlertCircle, Ellipsis, LayoutGrid, RefreshCcw } from 'lucide-react'
+import { AlertCircle, Ellipsis, LayoutGrid, Pause, RefreshCcw } from 'lucide-react'
 import { BoardToolbar } from '../../components/BoardToolbar/BoardToolbar'
 import { BoardTable } from '../../components/BoardTable/BoardTable'
 import { FeedbackState } from '../../components/FeedbackState/FeedbackState'
@@ -23,6 +23,7 @@ export const BoardPage = () => {
     const { updateItemTitle } = useUpdateItemTitle()
     const { createItem } = useCreateItem(boardId)
     const { deleteItem } = useDeleteItem()
+    const { moveItem } = useMoveItem()
     const { upsertItemValue } = useUpsertItemValue()
     const { updateBoardMemberPreferences } = useUpdateBoardMemberPreferences(boardId)
     const { error } = useToast()
@@ -55,11 +56,7 @@ export const BoardPage = () => {
     }
 
     const totalItems = board.sections.reduce((total, section) => total + section.items.length, 0)
-    const visibleItemIds = board.sections?.flatMap((section) =>
-        section.items
-            .filter((item) => !item.deleted_at)
-            .map((item) => item.id)
-    ) ?? []
+    const visibleItemIds = board.sections?.flatMap((section) => section.items.filter((item) => !item.deleted_at).map((item) => item.id)) ?? []
     const selectedVisibleItemIds = selectedItemIds.filter((itemId) => visibleItemIds.includes(itemId))
     const allItemsSelected = visibleItemIds.length > 0 && visibleItemIds.every((itemId) => selectedItemIds.includes(itemId))
     const someItemsSelected = selectedVisibleItemIds.length > 0 && !allItemsSelected
@@ -183,6 +180,17 @@ export const BoardPage = () => {
         })
     }
 
+    const handleMoveItem = async (payload) => {
+        try {
+            await moveItem(payload)
+        } catch (err) {
+            error({
+                title: 'Erro ao mover o item',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
     return (
         <div className="board-page">
             <BoardSocketListener boardId={boardId} />
@@ -245,6 +253,7 @@ export const BoardPage = () => {
                     someItemsSelected={someItemsSelected}
                     onToggleAllItems={handleToggleAllItems}
                     onToggleSectionSelection={handleToggleSectionSelection}
+                    onMoveItem={handleMoveItem}
                 />
             </main>
         </div>

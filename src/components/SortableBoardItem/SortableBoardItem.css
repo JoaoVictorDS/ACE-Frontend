@@ -1,0 +1,6 @@
+.board-item-row.is-dragging {
+    z-index: 1;
+    opacity: 0.55;
+    background-color: var(--color-primary-light);
+    box-shadow: var(--shadow-md);
+}

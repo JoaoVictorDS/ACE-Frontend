@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
+import { useDroppable } from '@dnd-kit/react'
+import { CollisionPriority } from '@dnd-kit/abstract'
+import { SortableBoardItem } from '../SortableBoardItem/SortableBoardItem'
 import { ChevronDown, ChevronRight, Ellipsis, Plus } from 'lucide-react'
-import { BoardCell } from '../BoardCell/BoardCell'
-import { BoardItemTitle } from '../BoardItemTitle/BoardItemTitle'
 import { AddItemRow } from '../AddItemRow/AddItemRow'
-import { BoardItemMenu } from '../BoardItemMenu/BoardItemMenu'
 import './BoardSection.css'
 
 export const BoardSection = ({
     section,
+    index,
     columns,
     users,
     board,
@@ -25,7 +26,16 @@ export const BoardSection = ({
     onToggleSectionSelection
 }) => {
     const [collapsed, setCollapsed] = useState(false)
+
     const sectionSelectRef = useRef(null)
+    const { ref, isDropTarget } = useDroppable({
+        id: section.id,
+        index,
+        type: 'section',
+        accept: ['item'],
+        group: section.id,
+        collisionPriority: CollisionPriority.Low
+    })
 
     const items = [...section.items].filter((item) => !item.deleted_at).sort((a, b) => a.order - b.order)
     const sectionItemIds = items.filter((item) => !item.deleted_at).map((item) => item.id)
@@ -54,43 +64,30 @@ export const BoardSection = ({
             )
         }
 
-        return items.map((item) => (
-            <BoardItemMenu
+        return items.map((item, index) => (
+            <SortableBoardItem
                 key={item.id}
                 item={item}
-                onDelete={onDeleteItem}
+                section={section}
+                index={index}
                 gridTemplateColumns={gridTemplateColumns}
-            >
-                <div className="board-item-selection">
-                    <input
-                        type="checkbox"
-                        checked={selectedItemIds.includes(item.id)}
-                        onChange={() => onToggleItemSelection(item.id)}
-                        aria-label={`Selecionar ${item.title}`}
-                    />
-                </div>
-
-                <BoardItemTitle
-                    item={item}
-                    onCommit={onItemTitleCommit}
-                    onOpen={onItemOpen}
-                />
-
-                {columns.map((column) => (
-                    <BoardCell
-                        key={column.id}
-                        column={column}
-                        item={item}
-                        users={users}
-                        onCommit={onCellCommit}
-                    />
-                ))}
-            </BoardItemMenu>
+                columns={columns}
+                users={users}
+                selectedItemIds={selectedItemIds}
+                onToggleItemSelection={onToggleItemSelection}
+                onItemTitleCommit={onItemTitleCommit}
+                onItemOpen={onItemOpen}
+                onCellCommit={onCellCommit}
+                onDeleteItem={onDeleteItem}
+            />
         ))
     }
 
     return (
-        <section className="board-section">
+        <section
+            className={`board-section ${isDropTarget ? 'is-drop-target' : ''}`}
+            ref={ref}
+        >
             <header className="board-section-header">
                 <div className="board-section-selection">
                     <input
@@ -142,6 +139,7 @@ export const BoardSection = ({
 
             {!collapsed && (
                 <div className="board-section-items">
+
                     {renderItems()}
 
                     <AddItemRow
@@ -153,6 +151,7 @@ export const BoardSection = ({
                             title
                         })}
                     />
+
                 </div>
             )}
         </section>

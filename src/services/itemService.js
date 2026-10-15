@@ -18,3 +18,12 @@ export const deleteItem = async (itemId) => {
 
     return response.data
 }
+
+export const moveItem = async ({ itemId, newSectionId, newOrder }) => {
+    const response = await api.patch(API_ENDPOINTS.ITEM.MOVE(itemId), {
+        new_section_id: newSectionId,
+        new_order: newOrder
+    })
+
+    return response.data
+}

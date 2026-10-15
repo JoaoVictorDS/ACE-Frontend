@@ -48,6 +48,7 @@ export const API_ENDPOINTS = {
         UPDATE: (itemId) => `/v1/items/${itemId}`,
         CREATE: (sectionId) => `/v1/sections/${sectionId}/items`,
         DELETE: (itemId) => `/v1/items/${itemId}`,
+        MOVE: (itemId) => `/v1/items/${itemId}/move`,
     },
 
     ITEM_VALUES: {

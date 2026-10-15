@@ -50,3 +50,70 @@ export const deleteItem = (board, event) => {
         }))
     }
 }
+
+export const moveItem = (board, event) => {
+    const itemId = event.entityId
+    const { before, after } = event.changes
+
+    const currentItem = board.sections
+        .flatMap((section) => section.items)
+        .find((item) => item.id === itemId)
+
+    if (!currentItem) {
+        return board
+    }
+
+    const sourceSectionId = before.section_id
+    const targetSectionId = after.section_id
+
+    const targetSection = board.sections.find((section) => section.id === targetSectionId)
+
+    if (!targetSection) {
+        return board
+    }
+
+    const updatedSections = board.sections.map((section) => ({
+        ...section,
+        items: section.items
+            .filter((item) => item.id !== itemId)
+            .sort((a, b) => a.order - b.order)
+    }))
+
+    const destination = updatedSections.find((section) => section.id === targetSectionId)
+    const targetIndex = Math.max(0, Math.min(Number(after.order), destination.items.length))
+
+    const movedItem = {
+        ...currentItem,
+        ...after
+    }
+
+    const destinationItems = [...destination.items]
+    destinationItems.splice(targetIndex, 0, movedItem)
+
+    const affectedSectionIds = new Set([
+        sourceSectionId,
+        targetSectionId
+    ])
+
+    return {
+        ...board,
+        sections: updatedSections.map((section) => {
+            if (!affectedSectionIds.has(section.id)) {
+                return section
+            }
+
+            const items = section.id === targetSectionId
+                ? destinationItems
+                : section.items
+
+            return {
+                ...section,
+                items: items.map((item, index) => ({
+                    ...item,
+                    section_id: section.id,
+                    order: index
+                }))
+            }
+        })
+    }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Ellipsis, Trash2 } from 'lucide-react'
 import './BoardItemMenu.css'
@@ -6,12 +6,15 @@ import './BoardItemMenu.css'
 const MENU_GAP = 6
 const VIEWPORT_PADDING = 8
 
-export const BoardItemMenu = ({ item, onDelete, children, gridTemplateColumns }) => {
+export const BoardItemMenu = ({ item, onDelete, children }) => {
     const [open, setOpen] = useState(false)
     const [anchor, setAnchor] = useState(null)
     const [position, setPosition] = useState(null)
 
-    const handleOpenFromButton = (event) => {
+    const buttonRef = useRef(null)
+    const menuRef = useRef(null)
+
+    const handleButtonClick = (event) => {
         event.stopPropagation()
 
         if (open) {
@@ -20,18 +23,18 @@ export const BoardItemMenu = ({ item, onDelete, children, gridTemplateColumns })
         }
 
         const rect = event.currentTarget.getBoundingClientRect()
-
-        setAnchor({
+        const nextAnchor = {
             x: rect.right,
-            y: rect.bottom,
+            y: rect.bottom + MENU_GAP,
+            buttonTop: rect.top,
             type: 'button'
-        })
+        }
 
+        setAnchor(nextAnchor)
         setPosition({
-            top: rect.bottom + MENU_GAP,
-            left: rect.right
+            top: nextAnchor.y,
+            left: nextAnchor.x
         })
-
         setOpen(true)
     }
 
@@ -39,17 +42,17 @@ export const BoardItemMenu = ({ item, onDelete, children, gridTemplateColumns })
         event.preventDefault()
         event.stopPropagation()
 
-        setAnchor({
+        const nextAnchor = {
             x: event.clientX,
             y: event.clientY,
             type: 'cursor'
-        })
+        }
 
+        setAnchor(nextAnchor)
         setPosition({
-            top: event.clientY,
-            left: event.clientX
+            top: nextAnchor.y,
+            left: nextAnchor.x
         })
-
         setOpen(true)
     }
 
@@ -62,7 +65,10 @@ export const BoardItemMenu = ({ item, onDelete, children, gridTemplateColumns })
         if (!open) return
 
         const handlePointerDown = (event) => {
-            if (event.target.closest('.board-item-menu-dropdown')) {
+            if (
+                buttonRef.current?.contains(event.target) ||
+                menuRef.current?.contains(event.target)
+            ) {
                 return
             }
 
@@ -91,73 +97,68 @@ export const BoardItemMenu = ({ item, onDelete, children, gridTemplateColumns })
     }, [open])
 
     useLayoutEffect(() => {
-        if (!open || !anchor || !position) return
+        if (!open || !anchor || !menuRef.current) return
 
-        const menu = document.querySelector('.board-item-menu-dropdown')
+        const rect = menuRef.current.getBoundingClientRect()
 
-        if (!menu) return
-
-        const menuRect = menu.getBoundingClientRect()
+        let left = anchor.type === 'button'
+            ? anchor.x - rect.width
+            : anchor.x
 
         let top = anchor.y
-        let left = anchor.x
 
-        if (anchor.type === 'button') {
-            top = anchor.y
-            left = anchor.x - menuRect.width
-        }
-
-        if (top + menuRect.height > window.innerHeight - VIEWPORT_PADDING) {
+        if (top + rect.height > window.innerHeight - VIEWPORT_PADDING) {
             top = anchor.type === 'button'
-                ? anchor.y - menuRect.height - MENU_GAP
-                : anchor.y - menuRect.height
+                ? anchor.buttonTop - rect.height - MENU_GAP
+                : anchor.y - rect.height
         }
 
-        if (left + menuRect.width > window.innerWidth - VIEWPORT_PADDING) {
-            left = window.innerWidth - menuRect.width - VIEWPORT_PADDING
-        }
+        left = Math.max(
+            VIEWPORT_PADDING,
+            Math.min(left, window.innerWidth - rect.width - VIEWPORT_PADDING)
+        )
 
-        if (left < VIEWPORT_PADDING) {
-            left = VIEWPORT_PADDING
-        }
+        top = Math.max(
+            VIEWPORT_PADDING,
+            Math.min(top, window.innerHeight - rect.height - VIEWPORT_PADDING)
+        )
 
-        if (top < VIEWPORT_PADDING) {
-            top = VIEWPORT_PADDING
-        }
+        setPosition((current) => {
+            if (current?.top === top && current?.left === left) {
+                return current
+            }
 
-        setPosition({
-            top,
-            left
+            return { top, left }
         })
     }, [open, anchor])
 
-    return (
-        <div
-            className="board-item-menu-container"
-            onContextMenu={handleContextMenu}
-        >
-            <div
-                className="board-item-row"
-                style={{ gridTemplateColumns }}
+    const menuTrigger = (
+        <div className="board-item-menu-cell">
+            <button
+                ref={buttonRef}
+                data-no-drag
+                type="button"
+                className="board-item-more"
+                aria-label={`Mais opções de ${item.title}`}
+                aria-haspopup="menu"
+                aria-expanded={open}
+                onClick={handleButtonClick}
             >
-                {children}
+                <Ellipsis size={16} />
+            </button>
+        </div>
+    )
 
-                <div className="board-item-menu-cell">
-                    <button
-                        type="button"
-                        className="board-item-more"
-                        aria-label={`Mais opções de ${item.title}`}
-                        aria-haspopup="menu"
-                        aria-expanded={open}
-                        onClick={handleOpenFromButton}
-                    >
-                        <Ellipsis size={16} />
-                    </button>
-                </div>
-            </div>
+    return (
+        <>
+            {children({
+                onContextMenu: handleContextMenu,
+                menuTrigger
+            })}
 
             {open && position && createPortal(
                 <div
+                    ref={menuRef}
                     className="board-item-menu-dropdown"
                     role="menu"
                     style={{
@@ -177,6 +178,6 @@ export const BoardItemMenu = ({ item, onDelete, children, gridTemplateColumns })
                 </div>,
                 document.body
             )}
-        </div>
+        </>
     )
 }

@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import { DragDropProvider } from '@dnd-kit/react'
+import { PointerSensor, PointerActivationConstraints } from '@dnd-kit/dom'
+import { isSortable } from '@dnd-kit/react/sortable'
 import { BoardSection } from '../BoardSection/BoardSection'
 import { useResize } from '../../hooks/useResize'
 import './BoardTable.css'
@@ -10,6 +13,32 @@ const DEFAULT_ITEM_WIDTH = 260
 const MIN_COLUMN_WIDTH = 150
 const MAX_COLUMN_WIDTH = 1000
 const DEFAULT_COLUMN_WIDTH = 170
+
+const boardSensors = (defaults) => [
+    ...defaults.filter((sensor) => sensor !== PointerSensor),
+    PointerSensor.configure({
+        activationConstraints: [
+            new PointerActivationConstraints.Distance({ value: 6 })
+        ],
+        preventActivation: (event) => {
+            const target = event.target
+
+            if (!(target instanceof Element)) return false
+
+            if (target.closest('[data-no-drag]')) {
+                return true
+            }
+
+            if (target.closest('.board-cell-user-editing, .board-cell-select-editing')) {
+                return true
+            }
+
+            return Boolean(target.closest(
+                'input:not([type="checkbox"]), select, textarea, [contenteditable="true"]'
+            ))
+        }
+    })
+]
 
 export const BoardTable = ({
     board,
@@ -28,15 +57,15 @@ export const BoardTable = ({
     allItemsSelected,
     someItemsSelected,
     onToggleAllItems,
-    onToggleSectionSelection
+    onToggleSectionSelection,
+    onMoveItem
 }) => {
     const selectAllRef = useRef(null)
 
-    const columns = [...board.columns].filter((column) => !column.deleted_at).sort((a, b) => a.order - b.order)
-    const sections = [...board.sections].filter((section) => !section.deleted_at).sort((a, b) => a.order - b.order)
-
     const [itemWidth, setItemWidth] = useState(board.preferences?.item_width ?? DEFAULT_ITEM_WIDTH)
     const [columnWidths, setColumnWidths] = useState(board.preferences?.column_widths ?? {})
+    const columns = [...board.columns].filter((column) => !column.deleted_at).sort((a, b) => a.order - b.order)
+    const sections = [...board.sections].filter((section) => !section.deleted_at).sort((a, b) => a.order - b.order)
 
     useEffect(() => {
         setItemWidth(board.preferences?.item_width ?? DEFAULT_ITEM_WIDTH)
@@ -66,7 +95,6 @@ export const BoardTable = ({
             await onUpdatePreferences({
                 item_width: value
             })
-
             return
         }
 
@@ -82,17 +110,49 @@ export const BoardTable = ({
 
     const { resizingId, handlePointerDown, handlePointerMove, handlePointerUp, handlePointerCancel } = useResize({ onResize: handleResize, onCommit: handleResizeCommit })
 
+    const handleDragEnd = (event) => {
+        const { source, target } = event.operation
+
+        if (event.canceled || !target?.id) return
+
+        if (isSortable(source)) {
+            const { id, index, initialIndex, group, initialGroup } = source
+
+            if (index === initialIndex && group === initialGroup && id === target.id) {
+                return
+            }
+
+            if (target.type === 'item' && group !== target.group) {
+                return
+            }
+
+            const payload = {
+                itemId: id,
+                newOrder: target.index,
+                newSectionId: target.type === 'item' ? undefined : target.id
+            }
+
+            onMoveItem(payload)
+        }
+    }
+
+    const handleDragOver = (event) => {
+        const { target, source } = event.operation
+
+        if (target?.group !== source?.group) {
+            event.preventDefault()
+        }
+    }
+
     const gridTemplateColumns = [
-        '42px',
-        `${itemWidth}px`,
+        '42px', `${itemWidth}px`,
         ...columns.map((column) => {
             const width = columnWidths[column.id]
 
             return width
                 ? `${width}px`
                 : `minmax(${DEFAULT_COLUMN_WIDTH}px, 1fr)`
-        }),
-        '42px'
+        }), '42px'
     ].join(' ')
 
     return (
@@ -154,32 +214,41 @@ export const BoardTable = ({
                             </div>
                         )
                     })}
+
+                    <div className="board-table-end-header" />
                 </div>
 
                 <div className="board-table-body">
-                    {sections.map((section) => (
-                        <BoardSection
-                            key={section.id}
-                            section={section}
-                            columns={columns}
-                            users={users}
-                            board={board}
-                            gridTemplateColumns={gridTemplateColumns}
-                            onItemTitleCommit={onItemTitleCommit}
-                            onItemOpen={onItemOpen}
-                            onCellCommit={onCellCommit}
-                            onCreateItem={onCreateItem}
-                            onDeleteItem={onDeleteItem}
-                            addItemOpen={section.id === addItemSectionId}
-                            onOpenAddItem={onOpenAddItem}
-                            onCloseAddItem={onCloseAddItem}
-                            selectedItemIds={selectedItemIds}
-                            onToggleItemSelection={onToggleItemSelection}
-                            onToggleSectionSelection={onToggleSectionSelection}
-                        />
-                    ))}
+                    <DragDropProvider
+                        onDragEnd={handleDragEnd}
+                        onDragOver={handleDragOver}
+                        sensors={boardSensors}
+                    >
+                        {sections.map((section, index) => (
+                            <BoardSection
+                                key={section.id}
+                                index={index}
+                                section={section}
+                                columns={columns}
+                                users={users}
+                                board={board}
+                                gridTemplateColumns={gridTemplateColumns}
+                                onItemTitleCommit={onItemTitleCommit}
+                                onItemOpen={onItemOpen}
+                                onCellCommit={onCellCommit}
+                                onCreateItem={onCreateItem}
+                                onDeleteItem={onDeleteItem}
+                                addItemOpen={section.id === addItemSectionId}
+                                onOpenAddItem={onOpenAddItem}
+                                onCloseAddItem={onCloseAddItem}
+                                selectedItemIds={selectedItemIds}
+                                onToggleItemSelection={onToggleItemSelection}
+                                onToggleSectionSelection={onToggleSectionSelection}
+                            />
+                        ))}
+                    </DragDropProvider>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
