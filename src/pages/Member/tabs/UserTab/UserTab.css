@@ -1,0 +1,377 @@
+.user-tab-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.user-tab-header h3 {
+    margin: 0 0 6px;
+    color: var(--color-text-primary);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.user-tab-header p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.user-tab-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.user-tab-admin-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-input-background);
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.user-tab-admin-label svg {
+    color: var(--color-primary-hover);
+    flex-shrink: 0;
+}
+
+.user-tab-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.user-tab-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    max-width: 420px;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-input-background);
+    color: var(--color-text-secondary);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.user-tab-search:focus-within {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+.user-tab-search input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.user-tab-search input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.user-tab-role-filter {
+    min-width: 170px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.user-tab-role-filter:focus {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+.user-tab-count {
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.user-tab-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-lg);
+}
+
+.user-tab-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+}
+
+.user-tab-table th,
+.user-tab-table td {
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--color-divider);
+    vertical-align: middle;
+}
+
+.user-tab-table th {
+    background-color: var(--color-input-background);
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.user-tab-table th:first-child {
+    border-top-left-radius: var(--radius-lg);
+}
+
+.user-tab-table th:last-child {
+    border-top-right-radius: var(--radius-lg);
+}
+
+.user-tab-table td {
+    color: var(--color-text-primary);
+    font-size: 13px;
+}
+
+.user-tab-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.user-tab-table tbody tr:not(:has(.user-tab-empty-state)):hover {
+    background-color: var(--color-input-background);
+}
+
+.user-tab-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.15s ease;
+}
+
+.user-tab-sort:hover:not(:disabled) {
+    color: var(--color-text-primary);
+}
+
+.user-tab-sort:disabled {
+    cursor: default;
+}
+
+.user-tab-sort:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+.user-tab-identity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+}
+
+.user-tab-name {
+    color: var(--color-text-primary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.user-tab-role-badge,
+.user-tab-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 9px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.user-tab-role-badge {
+    background-color: var(--color-input-background);
+    color: var(--color-text-secondary);
+}
+
+.user-tab-role-select {
+    max-width: 180px;
+    padding: 5px 9px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-input-background);
+    color: var(--color-text-secondary);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.user-tab-role-select-admin {
+    border-color: var(--color-primary-hover);
+    color: var(--color-primary-hover);
+}
+
+.user-tab-role-select:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+.user-tab-role-admin {
+    border-color: var(--color-primary-hover);
+    color: var(--color-primary-hover);
+}
+
+.user-tab-status-badge {
+    background-color: var(--color-input-background);
+    color: var(--color-text-secondary);
+}
+
+.user-tab-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-text-muted);
+}
+
+.user-tab-status-active .user-tab-status-dot {
+    background-color: var(--color-primary-hover);
+}
+
+.user-tab-status-inactive .user-tab-status-dot {
+    background-color: var(--color-text-muted);
+}
+
+.user-tab-empty-cell {
+    padding: 0 !important;
+}
+
+.user-tab-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 260px;
+    min-height: 220px;
+    padding: 24px;
+    color: var(--color-text-secondary);
+    text-align: center;
+}
+
+.user-tab-empty-state h3 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.user-tab-empty-state p {
+    max-width: 360px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.user-tab-column-heading {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.user-tab-edit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 7px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.user-tab-edit-button:hover {
+    border-color: var(--color-primary-hover);
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+}
+
+.user-tab-edit-button:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+@media (max-width: 650px) {
+    .user-tab-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .user-tab-header-actions {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .user-tab-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .user-tab-search {
+        max-width: none;
+    }
+
+    .user-tab-role-filter {
+        width: 100%;
+    }
+
+    .user-tab-count {
+        align-self: flex-end;
+    }
+
+    .user-tab-table {
+        min-width: 740px;
+    }
+}

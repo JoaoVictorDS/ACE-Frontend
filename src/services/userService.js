@@ -24,3 +24,27 @@ export const updateUserPassword = async (data = {}) => {
 
     return response.data
 }
+
+export const updateUserProfileById = async ({ userId, data = {} }) => {
+    const response = await api.patch(API_ENDPOINTS.USERS.ADMIN.UPDATE(userId), data)
+
+    return response.data
+}
+
+export const deleteUser = async (userId) => {
+    const response = await api.delete(API_ENDPOINTS.USERS.ADMIN.DELETE(userId))
+
+    return response.data
+}
+
+export const reactivateUser = async (userId) => {
+    const response = await api.patch(API_ENDPOINTS.USERS.ADMIN.REACTIVATE(userId))
+
+    return response.data
+}
+
+export const createUser = async (data = {}) => {
+    const response = await api.post(API_ENDPOINTS.USERS.ADMIN.CREATE, data)
+
+    return response.data
+}

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getUserProfile, getUsers, updateUserProfile, updateUserPassword } from '../services/userService'
+import { getUserProfile, getUsers, updateUserProfile, updateUserPassword, updateUserProfileById, deleteUser, reactivateUser, createUser } from '../services/userService'
 import { STORAGE_KEYS } from '../constants/storageKeys'
 
 export const useUser = () => {
@@ -52,5 +52,85 @@ export const useUpdateUserPassword = () => {
         updateUserPasswordError: updateUserPasswordMutation.error,
         updateUserPasswordSuccess: updateUserPasswordMutation.isSuccess,
         resetUpdateUserPassword: updateUserPasswordMutation.reset,
+    }
+}
+
+export const useUpdateUserProfileById = () => {
+    const queryClient = useQueryClient()
+
+    const updateUserProfileByIdMutation = useMutation({
+        mutationFn: updateUserProfileById,
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users'] })
+        }
+    })
+
+    return {
+        updateUserProfileById: updateUserProfileByIdMutation.mutateAsync,
+        updatingUserProfileById: updateUserProfileByIdMutation.isPending,
+        updateUserProfileByIdError: updateUserProfileByIdMutation.error,
+        updateUserProfileByIdSuccess: updateUserProfileByIdMutation.isSuccess,
+        resetUpdateUserProfileById: updateUserProfileByIdMutation.reset
+    }
+}
+
+export const useDeleteUser = () => {
+    const queryClient = useQueryClient()
+
+    const deleteUserMutation = useMutation({
+        mutationFn: deleteUser,
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users'] })
+        }
+    })
+
+    return {
+        deleteUser: deleteUserMutation.mutateAsync,
+        deletingUser: deleteUserMutation.isPending,
+        deleteUserError: deleteUserMutation.error,
+        deleteUserSuccess: deleteUserMutation.isSuccess,
+        resetDeleteUser: deleteUserMutation.reset
+    }
+}
+
+export const useReactivateUser = () => {
+    const queryClient = useQueryClient()
+
+    const reactivateUserMutation = useMutation({
+        mutationFn: reactivateUser,
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users'] })
+        }
+    })
+
+    return {
+        reactivateUser: reactivateUserMutation.mutateAsync,
+        reactivatingUser: reactivateUserMutation.isPending,
+        reactivateUserError: reactivateUserMutation.error,
+        reactivateUserSuccess: reactivateUserMutation.isSuccess,
+        resetReactivateUser: reactivateUserMutation.reset
+    }
+}
+
+export const useCreateUser = () => {
+    const queryClient = useQueryClient()
+
+    const createUserMutation = useMutation({
+        mutationFn: createUser,
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users'] })
+        }
+    })
+
+    return {
+        createUser: createUserMutation.mutateAsync,
+        creatingUser: createUserMutation.isPending,
+        createUserError: createUserMutation.error,
+        createUserSuccess: createUserMutation.isSuccess,
+        resetCreateUser: createUserMutation.reset
     }
 }

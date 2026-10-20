@@ -36,7 +36,7 @@ export const Header = () => {
         setAvailability(value)
     }
 
-    const handleProfileClick = () => {
+    const handleUserMenuNavigation = () => {
         setShowUserMenu(false)
     }
 
@@ -118,9 +118,17 @@ export const Header = () => {
                                 <Link
                                     to="/profile"
                                     className="app-header-dropdown-item"
-                                    onClick={handleProfileClick}
+                                    onClick={handleUserMenuNavigation}
                                 >
                                     Perfil
+                                </Link>
+
+                                <Link
+                                    to="/members"
+                                    className="app-header-dropdown-item"
+                                    onClick={handleUserMenuNavigation}
+                                >
+                                    Membros
                                 </Link>
 
                                 <button

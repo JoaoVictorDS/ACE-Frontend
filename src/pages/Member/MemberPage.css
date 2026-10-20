@@ -1,0 +1,127 @@
+.member-container {
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+.member-content {
+    width: 100%;
+}
+
+.member-header {
+    margin-bottom: 24px;
+}
+
+.member-greeting {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+}
+
+.member-header h2 {
+    margin: 0 0 6px;
+    color: var(--color-text-primary);
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.member-header p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.member-tabs {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 24px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--color-border);
+    scrollbar-width: none;
+}
+
+.member-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.member-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 10px 14px;
+    margin-bottom: -1px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.member-tab:hover {
+    color: var(--color-text-primary);
+}
+
+.member-tab-active {
+    border-bottom-color: var(--color-primary-hover);
+    color: var(--color-primary-hover);
+    font-weight: 600;
+}
+
+.member-tab-content {
+    width: 100%;
+}
+
+.member-tab-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.member-placeholder-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 220px;
+    padding: 24px;
+    color: var(--color-text-secondary);
+    text-align: center;
+}
+
+.member-placeholder-state h3 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.member-placeholder-state p {
+    max-width: 440px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .member-header h2 {
+        font-size: 26px;
+    }
+
+    .member-tabs {
+        margin-right: -18px;
+        margin-left: -18px;
+        padding: 0 18px;
+    }
+}

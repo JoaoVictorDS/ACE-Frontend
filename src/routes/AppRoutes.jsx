@@ -10,6 +10,10 @@ import { SecurityTab } from '../pages/Profile/tabs/Security/SecurityTab'
 import { AccountTab } from '../pages/Profile/tabs/Account/AccountTab'
 import { WorkspacePage } from '../pages/Workspace/WorkspacePage'
 import { BoardPage } from '../pages/Board/BoardPage'
+import { MemberPage } from '../pages/Member/MemberPage'
+import { UserTab } from '../pages/Member/tabs/UserTab/UserTab'
+import { WorkspaceMemberTab } from '../pages/Member/tabs/WorkspaceMemberTab/WorkspaceMemberTab'
+import { BoardMemberTab } from '../pages/Member/tabs/BoardMemberTab/BoardMemberTab'
 
 export const AppRoutes = () => {
     return (
@@ -24,6 +28,11 @@ export const AppRoutes = () => {
                         <Route path="notifications" element={<NotificationsTab />} />
                         <Route path="security" element={<SecurityTab />} />
                         <Route path="account" element={<AccountTab />} />
+                    </Route>
+                    <Route path="members" element={<MemberPage />}>
+                        <Route index element={<UserTab />} />
+                        <Route path="workspaces" element={<WorkspaceMemberTab />} />
+                        <Route path="boards" element={<BoardMemberTab />} />
                     </Route>
                     <Route path="/workspaces/:workspaceId" element={<WorkspacePage />} />
                     <Route path="/workspaces/:workspaceId/boards/:boardId" element={<BoardPage />} />

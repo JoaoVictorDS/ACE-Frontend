@@ -1,0 +1,315 @@
+.create-user-modal {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(640px, calc(100% - 32px));
+    max-width: 640px;
+    max-height: calc(100vh - 32px);
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.create-user-modal::backdrop {
+    background-color: rgb(0 0 0 / 48%);
+    backdrop-filter: blur(3px);
+}
+
+.create-user-modal-content {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 32px);
+    min-height: 0;
+}
+
+.create-user-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.create-user-modal-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.create-user-modal-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-input-background);
+    color: var(--color-text-secondary);
+}
+
+.create-user-modal-heading h2 {
+    margin: 0 0 5px;
+    color: var(--color-text-primary);
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.create-user-modal-heading p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.create-user-modal-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.create-user-modal-close:hover:not(:disabled) {
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+}
+
+.create-user-modal-close:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+.create-user-modal-form {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.create-user-modal-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 0;
+    padding: 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.create-user-modal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.create-user-modal-section-heading h3 {
+    margin: 0 0 5px;
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.create-user-modal-section-heading p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.create-user-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.create-user-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.create-user-modal-field label {
+    color: var(--color-text-primary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.create-user-modal-field select,
+.create-user-modal-field textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 13px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.create-user-modal-field select:focus,
+.create-user-modal-field textarea:focus {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+.create-user-modal-field select:disabled,
+.create-user-modal-field textarea:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.create-user-modal-field textarea {
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.create-user-modal-field .create-user-modal-json {
+    min-height: 120px;
+    font-family: monospace;
+    font-size: 12px;
+    tab-size: 2;
+}
+
+.create-user-modal-help {
+    color: var(--color-text-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.create-user-modal-error {
+    color: var(--color-danger, var(--color-primary-hover));
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.create-user-modal-field textarea[aria-invalid="true"] {
+    border-color: var(--color-danger, var(--color-primary-hover));
+}
+
+.create-user-modal-footer {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-divider);
+    background-color: var(--color-surface);
+}
+
+.create-user-modal-footer-feedback {
+    width: 100%;
+}
+
+.create-user-modal-footer .form-feedback {
+    width: 100%;
+    margin-top: 0;
+    box-sizing: border-box;
+}
+
+.create-user-modal-footer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.create-user-modal-cancel,
+.create-user-modal-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
+    padding: 9px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.create-user-modal-cancel {
+    background-color: transparent;
+    color: var(--color-text-secondary);
+}
+
+.create-user-modal-cancel:hover:not(:disabled) {
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+}
+
+.create-user-modal-save {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: var(--color-text-on-primary, var(--color-background));
+}
+
+.create-user-modal-save:hover:not(:disabled) {
+    border-color: var(--color-primary-hover);
+    background-color: var(--color-primary-hover);
+}
+
+.create-user-modal-cancel:focus-visible,
+.create-user-modal-save:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+.create-user-modal-cancel:disabled,
+.create-user-modal-save:disabled,
+.create-user-modal-close:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .create-user-modal {
+        width: calc(100% - 20px);
+        max-height: calc(100vh - 20px);
+    }
+
+    .create-user-modal-content {
+        max-height: calc(100vh - 20px);
+    }
+
+    .create-user-modal-header {
+        padding: 18px;
+    }
+
+    .create-user-modal-body {
+        gap: 20px;
+        padding: 18px;
+    }
+
+    .create-user-modal-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .create-user-modal-footer {
+        padding: 14px 18px;
+    }
+}

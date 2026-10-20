@@ -21,6 +21,7 @@ export const API_ENDPOINTS = {
             CREATE: '/v1/users',
             UPDATE: (userId) => `/v1/users/${userId}`,
             DELETE: (userId) => `/v1/users/${userId}`,
+            REACTIVATE: (userId)=> `/v1/users/${userId}/reactivate`
         }
     },
 
