@@ -69,7 +69,7 @@ export const WorkspaceMemberTab = () => {
             })
         } catch (err) {
             error({
-                title: 'Não foi possível aletar a permissão do membro do workspace',
+                title: 'Não foi possível alterar a permissão do membro do workspace',
                 message: getErrorMessage(err)
             })
         }
