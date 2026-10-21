@@ -21,7 +21,7 @@ export const API_ENDPOINTS = {
             CREATE: '/v1/users',
             UPDATE: (userId) => `/v1/users/${userId}`,
             DELETE: (userId) => `/v1/users/${userId}`,
-            REACTIVATE: (userId)=> `/v1/users/${userId}/reactivate`
+            REACTIVATE: (userId) => `/v1/users/${userId}/reactivate`
         }
     },
 
@@ -34,6 +34,12 @@ export const API_ENDPOINTS = {
         MOVE: (workspaceId) => `/v1/workspaces/${workspaceId}/move`,
         LOGS: (workspaceId) => `/v1/workspaces/${workspaceId}/logs`,
         BOARDS: (workspaceId) => `/v1/workspaces/${workspaceId}/boards`,
+    },
+
+    WORKSPACE_MEMBERS: {
+        GET: (workspaceId) => `/v1/workspaces/${workspaceId}/members`,
+        UPSERT: (workspaceId) => `/v1/workspaces/${workspaceId}/members`,
+        REMOVE: (workspaceId, memberId) => `/v1/workspaces/${workspaceId}/members/${memberId}`,
     },
 
     BOARDS: {

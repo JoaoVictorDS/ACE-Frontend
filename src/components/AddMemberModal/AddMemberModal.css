@@ -1,0 +1,467 @@
+/* =========================
+   Dialog
+========================= */
+
+.add-member-modal {
+    width: min(560px, calc(100vw - 32px));
+    max-width: 560px;
+    max-height: calc(100dvh - 32px);
+
+    margin: auto;
+    padding: 0;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+
+    box-shadow: var(--shadow-lg);
+}
+
+.add-member-modal::backdrop {
+    background-color: rgb(0 0 0 / 55%);
+    backdrop-filter: blur(3px);
+}
+
+.add-member-modal-content {
+    display: flex;
+    flex-direction: column;
+
+    max-height: calc(100dvh - 32px);
+    min-height: 0;
+}
+
+/* =========================
+   Header
+========================= */
+
+.add-member-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.add-member-modal-heading {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    min-width: 0;
+}
+
+.add-member-modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface-hover);
+    color: var(--color-primary);
+}
+
+.add-member-modal-heading h2 {
+    margin: 1px 0 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.add-member-modal-heading p {
+    margin: 5px 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.add-member-modal-header>button {
+    flex-shrink: 0;
+
+    min-width: 34px !important;
+    min-height: 34px !important;
+    padding: 6px !important;
+}
+
+/* =========================
+   Form and body
+========================= */
+
+.add-member-modal-form {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+    overflow: hidden;
+}
+
+.add-member-modal-body {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    min-height: 0;
+    padding: 20px 22px;
+
+    overflow-y: auto;
+}
+
+.add-member-modal-label {
+    color: var(--color-text-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* =========================
+   Search
+========================= */
+
+.add-member-modal-search {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 0 12px;
+
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-input-background);
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.add-member-modal-search:focus-within {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.add-member-modal-search>svg {
+    flex-shrink: 0;
+
+    color: var(--color-text-muted);
+}
+
+.add-member-modal-search input {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+
+    padding: 0;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.add-member-modal-search input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* =========================
+   User selection
+========================= */
+
+.add-member-modal-users {
+    display: flex;
+    flex-direction: column;
+
+    max-height: 260px;
+    min-height: 92px;
+
+    margin-top: 3px;
+
+    overflow-y: auto;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.add-member-modal-user {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 0;
+    padding: 12px;
+
+    border-bottom: 1px solid var(--color-divider);
+
+    background-color: var(--color-surface);
+
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
+.add-member-modal-user:last-child {
+    border-bottom: 0;
+}
+
+.add-member-modal-user:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.add-member-modal-user-selected {
+    background-color: var(--color-surface-hover);
+    box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.add-member-modal-user input {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+}
+
+.add-member-modal-user:focus-within {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+}
+
+.add-member-modal-user-info {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+    min-width: 0;
+
+    gap: 3px;
+}
+
+.add-member-modal-user-info strong {
+    overflow: hidden;
+
+    color: var(--color-text-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.add-member-modal-user-info>span {
+    overflow: hidden;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.add-member-modal-radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 17px;
+    height: 17px;
+
+    border: 1px solid var(--color-input-border);
+    border-radius: 50%;
+}
+
+.add-member-modal-user-selected .add-member-modal-radio {
+    border-color: var(--color-primary);
+}
+
+.add-member-modal-user-selected .add-member-modal-radio::after {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primary);
+
+    content: '';
+}
+
+/* =========================
+   Loading, empty and errors
+========================= */
+
+.add-member-modal-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    min-height: 92px;
+    padding: 20px;
+
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    text-align: center;
+}
+
+.add-member-modal-loading {
+    width: 16px;
+    height: 16px;
+
+    flex-shrink: 0;
+
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+
+    animation: add-member-modal-spin 0.7s linear infinite;
+}
+
+@keyframes add-member-modal-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.add-member-modal-load-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 18px;
+}
+
+/* =========================
+   Role
+========================= */
+
+.add-member-modal-role-field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-top: 9px;
+}
+
+.add-member-modal-role-field select {
+    width: 100%;
+    min-height: 40px;
+
+    padding: 9px 12px;
+
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 12px;
+
+    outline: none;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.add-member-modal-role-field select:focus {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.add-member-modal-role-field select:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================
+   Footer
+========================= */
+
+.add-member-modal-footer {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    padding: 16px 22px;
+
+    border-top: 1px solid var(--color-divider);
+
+    background-color: var(--color-surface);
+}
+
+.add-member-modal-feedback {
+    width: 100%;
+}
+
+.add-member-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 520px) {
+    .add-member-modal-header {
+        padding: 16px;
+    }
+
+    .add-member-modal-body {
+        padding: 16px;
+    }
+
+    .add-member-modal-footer {
+        padding: 14px 16px;
+    }
+
+    .add-member-modal-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .add-member-modal-actions>button {
+        width: 100%;
+    }
+}
