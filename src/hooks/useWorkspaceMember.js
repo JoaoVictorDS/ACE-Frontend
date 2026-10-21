@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getWorkspaceMembers, upsertMember, removeMember } from '../services/workspaceMemberService'
+import { getWorkspaceMembers, upsertWorkspaceMember, removeWorkspaceMember } from '../services/workspaceMemberService'
 
 export const useWorkspaceMembers = (workspaceId) => {
     return useQuery({
@@ -13,7 +13,7 @@ export const useUpsertWorkspaceMember = () => {
     const queryClient = useQueryClient()
 
     const upsertWorkspaceMemberMutation = useMutation({
-        mutationFn: upsertMember,
+        mutationFn: upsertWorkspaceMember,
 
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['workspace-members'] })
@@ -33,7 +33,7 @@ export const useRemoveWorkspaceMember = () => {
     const queryClient = useQueryClient()
 
     const useRemoveWorkspaceMemberMutation = useMutation({
-        mutationFn: removeMember,
+        mutationFn: removeWorkspaceMember,
 
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['workspace-members'] })
