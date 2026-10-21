@@ -32,7 +32,7 @@ export const useUpsertWorkspaceMember = () => {
 export const useRemoveWorkspaceMember = () => {
     const queryClient = useQueryClient()
 
-    const useRemoveWorkspaceMemberMutation = useMutation({
+    const removeWorkspaceMemberMutation = useMutation({
         mutationFn: removeWorkspaceMember,
 
         onSuccess: () => {
@@ -41,10 +41,10 @@ export const useRemoveWorkspaceMember = () => {
     })
 
     return {
-        removeWorkspaceMember: useRemoveWorkspaceMemberMutation.mutateAsync,
-        removingWorkspaceMember: useRemoveWorkspaceMemberMutation.isPending,
-        removeWorkspaceMemberError: useRemoveWorkspaceMemberMutation.error,
-        removeWorkspaceMemberSuccess: useRemoveWorkspaceMemberMutation.isSuccess,
-        resetRemoveWorkspaceMember: useRemoveWorkspaceMemberMutation.reset
+        removeWorkspaceMember: removeWorkspaceMemberMutation.mutateAsync,
+        removingWorkspaceMember: removeWorkspaceMemberMutation.isPending,
+        removeWorkspaceMemberError: removeWorkspaceMemberMutation.error,
+        removeWorkspaceMemberSuccess: removeWorkspaceMemberMutation.isSuccess,
+        resetRemoveWorkspaceMember: removeWorkspaceMemberMutation.reset
     }
 }

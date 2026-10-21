@@ -12,7 +12,7 @@ export const useBoardMembers = (boardId) => {
 export const useUpdateBoardMemberPreferences = (boardId) => {
     const queryClient = useQueryClient()
 
-    const useUpdateBoardMemberPreferencesMutation = useMutation({
+    const updateBoardMemberPreferencesMutation = useMutation({
         mutationFn: (preferences) => updateBoardMemberPreferences({ boardId, preferences }),
 
         onSuccess: (data) => {
@@ -32,8 +32,8 @@ export const useUpdateBoardMemberPreferences = (boardId) => {
     })
 
     return {
-        updateBoardMemberPreferences: useUpdateBoardMemberPreferencesMutation.mutateAsync,
-        updatingBoardMemberPreferences: useUpdateBoardMemberPreferencesMutation.isPending,
-        updateBoardMemberPreferencesError: useUpdateBoardMemberPreferencesMutation.error
+        updateBoardMemberPreferences: updateBoardMemberPreferencesMutation.mutateAsync,
+        updatingBoardMemberPreferences: updateBoardMemberPreferencesMutation.isPending,
+        updateBoardMemberPreferencesError: updateBoardMemberPreferencesMutation.error
     }
 }
