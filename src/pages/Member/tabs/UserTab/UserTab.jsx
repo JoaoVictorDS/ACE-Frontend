@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
 import { useUsers, useUser } from '../../../../hooks/useUser'
-import { useTable, tableFeatures, rowSortingFeature, columnFilteringFeature, globalFilteringFeature, createSortedRowModel, createFilteredRowModel, sortFn_text } from '@tanstack/react-table'
+import { useTable } from '@tanstack/react-table'
+import { createDefaultTableFeatures, createGlobalTextFilter, filterByExactValue } from '../../../../utils/table'
+import { getSystemRoleLabel } from '../../../../utils/role'
 import { AlertCircle, ArrowDownUp, ChevronDown, ChevronUp, Pencil, RefreshCcw, Search, ShieldCheck, UserPlus, UsersRound } from 'lucide-react'
 import { Button } from '../../../../components/Button/Button'
 import { ProfileSection } from '../../../../components/ProfileSection/ProfileSection'
@@ -12,40 +14,11 @@ import { EditUserModal } from '../../../../components/EditUserModal/EditUserModa
 import { CreateUserModal } from '../../../../components/CreateUserModal/CreateUserModal'
 import './UserTab.css'
 
-const normalizeText = (value = '') => {
-    return String(value)
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLocaleLowerCase()
-}
-
-const filterUserSearch = (row, columnId, filterValue) => {
-    const search = normalizeText(filterValue?.trim() ?? '')
-
-    if (!search) {
-        return true
-    }
-
-    const user = row.original
-    const searchableText = normalizeText(`${user.name ?? ''} ${user.email ?? ''}`)
-
-    return searchableText.includes(search)
-}
-
-const filterUserRole = (row, columnId, filterValue) => {
-    const role = row.getValue(columnId)
-
-    return role === filterValue
-}
-
-const features = tableFeatures({
-    columnFilteringFeature,
-    globalFilteringFeature,
-    rowSortingFeature,
-    filteredRowModel: createFilteredRowModel(),
-    sortedRowModel: createSortedRowModel(),
-    sortFns: { text: sortFn_text }
+const filterUserSearch = createGlobalTextFilter((user) => {
+    return `${user.name ?? ''} ${user.email ?? ''}`
 })
+
+const features = createDefaultTableFeatures()
 
 export const UserTab = () => {
     const { data: user } = useUser()
@@ -77,13 +50,13 @@ export const UserTab = () => {
             accessorKey: 'role',
             header: 'Perfil de acesso',
             sortFn: 'text',
-            filterFn: filterUserRole,
+            filterFn: filterByExactValue,
             enableGlobalFilter: false,
             cell: (info) => (
                 <span
                     className={`user-tab-role-badge ${info.getValue() === 'ADMIN' ? 'user-tab-role-admin' : ''}`}
                 >
-                    {info.getValue() === 'ADMIN' ? 'Administrador' : 'Membro'}
+                    {getSystemRoleLabel(info.getValue())}
                 </span>
             )
         },
