@@ -93,7 +93,7 @@ export const WorkspaceMemberTab = () => {
                 message: getErrorMessage(err)
             })
         }
-    }, [selectedWorkspaceId, upsertWorkspaceMember, success, error])
+    }, [selectedWorkspaceId, removeWorkspaceMember, success, error])
 
     const columns = useMemo(() => [
         {
