@@ -50,6 +50,8 @@ export const API_ENDPOINTS = {
     BOARD_MEMBERS: {
         GET: (boardId) => `/v1/boards/${boardId}/members`,
         UPDATE_PREFERENCES: (boardId) => `/v1/boards/${boardId}/preferences`,
+        UPSERT: (boardId) => `/v1/boards/${boardId}/members`,
+        REMOVE: (boardId, memberId) => `/v1/boards/${boardId}/members/${memberId}`,
     },
 
     ITEM: {

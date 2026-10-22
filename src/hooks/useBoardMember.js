@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { getBoardMembers, updateBoardMemberPreferences } from '../services/boardMemberService'
+import { getBoardMembers, updateBoardMemberPreferences, upsertBoardMember, removeBoardMember } from '../services/boardMemberService'
 
 export const useBoardMembers = (boardId) => {
     return useQuery({
@@ -35,5 +35,45 @@ export const useUpdateBoardMemberPreferences = (boardId) => {
         updateBoardMemberPreferences: updateBoardMemberPreferencesMutation.mutateAsync,
         updatingBoardMemberPreferences: updateBoardMemberPreferencesMutation.isPending,
         updateBoardMemberPreferencesError: updateBoardMemberPreferencesMutation.error
+    }
+}
+
+export const useUpsertBoardMember = () => {
+    const queryClient = useQueryClient()
+
+    const upsertBoardMemberMutation = useMutation({
+        mutationFn: upsertBoardMember,
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['board-members'] })
+        }
+    })
+
+    return {
+        upsertBoardMember: upsertBoardMemberMutation.mutateAsync,
+        upsertingBoardMember: upsertBoardMemberMutation.isPending,
+        upsertBoardMemberError: upsertBoardMemberMutation.error,
+        upsertBoardMemberSuccess: upsertBoardMemberMutation.isSuccess,
+        resetUpsertBoardMember: upsertBoardMemberMutation.reset
+    }
+}
+
+export const useRemoveBoardMember = () => {
+    const queryClient = useQueryClient()
+
+    const removeBoardMemberMutation = useMutation({
+        mutationFn: removeBoardMember,
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['board-members'] })
+        }
+    })
+
+    return {
+        removeBoardMember: removeBoardMemberMutation.mutateAsync,
+        removingBoardMember: removeBoardMemberMutation.isPending,
+        removeBoardMemberError: removeBoardMemberMutation.error,
+        removeBoardMemberSuccess: removeBoardMemberMutation.isSuccess,
+        resetRemoveBoardMember: removeBoardMemberMutation.reset
     }
 }
