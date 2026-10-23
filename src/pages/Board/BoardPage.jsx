@@ -4,14 +4,16 @@ import { useBoard } from '../../hooks/useBoard'
 import { useUpdateItemTitle, useCreateItem, useDeleteItem, useMoveItem } from '../../hooks/useItem'
 import { useUpsertItemValue } from '../../hooks/useItemValue'
 import { useBoardMembers, useUpdateBoardMemberPreferences } from '../../hooks/useBoardMember'
+import { useCreateSection, useUpdateSectionName, useMoveSection, useDeleteSection } from '../../hooks/useSection'
 import { useToast } from '../../hooks/useToast'
 import { BoardSocketListener } from '../../listeners/BoardSocketListener/BoardSocketListener'
 import { LoadingScreen } from '../../components/LoadingScreen/LoadingScreen'
-import { AlertCircle, Ellipsis, LayoutGrid, Pause, RefreshCcw } from 'lucide-react'
+import { AlertCircle, Ellipsis, LayoutGrid, RefreshCcw } from 'lucide-react'
 import { BoardToolbar } from '../../components/BoardToolbar/BoardToolbar'
 import { BoardTable } from '../../components/BoardTable/BoardTable'
 import { FeedbackState } from '../../components/FeedbackState/FeedbackState'
 import { Button } from '../../components/Button/Button'
+import { ConfirmDialog } from '../../components/ConfirmDialog/ConfirmDialog'
 import { getErrorMessage } from '../../utils/error'
 import './BoardPage.css'
 
@@ -26,10 +28,16 @@ export const BoardPage = () => {
     const { moveItem } = useMoveItem()
     const { upsertItemValue } = useUpsertItemValue()
     const { updateBoardMemberPreferences } = useUpdateBoardMemberPreferences(boardId)
+    const { createSection } = useCreateSection()
+    const { updateSectionName } = useUpdateSectionName()
+    const { moveSection } = useMoveSection()
+    const { deleteSection, deletingSection } = useDeleteSection()
     const { error } = useToast()
 
     const [addItemSectionId, setAddItemSectionId] = useState(null)
+    const [addSectionOpen, setAddSectionOpen] = useState(false)
     const [selectedItemIds, setSelectedItemIds] = useState([])
+    const [sectionPendingDelete, setSectionPendingDelete] = useState(null)
 
     if (boardLoading) {
         return <LoadingScreen />
@@ -69,22 +77,16 @@ export const BoardPage = () => {
         setAddItemSectionId(null)
     }
 
-    const handleItemOpen = (item) => {
-        console.log('Abrir item:', item.id)
+    const handleOpenAddSection = () => {
+        setAddSectionOpen(true)
     }
 
-    const handleItemTitleCommit = async ({ item, title }) => {
-        try {
-            await updateItemTitle({
-                itemId: item.id,
-                title
-            })
-        } catch (err) {
-            error({
-                title: 'Erro ao salvar o título do item',
-                message: getErrorMessage(err)
-            })
-        }
+    const handleCloseAddSection = () => {
+        setAddSectionOpen(false)
+    }
+
+    const handleItemOpen = (item) => {
+        console.log('Abrir item:', item.id)
     }
 
     const handleCellCommit = async ({ item, column, value }) => {
@@ -97,6 +99,20 @@ export const BoardPage = () => {
         } catch (err) {
             error({
                 title: 'Erro ao salvar dados',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleItemTitleCommit = async ({ item, title }) => {
+        try {
+            await updateItemTitle({
+                itemId: item.id,
+                title
+            })
+        } catch (err) {
+            error({
+                title: 'Erro ao salvar o título do item',
                 message: getErrorMessage(err)
             })
         }
@@ -127,6 +143,93 @@ export const BoardPage = () => {
                 message: getErrorMessage(err)
             })
         }
+    }
+
+    const handleMoveItem = async (payload) => {
+        try {
+            await moveItem(payload)
+        } catch (err) {
+            error({
+                title: 'Erro ao mover o item',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleCreateSection = async (name) => {
+        try {
+            await createSection({
+                boardId,
+                name
+            })
+        } catch (err) {
+            error({
+                title: 'Erro ao criar a seção',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleSectionNameCommit = async ({ section, name }) => {
+        try {
+            await updateSectionName({
+                sectionId: section.id,
+                name
+            })
+        } catch (err) {
+            error({
+                title: 'Erro ao salvar o nome da section',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleMoveSection = async ({ sectionId, newOrder }) => {
+        try {
+            await moveSection({
+                sectionId,
+                newOrder
+            })
+
+        } catch (err) {
+            error({
+                title: 'Erro ao mover a seção',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleDeleteSection = (section) => {
+        setSectionPendingDelete(section)
+    }
+
+    const handleConfirmDeleteSection = async () => {
+        if (!sectionPendingDelete || deletingSection) {
+            return
+        }
+
+        const section = sectionPendingDelete
+
+        try {
+            await deleteSection(section.id)
+
+            const deletedItemIds = new Set((section.items ?? []).map((item) => String(item.id)))
+
+            setSelectedItemIds((current) => (current.filter((itemId) => (!deletedItemIds.has(String(itemId))))))
+
+            setSectionPendingDelete(null)
+        } catch (err) {
+            setSectionPendingDelete(null)
+
+            error({
+                title: 'Erro ao excluir a seção',
+                message: getErrorMessage(err)
+            })
+        }
+    }
+
+    const handleCancelDeleteSection = () => {
+        setSectionPendingDelete(null)
     }
 
     const handleUpdatePreferences = async (preferences) => {
@@ -180,17 +283,6 @@ export const BoardPage = () => {
         })
     }
 
-    const handleMoveItem = async (payload) => {
-        try {
-            await moveItem(payload)
-        } catch (err) {
-            error({
-                title: 'Erro ao mover o item',
-                message: getErrorMessage(err)
-            })
-        }
-    }
-
     return (
         <div className="board-page">
             <BoardSocketListener boardId={boardId} />
@@ -232,6 +324,7 @@ export const BoardPage = () => {
             <BoardToolbar
                 board={board}
                 onNewItem={handleOpenAddItem}
+                onNewSection={handleOpenAddSection}
             />
 
             <main className="board-page-content">
@@ -254,8 +347,27 @@ export const BoardPage = () => {
                     onToggleAllItems={handleToggleAllItems}
                     onToggleSectionSelection={handleToggleSectionSelection}
                     onMoveItem={handleMoveItem}
+                    addSectionOpen={addSectionOpen}
+                    onOpenAddSection={handleOpenAddSection}
+                    onCloseAddSection={handleCloseAddSection}
+                    onCreateSection={handleCreateSection}
+                    onSectionNameCommit={handleSectionNameCommit}
+                    onMoveSection={handleMoveSection}
+                    onDeleteSection={handleDeleteSection}
                 />
             </main>
+            {sectionPendingDelete && (
+                <ConfirmDialog
+                    title="Excluir seção?"
+                    message={`A seção "${sectionPendingDelete.name}" e todos os itens contidos nela serão excluídos. Esta ação não poderá ser desfeita.`}
+                    confirmLabel="Excluir seção"
+                    cancelLabel="Cancelar"
+                    variant="danger"
+                    isPending={deletingSection}
+                    onConfirm={handleConfirmDeleteSection}
+                    onCancel={handleCancelDeleteSection}
+                />
+            )}
         </div>
     )
 }

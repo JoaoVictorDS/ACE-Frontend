@@ -47,6 +47,13 @@ export const API_ENDPOINTS = {
         CREATE: (workspaceId) => `/v1/workspaces/${workspaceId}/boards`
     },
 
+    SECTIONS: {
+        CREATE: (boardId) => `/v1/boards/${boardId}/sections`,
+        UPDATE: (sectionId) => `/v1/sections/${sectionId}`,
+        MOVE: (sectionId) => `/v1/sections/${sectionId}/move`,
+        DELETE: (sectionId) => `/v1/sections/${sectionId}`
+    },
+
     BOARD_MEMBERS: {
         GET: (boardId) => `/v1/boards/${boardId}/members`,
         UPDATE_PREFERENCES: (boardId) => `/v1/boards/${boardId}/preferences`,

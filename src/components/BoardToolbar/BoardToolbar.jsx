@@ -3,7 +3,7 @@ import { ArrowUpDown, ChevronDown, Filter, Plus, Search, Settings2 } from 'lucid
 import { Button } from '../Button/Button'
 import './BoardToolbar.css'
 
-export const BoardToolbar = ({ board, onNewItem }) => {
+export const BoardToolbar = ({ board, onNewItem, onNewSection }) => {
     const [showNewItemMenu, setShowNewItemMenu] = useState(false)
     const newItemRef = useRef(null)
 
@@ -75,6 +75,15 @@ export const BoardToolbar = ({ board, onNewItem }) => {
                         </div>
                     )}
                 </div>
+                
+                <Button
+                    variant="secondary"
+                    type="button"
+                    onClick={onNewSection}
+                >
+                    <Plus size={16} />
+                    Nova seção
+                </Button>
 
                 <button
                     type="button"

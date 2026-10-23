@@ -3,6 +3,7 @@ import { DragDropProvider } from '@dnd-kit/react'
 import { PointerSensor, PointerActivationConstraints } from '@dnd-kit/dom'
 import { isSortable } from '@dnd-kit/react/sortable'
 import { BoardSection } from '../BoardSection/BoardSection'
+import { AddSectionRow } from '../AddSectionRow/AddSectionRow'
 import { useResize } from '../../hooks/useResize'
 import './BoardTable.css'
 
@@ -58,7 +59,14 @@ export const BoardTable = ({
     someItemsSelected,
     onToggleAllItems,
     onToggleSectionSelection,
-    onMoveItem
+    onMoveItem,
+    addSectionOpen,
+    onOpenAddSection,
+    onCloseAddSection,
+    onCreateSection,
+    onSectionNameCommit,
+    onMoveSection,
+    onDeleteSection
 }) => {
     const selectAllRef = useRef(null)
 
@@ -113,31 +121,60 @@ export const BoardTable = ({
     const handleDragEnd = (event) => {
         const { source, target } = event.operation
 
-        if (event.canceled || !target?.id) return
-
-        if (isSortable(source)) {
-            const { id, index, initialIndex, group, initialGroup } = source
-
-            if (index === initialIndex && group === initialGroup && id === target.id) {
-                return
-            }
-
-            if (target.type === 'item' && group !== target.group) {
-                return
-            }
-
-            const payload = {
-                itemId: id,
-                newOrder: target.index,
-                newSectionId: target.type === 'item' ? undefined : target.id
-            }
-
-            onMoveItem(payload)
+        if (event.canceled || !target?.id || !isSortable(source)) {
+            return
         }
+
+        const { id, index, initialIndex, group, initialGroup } = source
+
+        if (source.type === 'section') {
+            const sectionId = source.data?.sectionId
+
+            if (sectionId == null || index === initialIndex) {
+                return
+            }
+
+            onMoveSection({
+                sectionId,
+                newOrder: index
+            })
+
+            return
+        }
+
+        if (source.type !== 'item') {
+            return
+        }
+
+        if (index === initialIndex && group === initialGroup && id === target.id) {
+            return
+        }
+
+        if (target.type === 'item' && group !== target.group) {
+            return
+        }
+
+        const isSectionTarget = target.type === 'section'
+
+        const payload = {
+            itemId: id,
+            newOrder: isSectionTarget
+                ? Number(target.data?.itemCount ?? 0)
+                : target.index,
+            newSectionId: isSectionTarget
+                ? target.data?.sectionId ?? target.id
+                : undefined
+        }
+
+        onMoveItem(payload)
     }
 
     const handleDragOver = (event) => {
         const { target, source } = event.operation
+
+        if (source?.type === 'section') {
+            return
+        }
 
         if (target?.group !== source?.group) {
             event.preventDefault()
@@ -238,6 +275,8 @@ export const BoardTable = ({
                                 onCellCommit={onCellCommit}
                                 onCreateItem={onCreateItem}
                                 onDeleteItem={onDeleteItem}
+                                onSectionNameCommit={onSectionNameCommit}
+                                onDeleteSection={onDeleteSection}
                                 addItemOpen={section.id === addItemSectionId}
                                 onOpenAddItem={onOpenAddItem}
                                 onCloseAddItem={onCloseAddItem}
@@ -247,6 +286,12 @@ export const BoardTable = ({
                             />
                         ))}
                     </DragDropProvider>
+                    <AddSectionRow
+                        open={addSectionOpen}
+                        onOpen={onOpenAddSection}
+                        onClose={onCloseAddSection}
+                        onCreate={onCreateSection}
+                    />
                 </div>
             </div >
         </div >

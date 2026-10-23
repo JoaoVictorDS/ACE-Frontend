@@ -1,0 +1,87 @@
+.board-add-section-row {
+    display: block;
+    width: 100%;
+}
+
+.board-add-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    box-sizing: border-box;
+
+    padding: 0 12px;
+
+    border: 0;
+    border-top: 1px solid var(--color-divider);
+
+    background: transparent;
+    color: var(--color-text-muted);
+
+    font: inherit;
+    font-size: 13px;
+
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-add-section:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-secondary);
+}
+
+.board-add-section:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.board-add-section-editing {
+    cursor: default;
+}
+
+.board-add-section-editing:hover {
+    color: var(--color-text-muted);
+}
+
+.board-add-section input {
+    flex: 1;
+
+    min-width: 0;
+    height: 28px;
+
+    padding: 0 8px;
+
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-sm);
+
+    outline: none;
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font: inherit;
+    font-size: 13px;
+}
+
+.board-add-section input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
+.board-add-section input:focus {
+    border-color: var(--color-focus);
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.board-add-section-status {
+    flex-shrink: 0;
+
+    color: var(--color-text-muted);
+    font-size: 11px;
+}
