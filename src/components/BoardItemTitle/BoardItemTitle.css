@@ -8,7 +8,7 @@
 
     padding: 0 14px;
 
-    border-right: 1px solid var(--color-divider);
+    border-right: 1px solid var(--color-border-strong);
 }
 
 .board-item-title-edit {
