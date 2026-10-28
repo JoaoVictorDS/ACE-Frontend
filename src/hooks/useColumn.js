@@ -44,7 +44,7 @@ export const useDeleteColumn = () => {
 
     return {
         deleteColumn: deleteColumnMutation.mutateAsync,
-        deletingColumn: deleteColumnMutation.error,
+        deletingColumn: deleteColumnMutation.isPending,
         resetDeleteColumn: deleteColumnMutation.reset
     }
 }

@@ -83,6 +83,6 @@ export const useMoveItem = () => {
         movingItem: moveItemMutation.isPending,
         moveItemError: moveItemMutation.error,
         moveItemSuccess: moveItemMutation.isSuccess,
-        reseteMoveItem: moveItemMutation.reset
+        resetMoveItem: moveItemMutation.reset
     }
 }
