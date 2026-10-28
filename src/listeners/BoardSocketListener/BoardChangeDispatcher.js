@@ -1,7 +1,30 @@
 import { BOARD_CHANGE_REGISTRY } from './boardChangeRegistry'
+import { BOARD_CHANGE_SYNC_REGISTRY } from './boardChangeSyncRegistry'
 
-export const dispatchBoardChange = ({ queryClient, boardId, event }) => {
+export const dispatchBoardChange = async ({ queryClient, boardId, event }) => {
     if (!event) {
+        return
+    }
+
+    const queryKey = ['board', boardId]
+
+    const syncHandler =
+        BOARD_CHANGE_SYNC_REGISTRY[event.entityType]?.[event.action]
+
+    if (syncHandler) {
+        try {
+            await syncHandler({
+                queryClient,
+                boardId,
+                event
+            })
+        } catch {
+            await queryClient.invalidateQueries({
+                queryKey,
+                exact: true
+            })
+        }
+
         return
     }
 
@@ -17,5 +40,11 @@ export const dispatchBoardChange = ({ queryClient, boardId, event }) => {
         return
     }
 
-    queryClient.setQueryData(['board', boardId], (currentData) => handler(currentData, event))
+    queryClient.setQueryData(queryKey, currentData => {
+        if (!currentData) {
+            return currentData
+        }
+
+        return handler(currentData, event)
+    })
 }

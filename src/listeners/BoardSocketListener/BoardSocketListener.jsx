@@ -14,7 +14,16 @@ export const BoardSocketListener = ({ boardId }) => {
         }
 
         const handleDomainChanged = (event) => {
-            dispatchBoardChange({ queryClient, boardId, event })
+            void dispatchBoardChange({
+                queryClient,
+                boardId,
+                event
+            }).catch(() => {
+                void queryClient.invalidateQueries({
+                    queryKey: ['board', boardId],
+                    exact: true
+                })
+            })
         }
 
         socket.emit('board:join', boardId)

@@ -1,19 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
 import { DragDropProvider } from '@dnd-kit/react'
 import { PointerSensor, PointerActivationConstraints } from '@dnd-kit/dom'
+import { BoardColumnHeader } from '../BoardColumnHeader/BoardColumnHeader'
 import { isSortable } from '@dnd-kit/react/sortable'
 import { BoardSection } from '../BoardSection/BoardSection'
 import { AddSectionRow } from '../AddSectionRow/AddSectionRow'
 import { useResize } from '../../hooks/useResize'
+import { Plus } from 'lucide-react'
 import './BoardTable.css'
 
 const MIN_ITEM_WIDTH = 150
-const MAX_ITEM_WIDTH = 1000
-const DEFAULT_ITEM_WIDTH = 260
+const MAX_ITEM_WIDTH = 1500
+const DEFAULT_ITEM_WIDTH = 250
 
 const MIN_COLUMN_WIDTH = 150
-const MAX_COLUMN_WIDTH = 1000
-const DEFAULT_COLUMN_WIDTH = 170
+const MAX_COLUMN_WIDTH = 1500
+const DEFAULT_COLUMN_WIDTH = 250
 
 const boardSensors = (defaults) => [
     ...defaults.filter((sensor) => sensor !== PointerSensor),
@@ -66,7 +68,13 @@ export const BoardTable = ({
     onCreateSection,
     onSectionNameCommit,
     onMoveSection,
-    onDeleteSection
+    onDeleteSection,
+    onCreateColumn,
+    onColumnNameCommit,
+    onEditColumn,
+    onConfigureColumnRestrictions,
+    onMoveColumn,
+    onDeleteColumn,
 }) => {
     const selectAllRef = useRef(null)
 
@@ -92,9 +100,19 @@ export const BoardTable = ({
             return
         }
 
+        if (value == null) {
+            setColumnWidths((current) => {
+                const next = { ...current }
+                delete next[id]
+                return next
+            })
+
+            return
+        }
+
         setColumnWidths((current) => ({
             ...current,
-            [id]: value
+            [id]: value,
         }))
     }
 
@@ -117,6 +135,36 @@ export const BoardTable = ({
     }
 
     const { resizingId, handlePointerDown, handlePointerMove, handlePointerUp, handlePointerCancel } = useResize({ onResize: handleResize, onCommit: handleResizeCommit })
+
+    const handleColumnDragEnd = (event) => {
+        const { source, target } = event.operation
+
+        if (event.canceled || !target || !isSortable(source)) {
+            return
+        }
+
+        if (source.type !== 'column' || target.type !== 'column') {
+            return
+        }
+
+        const { index, initialIndex } = source
+        const columnId = source.data?.columnId
+
+        if (columnId == null || index === initialIndex) {
+            return
+        }
+
+        const targetColumn = columns[index]
+
+        if (!targetColumn || targetColumn.id === columnId) {
+            return
+        }
+
+        onMoveColumn({
+            columnId,
+            newOrder: targetColumn.order,
+        })
+    }
 
     const handleDragEnd = (event) => {
         const { source, target } = event.operation
@@ -198,69 +246,85 @@ export const BoardTable = ({
                 className="board-table"
                 style={{ '--board-grid-columns': gridTemplateColumns }}
             >
-                <div className="board-table-header">
-                    <div className="board-table-selection-header">
-                        <input
-                            ref={selectAllRef}
-                            type="checkbox"
-                            checked={allItemsSelected}
-                            onChange={onToggleAllItems}
-                            aria-label="Selecionar todos os itens"
-                        />
-                    </div>
+                <DragDropProvider
+                    onDragEnd={handleColumnDragEnd}
+                    sensors={boardSensors}
+                >
+                    <div className="board-table-header">
+                        <div className="board-table-selection-header">
+                            <input
+                                ref={selectAllRef}
+                                type="checkbox"
+                                checked={allItemsSelected}
+                                onChange={onToggleAllItems}
+                                aria-label="Selecionar todos os itens"
+                            />
+                        </div>
 
-                    <div className={`board-table-item-header ${columns.length === 0 ? 'board-table-item-header-empty' : ''} ${resizingId === 'item' ? 'is-resizing' : ''}`}>
-                        <span>{board.item_label_plural}</span>
+                        <div className={`board-table-item-header ${columns.length === 0 ? 'board-table-item-header-empty' : ''} ${resizingId === 'item' ? 'is-resizing' : ''}`}>
+                            <span>{board.item_label_plural}</span>
 
-                        <div
-                            className="board-resize-handle board-item-resize-handle"
-                            onPointerDown={(event) => handlePointerDown(event, {
-                                id: 'item',
-                                value: itemWidth,
-                                min: MIN_ITEM_WIDTH,
-                                max: MAX_ITEM_WIDTH
-                            })}
-                            onPointerMove={handlePointerMove}
-                            onPointerUp={handlePointerUp}
-                            onPointerCancel={handlePointerCancel}
-                        />
-                    </div>
-
-                    {columns.map((column) => {
-                        const width = columnWidths[column.id] ?? DEFAULT_COLUMN_WIDTH
-
-                        return (
                             <div
-                                key={column.id}
-                                className={`board-table-column-header ${resizingId === column.id ? 'is-resizing' : ''}`}
-                            >
-                                <span>{column.name}</span>
+                                className="board-resize-handle board-item-resize-handle"
+                                onPointerDown={(event) => handlePointerDown(event, {
+                                    id: 'item',
+                                    value: itemWidth,
+                                    min: MIN_ITEM_WIDTH,
+                                    max: MAX_ITEM_WIDTH
+                                })}
+                                onPointerMove={handlePointerMove}
+                                onPointerUp={handlePointerUp}
+                                onPointerCancel={handlePointerCancel}
+                            />
+                        </div>
 
-                                <div
-                                    className="board-resize-handle board-column-resize-handle"
-                                    onPointerDown={(event) => handlePointerDown(event, {
-                                        id: column.id,
-                                        value: width,
-                                        min: MIN_COLUMN_WIDTH,
-                                        max: MAX_COLUMN_WIDTH
-                                    })}
-                                    onPointerMove={handlePointerMove}
-                                    onPointerUp={handlePointerUp}
-                                    onPointerCancel={handlePointerCancel}
+                        {columns.map((column, index) => {
+                            const width = columnWidths[column.id] ?? DEFAULT_COLUMN_WIDTH
+
+                            return (
+                                <BoardColumnHeader
+                                    key={column.id}
+                                    column={column}
+                                    index={index}
+                                    width={width}
+                                    storedWidth={columnWidths[column.id] ?? null}
+                                    minWidth={MIN_COLUMN_WIDTH}
+                                    maxWidth={MAX_COLUMN_WIDTH}
+                                    isResizing={resizingId === column.id}
+                                    onResizeStart={handlePointerDown}
+                                    onResizeMove={handlePointerMove}
+                                    onResizeEnd={handlePointerUp}
+                                    onResizeCancel={handlePointerCancel}
+                                    onColumnNameCommit={onColumnNameCommit}
+                                    onEdit={onEditColumn}
+                                    onConfigureRestrictions={onConfigureColumnRestrictions}
+                                    onDelete={onDeleteColumn}
                                 />
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
 
-                    <div className="board-table-end-header" />
-                </div>
+                        <div className="board-table-end-header">
+                            <button
+                                type="button"
+                                className="board-table-add-column"
+                                data-no-drag="true"
+                                title="Adicionar coluna"
+                                aria-label="Adicionar coluna"
+                                onClick={onCreateColumn}
+                            >
+                                <Plus size={16} />
+                            </button>
+                        </div>
+                    </div>
+                </DragDropProvider>
 
-                <div className="board-table-body">
-                    <DragDropProvider
-                        onDragEnd={handleDragEnd}
-                        onDragOver={handleDragOver}
-                        sensors={boardSensors}
-                    >
+                <DragDropProvider
+                    onDragEnd={handleDragEnd}
+                    onDragOver={handleDragOver}
+                    sensors={boardSensors}
+                >
+                    <div className="board-table-body">
+
                         {sections.map((section, index) => (
                             <BoardSection
                                 key={section.id}
@@ -285,14 +349,15 @@ export const BoardTable = ({
                                 onToggleSectionSelection={onToggleSectionSelection}
                             />
                         ))}
-                    </DragDropProvider>
-                    <AddSectionRow
-                        open={addSectionOpen}
-                        onOpen={onOpenAddSection}
-                        onClose={onCloseAddSection}
-                        onCreate={onCreateSection}
-                    />
-                </div>
+
+                        <AddSectionRow
+                            open={addSectionOpen}
+                            onOpen={onOpenAddSection}
+                            onClose={onCloseAddSection}
+                            onCreate={onCreateSection}
+                        />
+                    </div>
+                </DragDropProvider>
             </div >
         </div >
     )

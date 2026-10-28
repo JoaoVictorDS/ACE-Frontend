@@ -1,6 +1,7 @@
 import { createItemValue, updateItemValue, deleteItemValue } from './handlers/itemValueHandlers'
-import { updateItem, createItem, deleteItem, moveItem } from './handlers/itemHandlers'
+import { createItem, updateItem, deleteItem, moveItem } from './handlers/itemHandlers'
 import { createSection, updateSection, deleteSection, moveSection } from './handlers/sectionHandlers'
+import { createColumn, updateColumn, deleteColumn } from './handlers/columnHandlers'
 
 export const BOARD_CHANGE_REGISTRY = {
     ITEM_VALUE: {
@@ -24,10 +25,9 @@ export const BOARD_CHANGE_REGISTRY = {
     },
 
     COLUMN: {
-        // CREATE: createColumn,
-        // UPDATE: updateColumn,
-        // DELETE: deleteColumn,
-        // MOVE: moveColumn,
+        CREATE: createColumn,
+        UPDATE: updateColumn,
+        DELETE: deleteColumn,
     },
 
     MEMBER: {

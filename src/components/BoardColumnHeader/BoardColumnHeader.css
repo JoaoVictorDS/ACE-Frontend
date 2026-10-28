@@ -1,0 +1,224 @@
+/* ========================================
+   Cabeçalho da coluna
+======================================== */
+
+.board-table-column-header.board-column-header {
+    justify-content: flex-start;
+    gap: 6px;
+
+    padding: 0 14px 0 8px;
+}
+
+/* ========================================
+   Nome da coluna
+======================================== */
+
+/* Botão transparente que abre a edição inline. */
+.board-column-name-edit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+    color: inherit;
+
+    font: inherit;
+    text-align: left;
+
+    cursor: text;
+}
+
+/* Evita que nomes longos empurrem os controles. */
+.board-column-header-name {
+    display: block;
+
+    min-width: 0;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Campo de edição no próprio cabeçalho. */
+.board-column-name-input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    height: 28px;
+    padding: 0 6px;
+    text-align: center;
+
+    border: 1px solid var(--color-focus);
+    border-radius: var(--radius-sm);
+
+    outline: 0;
+
+    background: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font: inherit;
+    font-size: 11px;
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.board-column-name-edit:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
+}
+
+.board-column-name-input:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+/* ========================================
+   Alça de movimentação
+======================================== */
+
+.board-column-drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    width: 18px;
+    height: 26px;
+    padding: 0;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background: transparent;
+    color: var(--color-text-muted);
+
+    cursor: grab;
+    touch-action: none;
+
+    opacity: 0.55;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.board-column-drag-handle:active {
+    cursor: grabbing;
+}
+
+.board-column-header:hover .board-column-drag-handle,
+.board-column-drag-handle:focus-visible {
+    opacity: 1;
+}
+
+.board-column-drag-handle:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.board-column-header.is-dragging {
+    z-index: 5;
+    opacity: 0.55;
+}
+
+/* ========================================
+   Menu de configurações
+======================================== */
+
+.board-column-menu {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+.board-column-menu-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+    width: 26px;
+    height: 28px;
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    background: transparent;
+    color: var(--color-text-muted);
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-column-menu-trigger:hover,
+.board-column-menu-trigger[aria-expanded="true"] {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.board-column-menu-dropdown {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+
+    z-index: 30;
+
+    min-width: 190px;
+    padding: 6px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--color-surface);
+
+    box-shadow: var(--shadow-dropdown);
+}
+
+.board-column-menu-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    width: 100%;
+    padding: 8px 10px;
+
+    border: 0;
+    border-radius: var(--radius-md);
+
+    background: transparent;
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 12px;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.board-column-menu-option:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.board-column-menu-option-danger {
+    color: var(--color-danger, var(--color-text-primary));
+}
+
+.board-column-menu-option-danger:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-danger, var(--color-text-primary));
+}

@@ -143,3 +143,47 @@ body.is-resizing * {
 .board-table-body {
     width: 100%;
 }
+
+/* ========================================
+   Ação de adicionar coluna
+======================================== */
+
+.board-table-end-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+}
+
+.board-table-add-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+
+    background: transparent;
+    color: var(--color-text-muted);
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.board-table-add-column:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.board-table-add-column:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 1px;
+}

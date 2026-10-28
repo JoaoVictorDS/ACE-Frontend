@@ -14,20 +14,26 @@ export const useResize = ({ onResize, onCommit }) => {
         }
     }, [resizingId])
 
-    const handlePointerDown = (event, { id, value, min, max }) => {
+    const handlePointerDown = (
+        event,
+        { id, value, previousValue = value, min, max }
+    ) => {
         event.preventDefault()
         event.stopPropagation()
 
         event.currentTarget.setPointerCapture(event.pointerId)
 
+        const startValue = Math.round(value)
+
         resizeRef.current = {
             id,
             pointerId: event.pointerId,
             startX: event.clientX,
-            startValue: value,
-            currentValue: value,
+            startValue,
+            currentValue: startValue,
+            previousValue,
             min,
-            max
+            max,
         }
 
         setResizingId(id)
@@ -40,11 +46,13 @@ export const useResize = ({ onResize, onCommit }) => {
             return
         }
 
-        const newValue = Math.min(
-            resize.max,
-            Math.max(
-                resize.min,
-                resize.startValue + (event.clientX - resize.startX)
+        const newValue = Math.round(
+            Math.min(
+                resize.max,
+                Math.max(
+                    resize.min,
+                    resize.startValue + (event.clientX - resize.startX)
+                )
             )
         )
 
@@ -52,7 +60,7 @@ export const useResize = ({ onResize, onCommit }) => {
 
         onResize({
             id: resize.id,
-            value: newValue
+            value: newValue,
         })
     }
 
@@ -70,12 +78,15 @@ export const useResize = ({ onResize, onCommit }) => {
             event.currentTarget.releasePointerCapture(event.pointerId)
         }
 
-        if (!commit) {
+        const restorePreviousValue = () => {
             onResize({
                 id: resize.id,
-                value: resize.startValue
+                value: resize.previousValue,
             })
+        }
 
+        if (!commit) {
+            restorePreviousValue()
             return
         }
 
@@ -87,13 +98,10 @@ export const useResize = ({ onResize, onCommit }) => {
             await onCommit({
                 id: resize.id,
                 value: resize.currentValue,
-                initialValue: resize.startValue
+                initialValue: resize.startValue,
             })
         } catch {
-            onResize({
-                id: resize.id,
-                value: resize.startValue
-            })
+            restorePreviousValue()
         }
     }
 
@@ -102,6 +110,6 @@ export const useResize = ({ onResize, onCommit }) => {
         handlePointerDown,
         handlePointerMove,
         handlePointerUp: (event) => void finishResize(event, true),
-        handlePointerCancel: (event) => void finishResize(event, false)
+        handlePointerCancel: (event) => void finishResize(event, false),
     }
 }

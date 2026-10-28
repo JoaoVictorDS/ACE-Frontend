@@ -54,6 +54,14 @@ export const API_ENDPOINTS = {
         DELETE: (sectionId) => `/v1/sections/${sectionId}`
     },
 
+    COLUMNS: {
+        GET: (boardId) => `/v1/boards/${boardId}/columns`,
+        CREATE: (boardId) => `/v1/boards/${boardId}/columns`,
+        UPDATE: (columnId) => `/v1/columns/${columnId}`,
+        MOVE: (columnId) => `/v1/columns/${columnId}/move`,
+        DELETE: (columnId) => `/v1/columns/${columnId}`,
+    },
+
     BOARD_MEMBERS: {
         GET: (boardId) => `/v1/boards/${boardId}/members`,
         UPDATE_PREFERENCES: (boardId) => `/v1/boards/${boardId}/preferences`,
