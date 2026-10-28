@@ -1,7 +1,7 @@
 export const createColumn = (board, event) => {
     const newColumn = {
         ...event.resource.column,
-        board_id: event.resource.boardId
+        restrictions: event.resource.column.restrictions ?? []
     }
 
     const alreadyExists = board.columns.some(column => column.id === newColumn.id)
@@ -33,14 +33,5 @@ export const updateColumn = (board, event) => {
                 ? { ...column, ...updatedColumn }
                 : column
         ))
-    }
-}
-
-export const deleteColumn = (board, event) => {
-    const columnId = event.entityId
-
-    return {
-        ...board,
-        columns: board.columns.filter(column => column.id !== columnId)
     }
 }

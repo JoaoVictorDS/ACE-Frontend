@@ -1,7 +1,8 @@
-import { syncColumnsAfterMove } from './syncHandlers/columnSyncHandlers'
+import { syncVisibleColumns } from './syncHandlers/columnSyncHandlers'
 
 export const BOARD_CHANGE_SYNC_REGISTRY = {
     COLUMN: {
-        MOVE: syncColumnsAfterMove
+        MOVE: syncVisibleColumns,
+        DELETE: syncVisibleColumns
     }
 }

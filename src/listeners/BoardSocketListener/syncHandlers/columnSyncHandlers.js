@@ -2,7 +2,7 @@ import { getColumnsByBoard } from '../../../services/columnService'
 
 const pendingSyncs = new Map()
 
-export const syncColumnsAfterMove = ({ queryClient, boardId }) => {
+export const syncVisibleColumns = ({ queryClient, boardId }) => {
     const syncKey = String(boardId)
     const previousSync = pendingSyncs.get(syncKey) ?? Promise.resolve()
 
