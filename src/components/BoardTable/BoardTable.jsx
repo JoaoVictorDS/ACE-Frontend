@@ -46,6 +46,7 @@ const boardSensors = (defaults) => [
 export const BoardTable = ({
     board,
     users,
+    canMoveBoardStructure,
     onItemTitleCommit,
     onItemOpen,
     onCellCommit,
@@ -286,6 +287,7 @@ export const BoardTable = ({
                                     key={column.id}
                                     column={column}
                                     index={index}
+                                    canMoveBoardStructure={canMoveBoardStructure}
                                     width={width}
                                     storedWidth={columnWidths[column.id] ?? null}
                                     minWidth={MIN_COLUMN_WIDTH}
@@ -333,6 +335,7 @@ export const BoardTable = ({
                                 columns={columns}
                                 users={users}
                                 board={board}
+                                canMoveBoardStructure={canMoveBoardStructure}
                                 gridTemplateColumns={gridTemplateColumns}
                                 onItemTitleCommit={onItemTitleCommit}
                                 onItemOpen={onItemOpen}

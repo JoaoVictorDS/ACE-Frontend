@@ -13,6 +13,7 @@ export const BoardSection = ({
     columns,
     users,
     board,
+    canMoveBoardStructure,
     gridTemplateColumns,
     onItemTitleCommit,
     onItemOpen,
@@ -49,6 +50,9 @@ export const BoardSection = ({
         accept: ['item', 'section'],
         group: 'board-sections',
         collisionPriority: CollisionPriority.Low,
+        disabled: {
+            draggable: !canMoveBoardStructure
+        },
         data: {
             sectionId: section.id,
             itemCount: items.length
@@ -235,15 +239,17 @@ export const BoardSection = ({
                     }
                 </button>
 
-                <button
-                    ref={handleRef}
-                    type="button"
-                    className="board-section-drag-handle"
-                    title="Arrastar para reordenar"
-                    aria-label={`Mover seção ${section.name}`}
-                >
-                    <GripVertical size={16} />
-                </button>
+                {canMoveBoardStructure && (
+                    <button
+                        ref={handleRef}
+                        type="button"
+                        className="board-section-drag-handle"
+                        title="Arrastar para reordenar"
+                        aria-label={`Mover seção ${section.name}`}
+                    >
+                        <GripVertical size={16} />
+                    </button>
+                )}
 
                 <div className="board-section-title">
                     {editingName ? (

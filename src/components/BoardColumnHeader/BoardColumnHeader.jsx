@@ -6,6 +6,7 @@ import './BoardColumnHeader.css'
 export const BoardColumnHeader = ({
     column,
     index,
+    canMoveBoardStructure,
     width,
     storedWidth,
     minWidth,
@@ -36,6 +37,9 @@ export const BoardColumnHeader = ({
         type: 'column',
         accept: ['column'],
         group: 'board-columns',
+        disabled: {
+            draggable: !canMoveBoardStructure
+        },
         data: {
             columnId: column.id,
         }
@@ -171,15 +175,17 @@ export const BoardColumnHeader = ({
                 isResizing && 'is-resizing'
             ].filter(Boolean).join(' ')}
         >
-            <button
-                ref={handleRef}
-                type="button"
-                className="board-column-drag-handle"
-                title="Arrastar para reordenar"
-                aria-label={`Mover coluna ${column.name}`}
-            >
-                <GripVertical size={15} />
-            </button>
+            {canMoveBoardStructure && (
+                <button
+                    ref={handleRef}
+                    type="button"
+                    className="board-column-drag-handle"
+                    title="Arrastar para reordenar"
+                    aria-label={`Mover coluna ${column.name}`}
+                >
+                    <GripVertical size={15} />
+                </button>
+            )}
 
             {editingName ? (
                 <input

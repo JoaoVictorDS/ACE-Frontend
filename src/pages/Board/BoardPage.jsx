@@ -4,6 +4,7 @@ import { useBoard } from '../../hooks/useBoard'
 import { useUpdateItemTitle, useCreateItem, useDeleteItem, useMoveItem } from '../../hooks/useItem'
 import { useUpsertItemValue } from '../../hooks/useItemValue'
 import { useBoardMembers, useUpdateBoardMemberPreferences } from '../../hooks/useBoardMember'
+import { useUser } from '../../hooks/useUser'
 import { useCreateSection, useUpdateSectionName, useMoveSection, useDeleteSection } from '../../hooks/useSection'
 import { useCreateColumn, useDeleteColumn, useMoveColumn, useUpdateColumn } from '../../hooks/useColumn'
 import { useToast } from '../../hooks/useToast'
@@ -17,6 +18,7 @@ import { FeedbackState } from '../../components/FeedbackState/FeedbackState'
 import { Button } from '../../components/Button/Button'
 import { ConfirmDialog } from '../../components/ConfirmDialog/ConfirmDialog'
 import { getErrorMessage } from '../../utils/error'
+import { checkCanMoveBoardStructure } from '../../policies/boardPolicy'
 import './BoardPage.css'
 
 export const BoardPage = () => {
@@ -24,6 +26,7 @@ export const BoardPage = () => {
 
     const { data: board = {}, isLoading: boardLoading, error: boardError, refetch: refetchBoard } = useBoard(boardId)
     const { data: boardMembers = [] } = useBoardMembers(boardId)
+    const { data: user } = useUser()
 
     const { updateItemTitle } = useUpdateItemTitle()
     const { createItem } = useCreateItem(boardId)
@@ -85,6 +88,9 @@ export const BoardPage = () => {
     const selectedVisibleItemIds = selectedItemIds.filter((itemId) => visibleItemIds.includes(itemId))
     const allItemsSelected = visibleItemIds.length > 0 && visibleItemIds.every((itemId) => selectedItemIds.includes(itemId))
     const someItemsSelected = selectedVisibleItemIds.length > 0 && !allItemsSelected
+
+    const currentBoardMember = boardMembers.find((member) => member.user_id === user?.id)
+    const canMoveBoardStructure = checkCanMoveBoardStructure(user?.role, currentBoardMember?.role)
 
     const handleOpenAddItem = (sectionId) => {
         setAddItemSectionId(sectionId)
@@ -495,6 +501,7 @@ export const BoardPage = () => {
                 <BoardTable
                     board={board}
                     users={boardMembers}
+                    canMoveBoardStructure={canMoveBoardStructure}
                     onItemTitleCommit={handleItemTitleCommit}
                     onItemOpen={handleItemOpen}
                     onCellCommit={handleCellCommit}
