@@ -12,7 +12,6 @@
     min-width: 0;
 
     border-left: 1px solid var(--color-divider);
-    background-color: var(--color-surface);
 }
 
 .board-item-more {

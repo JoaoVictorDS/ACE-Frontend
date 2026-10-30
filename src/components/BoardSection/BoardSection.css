@@ -319,15 +319,10 @@
 /* Nova seção */
 
 .board-section-add-item-row {
-    display: grid;
-    grid-template-columns: var(--board-grid-columns);
-
     width: 100%;
 }
 
 .board-section-add-item-row>.board-add-item {
-    grid-column: 1 / -1;
-
     box-sizing: border-box;
     min-width: 0;
 
