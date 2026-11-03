@@ -7,6 +7,7 @@ export const BoardColumnHeader = ({
     column,
     index,
     canMoveBoardStructure,
+    canManageColumnRestrictions,
     width,
     storedWidth,
     minWidth,
@@ -242,15 +243,17 @@ export const BoardColumnHeader = ({
                             Configurar coluna
                         </button>
 
-                        <button
-                            type="button"
-                            className="board-column-menu-option"
-                            data-no-drag="true"
-                            onClick={() => handleAction(onConfigureRestrictions)}
-                        >
-                            <ShieldCheck size={14} />
-                            Restrições de acesso
-                        </button>
+                        {canManageColumnRestrictions && (
+                            <button
+                                type="button"
+                                className="board-column-menu-option"
+                                data-no-drag="true"
+                                onClick={() => handleAction(onConfigureRestrictions)}
+                            >
+                                <ShieldCheck size={14} />
+                                Restrições de acesso
+                            </button>
+                        )}
 
                         <button
                             type="button"

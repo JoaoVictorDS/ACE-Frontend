@@ -32,3 +32,9 @@ export const getColumnsByBoard = async (boardId) => {
 
     return response.data
 }
+
+export const updateColumnRestrictions = async ({ columnId, restrictions = {} }) => {
+    const response = await api.patch(API_ENDPOINTS.COLUMNS.UPDATE_RESTRICTIONS(columnId), { restrictions })
+
+    return response.data
+}

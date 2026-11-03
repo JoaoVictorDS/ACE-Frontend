@@ -4,5 +4,9 @@ export const BOARD_CHANGE_SYNC_REGISTRY = {
     COLUMN: {
         MOVE: syncVisibleColumns,
         DELETE: syncVisibleColumns
+    },
+
+    COLUMN_RESTRICTION: {
+        UPDATE: syncVisibleColumns
     }
 }

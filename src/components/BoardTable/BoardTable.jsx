@@ -47,6 +47,7 @@ export const BoardTable = ({
     board,
     users,
     canMoveBoardStructure,
+    canManageColumnRestrictions,
     onItemTitleCommit,
     onItemOpen,
     onCellCommit,
@@ -288,6 +289,7 @@ export const BoardTable = ({
                                     column={column}
                                     index={index}
                                     canMoveBoardStructure={canMoveBoardStructure}
+                                    canManageColumnRestrictions={canManageColumnRestrictions}
                                     width={width}
                                     storedWidth={columnWidths[column.id] ?? null}
                                     minWidth={MIN_COLUMN_WIDTH}

@@ -60,6 +60,7 @@ export const API_ENDPOINTS = {
         UPDATE: (columnId) => `/v1/columns/${columnId}`,
         MOVE: (columnId) => `/v1/columns/${columnId}/move`,
         DELETE: (columnId) => `/v1/columns/${columnId}`,
+        UPDATE_RESTRICTIONS: (columnId) => `/v1/columns/${columnId}/restrictions`
     },
 
     BOARD_MEMBERS: {

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { createColumn, updateColumn, moveColumn, deleteColumn } from '../services/columnService'
+import { createColumn, updateColumn, moveColumn, deleteColumn, updateColumnRestrictions } from '../services/columnService'
 
 export const useCreateColumn = () => {
     const createColumnMutation = useMutation({
@@ -46,5 +46,15 @@ export const useDeleteColumn = () => {
         deleteColumn: deleteColumnMutation.mutateAsync,
         deletingColumn: deleteColumnMutation.isPending,
         resetDeleteColumn: deleteColumnMutation.reset
+    }
+}
+
+export const useUpdateColumnRestrictions = () => {
+    const updateColumnRestrictionsMutation = useMutation({
+        mutationFn: updateColumnRestrictions
+    })
+
+    return {
+        updateColumnRestrictions: updateColumnRestrictionsMutation.mutateAsync
     }
 }

@@ -6,7 +6,7 @@ import { useUpsertItemValue } from '../../hooks/useItemValue'
 import { useBoardMembers, useUpdateBoardMemberPreferences } from '../../hooks/useBoardMember'
 import { useUser } from '../../hooks/useUser'
 import { useCreateSection, useUpdateSectionName, useMoveSection, useDeleteSection } from '../../hooks/useSection'
-import { useCreateColumn, useDeleteColumn, useMoveColumn, useUpdateColumn } from '../../hooks/useColumn'
+import { useCreateColumn, useDeleteColumn, useMoveColumn, useUpdateColumn, useUpdateColumnRestrictions } from '../../hooks/useColumn'
 import { useToast } from '../../hooks/useToast'
 import { BoardSocketListener } from '../../listeners/BoardSocketListener/BoardSocketListener'
 import { LoadingScreen } from '../../components/LoadingScreen/LoadingScreen'
@@ -14,11 +14,12 @@ import { AlertCircle, Ellipsis, LayoutGrid, RefreshCcw } from 'lucide-react'
 import { BoardToolbar } from '../../components/BoardToolbar/BoardToolbar'
 import { BoardTable } from '../../components/BoardTable/BoardTable'
 import { ColumnFormModal } from '../../components/ColumnFormModal/ColumnFormModal'
+import { ColumnRestrictionsModal } from '../../components/ColumnRestrictionsModal/ColumnRestrictionsModal'
 import { FeedbackState } from '../../components/FeedbackState/FeedbackState'
 import { Button } from '../../components/Button/Button'
 import { ConfirmDialog } from '../../components/ConfirmDialog/ConfirmDialog'
 import { getErrorMessage } from '../../utils/error'
-import { checkCanMoveBoardStructure } from '../../policies/boardPolicy'
+import { checkCanMoveBoardStructure, checkCanManageColumnRestrictions } from '../../policies/boardPolicy'
 import './BoardPage.css'
 
 export const BoardPage = () => {
@@ -45,14 +46,18 @@ export const BoardPage = () => {
     const { moveColumn } = useMoveColumn()
     const { deleteColumn, deletingColumn, resetDeleteColumn } = useDeleteColumn()
 
+    const { updateColumnRestrictions } = useUpdateColumnRestrictions()
+
     const { updateBoardMemberPreferences } = useUpdateBoardMemberPreferences(boardId)
 
-    const { error } = useToast()
+    const { error, success } = useToast()
 
     const [isColumnFormModalOpen, setIsColumnFormModalOpen] = useState(false)
     const [columnBeingEdited, setColumnBeingEdited] = useState(null)
     const [columnPendingDelete, setColumnPendingDelete] = useState(null)
     const [columnPendingDataTypeChange, setColumnPendingDataTypeChange] = useState(null)
+
+    const [columnBeingConfiguredRestrictions, setColumnBeingConfiguredRestrictions] = useState(null)
 
     const [addItemSectionId, setAddItemSectionId] = useState(null)
     const [addSectionOpen, setAddSectionOpen] = useState(false)
@@ -91,6 +96,7 @@ export const BoardPage = () => {
 
     const currentBoardMember = boardMembers.find((member) => member.user_id === user?.id)
     const canMoveBoardStructure = checkCanMoveBoardStructure(user?.role, currentBoardMember?.role)
+    const canManageColumnRestrictions = checkCanManageColumnRestrictions(user?.role, currentBoardMember?.role)
 
     const handleOpenAddItem = (sectionId) => {
         setAddItemSectionId(sectionId)
@@ -106,6 +112,11 @@ export const BoardPage = () => {
 
     const handleCloseAddSection = () => {
         setAddSectionOpen(false)
+    }
+
+    const handleCloseColumnModal = () => {
+        setIsColumnFormModalOpen(false)
+        setColumnBeingEdited(null)
     }
 
     const handleItemOpen = (item) => {
@@ -264,11 +275,6 @@ export const BoardPage = () => {
         setIsColumnFormModalOpen(true)
     }
 
-    const handleCloseColumnModal = () => {
-        setIsColumnFormModalOpen(false)
-        setColumnBeingEdited(null)
-    }
-
     const handleSubmitColumn = async (payload) => {
         const { column_id } = payload
 
@@ -359,7 +365,22 @@ export const BoardPage = () => {
     }
 
     const handleConfigureColumnRestrictions = (column) => {
-        console.log('Configurar restrições da coluna:', column)
+        if (!canManageColumnRestrictions) return
+
+        setColumnBeingConfiguredRestrictions(column)
+    }
+
+    const handleSaveColumnRestrictions = async ({ columnId, restrictions }) => {
+        await updateColumnRestrictions({ columnId, restrictions })
+
+        success({
+            title: 'Restrições de coluna alteradas',
+            message: 'As restrições de coluna foram alteradas com sucesso.'
+        })
+    }
+
+    const handleCloseColumnRestrictions = () => {
+        setColumnBeingConfiguredRestrictions(null)
     }
 
     const handleMoveColumn = async (payload) => {
@@ -502,6 +523,7 @@ export const BoardPage = () => {
                     board={board}
                     users={boardMembers}
                     canMoveBoardStructure={canMoveBoardStructure}
+                    canManageColumnRestrictions={canManageColumnRestrictions}
                     onItemTitleCommit={handleItemTitleCommit}
                     onItemOpen={handleItemOpen}
                     onCellCommit={handleCellCommit}
@@ -579,6 +601,16 @@ export const BoardPage = () => {
                     column={columnBeingEdited}
                     onSubmit={handleSubmitColumn}
                     onClose={handleCloseColumnModal}
+                />
+            )}
+
+            {columnBeingConfiguredRestrictions && canManageColumnRestrictions && (
+                <ColumnRestrictionsModal
+                    key={columnBeingConfiguredRestrictions.id}
+                    column={columnBeingConfiguredRestrictions}
+                    boardMembers={boardMembers}
+                    onSubmit={handleSaveColumnRestrictions}
+                    onClose={handleCloseColumnRestrictions}
                 />
             )}
         </div>
