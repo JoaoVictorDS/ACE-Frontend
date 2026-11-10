@@ -111,6 +111,7 @@ export const BoardItemTitle = ({ item, onCommit, onOpen }) => {
             <button
                 type="button"
                 className="board-item-updates"
+                data-no-drag="true"
                 onClick={(event) => {
                     event.stopPropagation()
                     onOpen(item)

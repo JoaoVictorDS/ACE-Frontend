@@ -81,6 +81,20 @@ export const API_ENDPOINTS = {
         UPSERT: (itemId, columnId) => `/v1/items/${itemId}/columns/${columnId}/values`
     },
 
+    ITEM_UPDATES: {
+        GET: (itemId) => `/v1/items/${itemId}/updates`,
+        CREATE: (itemId) => `/v1/items/${itemId}/updates`,
+        UPDATE: (itemUpdateId) => `/v1/item-updates/${itemUpdateId}`,
+        DELETE: (itemUpdateId) => `/v1/item-updates/${itemUpdateId}`
+    },
+
+    COMMENTS: {
+        GET: (itemId) => `/v1/items/${itemId}/comments`,
+        CREATE: (itemId) => `/v1/items/${itemId}/comments`,
+        UPDATE: (commentId) => `/v1/comments/${commentId}`,
+        DELETE: (commentId) => `/v1/comments/${commentId}`,
+    },
+
     NOTIFICATIONS: {
         GET: '/v1/notifications',
         MARK_ALL_AS_READ: '/v1/notifications/read',

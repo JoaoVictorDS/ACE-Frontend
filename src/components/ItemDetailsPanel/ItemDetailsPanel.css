@@ -1,0 +1,343 @@
+.item-details-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 120;
+
+    display: flex;
+    flex-direction: column;
+
+    width: min(590px, 100%);
+    height: 100vh;
+    height: 100dvh;
+
+    border-left: 1px solid var(--color-border);
+
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+
+    box-shadow: -12px 0 36px rgba(15, 23, 42, 0.14);
+
+    animation: item-details-panel-enter 0.2s ease-out;
+}
+
+@keyframes item-details-panel-enter {
+    from {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Cabeçalho */
+
+.item-details-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    flex-shrink: 0;
+
+    padding: 15px 20px;
+
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+}
+
+.item-details-panel-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-details-panel-header-info>span {
+    color: var(--color-text-primary);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+}
+
+.item-details-panel-header-info small {
+    color: var(--color-text-muted);
+    font-size: 11px;
+}
+
+/* Corpo */
+
+.item-details-panel-body {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+    flex: 1;
+
+    overflow: hidden;
+}
+
+/* Informações do item */
+
+.item-details-panel-main {
+    flex-shrink: 0;
+
+    padding: 21px 22px 17px;
+}
+
+.item-details-panel-title-heading {
+    margin-bottom: 7px;
+
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.item-details-panel-title-trigger {
+    display: block;
+
+    width: 100%;
+    padding: 0;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background-color: transparent;
+    color: inherit;
+
+    text-align: left;
+
+    cursor: text;
+}
+
+.item-details-panel-title-trigger h2 {
+    margin: 0;
+    padding: 3px 4px;
+
+    border-radius: var(--radius-sm);
+
+    color: var(--color-text-primary);
+
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+
+    transition: background-color 0.15s ease;
+}
+
+.item-details-panel-title-trigger:hover h2 {
+    background-color: var(--color-surface-hover);
+}
+
+.item-details-panel-title-input {
+    width: 100%;
+    height: 38px;
+
+    padding: 0 9px;
+
+    border: 1px solid var(--color-focus);
+    border-radius: var(--radius-md);
+
+    outline: none;
+
+    background-color: var(--color-input-background);
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 19px;
+    font-weight: 700;
+
+    box-shadow: 0 0 0 3px var(--color-focus-ring);
+}
+
+.item-details-panel-metadata {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+
+    margin-top: 14px;
+}
+
+.item-details-panel-metadata-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+}
+
+/* Abas */
+
+.item-details-panel-tabs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    flex-shrink: 0;
+
+    padding: 0 20px;
+
+    border-top: 1px solid var(--color-divider);
+    border-bottom: 1px solid var(--color-border);
+
+    background-color: var(--color-surface);
+}
+
+.item-details-panel-tabs .btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 12px 10px;
+
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.item-details-panel-tabs .btn.is-active {
+    border-bottom-color: var(--color-primary);
+
+    background-color: transparent;
+    color: var(--color-primary);
+
+    font-weight: 700;
+}
+
+.item-details-panel-tab-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+
+    border-radius: 999px;
+
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-muted);
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.item-details-panel-tabs .is-active .item-details-panel-tab-count {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* Área de atividade */
+
+.item-details-panel-activity {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+    flex: 1;
+
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-strong) transparent;
+}
+
+/* Editor no início da atividade */
+
+.item-details-panel-composer {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+
+    flex-shrink: 0;
+
+    padding: 14px 17px;
+
+    border-bottom: 1px solid var(--color-divider);
+
+    background-color: var(--color-surface);
+}
+
+.item-details-panel-list {
+    flex: 1;
+
+    padding: 4px 19px 18px;
+}
+
+/* Estado vazio */
+
+.item-details-panel-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 190px;
+
+    padding: 25px 15px;
+
+    text-align: center;
+}
+
+.item-details-panel-empty>svg {
+    color: var(--color-text-muted);
+}
+
+.item-details-panel-empty strong {
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.item-details-panel-empty span {
+    max-width: 260px;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+@media (max-width: 520px) {
+    .item-details-panel {
+        width: 100%;
+    }
+
+    .item-details-panel-main {
+        padding: 17px 16px;
+    }
+
+    .item-details-panel-composer {
+        padding: 10px;
+    }
+
+    .item-details-panel-list {
+        padding: 3px 13px 15px;
+    }
+
+    .item-details-panel-tabs {
+        padding: 0 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .item-details-panel {
+        animation: none;
+    }
+}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useBoard } from '../../hooks/useBoard'
 import { useUpdateItemTitle, useCreateItem, useDeleteItem, useMoveItem } from '../../hooks/useItem'
@@ -13,13 +13,14 @@ import { LoadingScreen } from '../../components/LoadingScreen/LoadingScreen'
 import { AlertCircle, Ellipsis, LayoutGrid, RefreshCcw } from 'lucide-react'
 import { BoardToolbar } from '../../components/BoardToolbar/BoardToolbar'
 import { BoardTable } from '../../components/BoardTable/BoardTable'
+import { ItemDetailsPanel } from '../../components/ItemDetailsPanel/ItemDetailsPanel'
 import { ColumnFormModal } from '../../components/ColumnFormModal/ColumnFormModal'
 import { ColumnRestrictionsModal } from '../../components/ColumnRestrictionsModal/ColumnRestrictionsModal'
 import { FeedbackState } from '../../components/FeedbackState/FeedbackState'
 import { Button } from '../../components/Button/Button'
 import { ConfirmDialog } from '../../components/ConfirmDialog/ConfirmDialog'
 import { getErrorMessage } from '../../utils/error'
-import { checkCanMoveBoardStructure, checkCanManageColumnRestrictions } from '../../policies/boardPolicy'
+import { getEffectiveBoardRole, checkCanMoveBoardStructure, checkCanManageColumnRestrictions, checkCanCreateItemUpdate, checkCanCreateComment } from '../../policies/boardPolicy'
 import './BoardPage.css'
 
 export const BoardPage = () => {
@@ -63,6 +64,11 @@ export const BoardPage = () => {
     const [addSectionOpen, setAddSectionOpen] = useState(false)
     const [selectedItemIds, setSelectedItemIds] = useState([])
     const [sectionPendingDelete, setSectionPendingDelete] = useState(null)
+    const [selectedItemState, setSelectedItemState] = useState(null)
+
+    useEffect(() => {
+        setSelectedItemState(null)
+    }, [boardId])
 
     if (boardLoading) {
         return <LoadingScreen />
@@ -88,6 +94,8 @@ export const BoardPage = () => {
         )
     }
 
+    const selectedItem = selectedItemState?.boardId === boardId ? selectedItemState.item : null
+
     const totalItems = board.sections.reduce((total, section) => total + section.items.length, 0)
     const visibleItemIds = board.sections?.flatMap((section) => section.items.filter((item) => !item.deleted_at).map((item) => item.id)) ?? []
     const selectedVisibleItemIds = selectedItemIds.filter((itemId) => visibleItemIds.includes(itemId))
@@ -95,8 +103,12 @@ export const BoardPage = () => {
     const someItemsSelected = selectedVisibleItemIds.length > 0 && !allItemsSelected
 
     const currentBoardMember = boardMembers.find((member) => member.user_id === user?.id)
-    const canMoveBoardStructure = checkCanMoveBoardStructure(user?.role, currentBoardMember?.role)
-    const canManageColumnRestrictions = checkCanManageColumnRestrictions(user?.role, currentBoardMember?.role)
+    const currentBoardRole = getEffectiveBoardRole({ user, boardCreatorId: board.creator_id, boardMemberRole: currentBoardMember?.role })
+
+    const canMoveBoardStructure = checkCanMoveBoardStructure(currentBoardRole)
+    const canManageColumnRestrictions = checkCanManageColumnRestrictions(currentBoardRole)
+    const canCreateItemUpdate = checkCanCreateItemUpdate(currentBoardRole)
+    const canCreateComment = checkCanCreateComment(currentBoardRole)
 
     const handleOpenAddItem = (sectionId) => {
         setAddItemSectionId(sectionId)
@@ -119,8 +131,12 @@ export const BoardPage = () => {
         setColumnBeingEdited(null)
     }
 
-    const handleItemOpen = (item) => {
-        console.log('Abrir item:', item.id)
+    const handleOpenItemDetails = (item) => {
+        setSelectedItemState({ boardId, item })
+    }
+
+    const handleCloseItemDetails = () => {
+        setSelectedItemState(null)
     }
 
     const handleCellCommit = async ({ item, column, value }) => {
@@ -144,11 +160,18 @@ export const BoardPage = () => {
                 itemId: item.id,
                 title
             })
+
+            setSelectedItemState((current) => current?.boardId === boardId && current.item.id === item.id
+                ? { ...current, item: { ...current.item, title } }
+                : current
+            )
         } catch (err) {
             error({
                 title: 'Erro ao salvar o título do item',
                 message: getErrorMessage(err)
             })
+
+            throw err
         }
     }
 
@@ -169,6 +192,11 @@ export const BoardPage = () => {
     const handleDeleteItem = async (item) => {
         try {
             await deleteItem(item.id)
+
+            setSelectedItemState((current) => current?.boardId === boardId && current.item.id === item.id
+                ? null
+                : current
+            )
 
             setSelectedItemIds((current) => current.filter((id) => id !== item.id))
         } catch (err) {
@@ -525,7 +553,7 @@ export const BoardPage = () => {
                     canMoveBoardStructure={canMoveBoardStructure}
                     canManageColumnRestrictions={canManageColumnRestrictions}
                     onItemTitleCommit={handleItemTitleCommit}
-                    onItemOpen={handleItemOpen}
+                    onItemOpen={handleOpenItemDetails}
                     onCellCommit={handleCellCommit}
                     onUpdatePreferences={handleUpdatePreferences}
                     onCreateItem={handleCreateItem}
@@ -555,6 +583,21 @@ export const BoardPage = () => {
                     onDeleteColumn={handleDeleteColumn}
                 />
             </main>
+
+            {selectedItem && (
+                <ItemDetailsPanel
+                    key={selectedItem.id}
+                    item={selectedItem}
+                    users={boardMembers}
+                    user={user}
+                    boardCreatorId={board.creator_id}
+                    canCreateItemUpdate={canCreateItemUpdate}
+                    canCreateComment={canCreateComment}
+                    sectionName={board.sections.find((section) => section.id === selectedItem.section_id)?.name}
+                    onTitleCommit={handleItemTitleCommit}
+                    onClose={handleCloseItemDetails}
+                />
+            )}
 
             {sectionPendingDelete && (
                 <ConfirmDialog
