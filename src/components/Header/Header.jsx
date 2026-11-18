@@ -4,19 +4,31 @@ import { useAuth } from '../../hooks/useAuth'
 import { useUser } from '../../hooks/useUser'
 import { NotificationButton } from '../../components/Notifications/NotificationButton'
 import { UserAvailabilityMenu } from '../../components/UserAvailabilityMenu/UserAvailabilityMenu'
-import { getUserAvailabilityOption, USER_AVAILABILITY } from '../../constants/userAvailability'
+import { getUserAvailabilityOption } from '../../constants/userAvailability'
+import { useAvailability, useUpdateAvailabilityStatus } from '../../hooks/useAvailability'
+import { useToast } from '../../hooks/useToast'
+import { getErrorMessage } from '../../utils/error'
 import './Header.css'
 
 export const Header = () => {
-    const { logout } = useAuth()
-    const { data: user } = useUser()
+    const userMenuRef = useRef(null)
+
     const [showUserMenu, setShowUserMenu] = useState(false)
 
-    // Temporário: será substituído pelo backend
-    const [availability, setAvailability] = useState(USER_AVAILABILITY.AVAILABLE)
+    const { logout } = useAuth()
+    const { data: user } = useUser()
+    const { data: availabilityUsers = [], isLoading: availabilityLoading, error: availabilityError } = useAvailability()
+    const { updateAvailabilityStatus, updatingAvailabilityStatus } = useUpdateAvailabilityStatus()
 
-    const userMenuRef = useRef(null)
-    const currentAvailability = getUserAvailabilityOption(availability)
+    const { error } = useToast()
+
+    const currentAvailabilityUser = availabilityUsers.find((availabilityUser) => availabilityUser.id === user?.id)
+    const availability = currentAvailabilityUser?.status ?? null
+    const currentAvailability = availabilityError
+        ? { label: 'Erro ao carregar' }
+        : availabilityLoading
+            ? { label: 'Carregando...' }
+            : getUserAvailabilityOption(availability)
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -32,8 +44,26 @@ export const Header = () => {
         }
     }, [])
 
-    const handleAvailabilityChange = (value) => {
-        setAvailability(value)
+    useEffect(() => {
+        if (!availabilityError) return
+
+        error({
+            title: 'Erro ao carregar disponibilidade',
+            message: getErrorMessage(availabilityError)
+        })
+    }, [availabilityError, error])
+
+    const handleAvailabilityChange = async (value) => {
+        if (updatingAvailabilityStatus || value === availability) return
+
+        try {
+            await updateAvailabilityStatus(value)
+        } catch (err) {
+            error({
+                title: 'Erro ao atualizar disponibilidade',
+                message: getErrorMessage(err)
+            })
+        }
     }
 
     const handleUserMenuNavigation = () => {
@@ -75,7 +105,7 @@ export const Header = () => {
 
                                 <span className="app-header-user-availability">
                                     <span
-                                        className={`app-header-user-availability-dot availability-${availability.toLowerCase()}`}
+                                        className={`app-header-user-availability-dot availability-${availability?.toLowerCase() ?? 'none'}`}
                                     />
 
                                     {currentAvailability.label}
@@ -111,6 +141,7 @@ export const Header = () => {
                                 <UserAvailabilityMenu
                                     value={availability}
                                     onChange={handleAvailabilityChange}
+                                    disabled={availabilityLoading || updatingAvailabilityStatus}
                                 />
 
                                 <div className="app-header-dropdown-divider" />
@@ -129,6 +160,14 @@ export const Header = () => {
                                     onClick={handleUserMenuNavigation}
                                 >
                                     Membros
+                                </Link>
+
+                                <Link
+                                    to="/availability"
+                                    className="app-header-dropdown-item"
+                                    onClick={handleUserMenuNavigation}
+                                >
+                                    Disponibilidade
                                 </Link>
 
                                 <button

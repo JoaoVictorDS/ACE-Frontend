@@ -2,7 +2,7 @@ import { Check } from 'lucide-react'
 import { USER_AVAILABILITY_OPTIONS } from '../../constants/userAvailability'
 import './UserAvailabilityMenu.css'
 
-export const UserAvailabilityMenu = ({ value, onChange }) => {
+export const UserAvailabilityMenu = ({ value, onChange, disabled = false }) => {
     return (
         <div className="user-availability-menu">
             <span className="user-availability-menu-title">
@@ -20,6 +20,7 @@ export const UserAvailabilityMenu = ({ value, onChange }) => {
                             className={`user-availability-option ${selected ? 'selected' : ''}`}
                             aria-pressed={selected}
                             onClick={() => onChange(option.value)}
+                            disabled={disabled}
                         >
                             <span
                                 className={`user-availability-dot availability-${option.value.toLowerCase()}`}

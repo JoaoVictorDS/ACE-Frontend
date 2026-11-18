@@ -1,0 +1,333 @@
+.availability-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    width: 100%;
+    max-width: 1400px;
+    min-height: 100%;
+
+    margin: 0 auto;
+
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+/* =========================
+   Header
+========================= */
+
+.availability-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.availability-page-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.availability-page-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: var(--radius-lg);
+
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.availability-page-heading h1 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.availability-page-heading p {
+    margin: 5px 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+}
+
+.availability-page-total {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 12px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* =========================
+   Users Container
+========================= */
+
+.availability-page-users {
+    min-width: 0;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+
+    background-color: var(--color-surface);
+}
+
+.availability-page-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.availability-page-users>.availability-page-section-header {
+    padding: 18px 16px 14px;
+}
+
+.availability-page-section-header h2,
+.availability-page-section-header h3 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.availability-page-section-header p {
+    margin: 4px 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* =========================
+   Search
+========================= */
+
+.availability-page-search {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin: 0 12px 10px;
+    padding: 0 11px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-background);
+    color: var(--color-text-muted);
+}
+
+.availability-page-search:focus-within {
+    border-color: var(--color-primary);
+}
+
+.availability-page-search input {
+    width: 100%;
+    height: 36px;
+    padding: 0;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.availability-page-search input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* =========================
+   User List
+========================= */
+
+.availability-page-user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    max-height: 620px;
+    padding: 4px 8px 10px;
+
+    overflow-y: auto;
+}
+
+.availability-page-user {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    width: 100%;
+    padding: 11px 10px;
+
+    border: none;
+    border-radius: var(--radius-lg);
+
+    background: transparent;
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    text-align: left;
+}
+
+.availability-page-user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 36px;
+    height: 36px;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.availability-page-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.availability-page-user-info strong {
+    max-width: 100%;
+    overflow: hidden;
+
+    color: var(--color-text-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.availability-page-user-time {
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+}
+
+/* =========================
+   User Status
+========================= */
+
+.availability-page-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--color-text-secondary);
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.availability-page-status-dot {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: var(--color-text-muted);
+}
+
+.availability-page-status.availability-available {
+    color: var(--color-success);
+}
+
+.availability-page-status.availability-available .availability-page-status-dot {
+    background-color: var(--color-success);
+}
+
+.availability-page-status.availability-break {
+    color: var(--color-warning);
+}
+
+.availability-page-status.availability-break .availability-page-status-dot {
+    background-color: var(--color-warning);
+}
+
+.availability-page-status.availability-external_activity {
+    color: var(--color-primary);
+}
+
+.availability-page-status.availability-external_activity .availability-page-status-dot {
+    background-color: var(--color-primary);
+}
+
+.availability-page-status.availability-end_of_day {
+    color: var(--color-text-muted);
+}
+
+/* =========================
+   Empty State
+========================= */
+
+.availability-page-feedback {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+
+    padding: 28px 16px;
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+    text-align: center;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 650px) {
+    .availability-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .availability-page-user-list {
+        max-height: 340px;
+    }
+}

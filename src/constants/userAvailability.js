@@ -1,8 +1,8 @@
 export const USER_AVAILABILITY = {
     AVAILABLE: 'AVAILABLE',
     BREAK: 'BREAK',
-    EXTERNAL_ACTIVITIES: 'EXTERNAL_ACTIVITIES',
-    END_OF_ACTIVITIES: 'END_OF_ACTIVITIES'
+    EXTERNAL_ACTIVITY: 'EXTERNAL_ACTIVITY',
+    END_OF_DAY: 'END_OF_DAY'
 }
 
 export const USER_AVAILABILITY_OPTIONS = [
@@ -15,15 +15,27 @@ export const USER_AVAILABILITY_OPTIONS = [
         label: 'Intervalo'
     },
     {
-        value: USER_AVAILABILITY.EXTERNAL_ACTIVITIES,
+        value: USER_AVAILABILITY.EXTERNAL_ACTIVITY,
         label: 'Em atividades externas'
     },
     {
-        value: USER_AVAILABILITY.END_OF_ACTIVITIES,
+        value: USER_AVAILABILITY.END_OF_DAY,
         label: 'Fim das atividades'
     }
 ]
 
 export const getUserAvailabilityOption = (value) => {
-    return USER_AVAILABILITY_OPTIONS.find((option) => option.value === value) ?? USER_AVAILABILITY_OPTIONS[0]
+    if (!value) {
+        return {
+            value: null,
+            label: 'Sem status'
+        }
+    }
+
+    return USER_AVAILABILITY_OPTIONS.find(
+        (option) => option.value === value
+    ) ?? {
+        value: null,
+        label: 'Status desconhecido'
+    }
 }

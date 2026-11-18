@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useUsers, useUser } from '../../../../hooks/useUser'
+import { useAvailability } from '../../../../hooks/useAvailability'
 import { useTable } from '@tanstack/react-table'
 import { createDefaultTableFeatures, createGlobalTextFilter, filterByExactValue } from '../../../../utils/table'
 import { getSystemRoleLabel } from '../../../../utils/role'
@@ -23,6 +24,11 @@ const features = createDefaultTableFeatures()
 export const UserTab = () => {
     const { data: user } = useUser()
     const { data: users = [], isLoading: usersLoading, error: usersError, refetch: refetchUsers } = useUsers()
+    const { data: availabilityUsers = [], isLoading: availabilityLoading, error: availabilityError } = useAvailability()
+
+    const availabilityByUserId = useMemo(() => {
+        return new Map(availabilityUsers.map((item) => [item.id, item]))
+    }, [availabilityUsers])
 
     const [isCreateUserModalOpen, setIsCreateUserModalOpen] = useState(false)
     const [selectedUser, setSelectedUser] = useState(null)
@@ -111,7 +117,7 @@ export const UserTab = () => {
                 }
             }
         ] : [])
-    ], [isAdmin, currentUserId])
+    ], [isAdmin, currentUserId, availabilityByUserId, availabilityLoading, availabilityError])
 
     const table = useTable({
         data: users,

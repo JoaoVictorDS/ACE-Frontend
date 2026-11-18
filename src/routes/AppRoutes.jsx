@@ -14,6 +14,7 @@ import { MemberPage } from '../pages/Member/MemberPage'
 import { UserTab } from '../pages/Member/tabs/UserTab/UserTab'
 import { WorkspaceMemberTab } from '../pages/Member/tabs/WorkspaceMemberTab/WorkspaceMemberTab'
 import { BoardMemberTab } from '../pages/Member/tabs/BoardMemberTab/BoardMemberTab'
+import { AvailabilityPage } from '../pages/Availability/AvailabilityPage'
 
 export const AppRoutes = () => {
     return (
@@ -34,6 +35,7 @@ export const AppRoutes = () => {
                         <Route path="workspaces" element={<WorkspaceMemberTab />} />
                         <Route path="boards" element={<BoardMemberTab />} />
                     </Route>
+                    <Route path="availability" element={<AvailabilityPage />} />
                     <Route path="/workspaces/:workspaceId" element={<WorkspacePage />} />
                     <Route path="/workspaces/:workspaceId/boards/:boardId" element={<BoardPage />} />
                 </Route>

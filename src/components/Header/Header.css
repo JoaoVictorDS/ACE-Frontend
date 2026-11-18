@@ -128,11 +128,11 @@
     background-color: var(--color-warning);
 }
 
-.app-header-user-availability-dot.availability-external_activities {
+.app-header-user-availability-dot.availability-external_activity {
     background-color: var(--color-primary);
 }
 
-.app-header-user-availability-dot.availability-end_of_activities {
+.app-header-user-availability-dot.availability-end_of_day {
     background-color: var(--color-text-muted);
 }
 

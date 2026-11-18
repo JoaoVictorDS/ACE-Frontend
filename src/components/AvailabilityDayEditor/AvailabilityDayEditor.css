@@ -1,0 +1,262 @@
+.availability-day-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-divider);
+}
+
+.availability-day-editor-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.availability-day-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.availability-day-editor-header h4 {
+    margin: 0;
+    color: var(--color-text-primary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.availability-day-editor-header p {
+    margin: 4px 0 0;
+    color: var(--color-text-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.availability-day-editor-button,
+.availability-day-editor-secondary,
+.availability-day-editor-save,
+.availability-day-editor-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px 11px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.availability-day-editor-button,
+.availability-day-editor-secondary,
+.availability-day-editor-cancel {
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+}
+
+.availability-day-editor-button:hover,
+.availability-day-editor-secondary:hover,
+.availability-day-editor-cancel:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.availability-day-editor-periods {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.availability-day-editor-period {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding: 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-background);
+}
+
+.availability-day-editor-period-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.availability-day-editor-period-header strong {
+    color: var(--color-text-primary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.availability-day-editor-remove {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--color-danger);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.availability-day-editor-remove:hover {
+    background-color: var(--color-danger-light);
+}
+
+.availability-day-editor-times {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.availability-day-editor-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.availability-day-editor-field>span {
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.availability-day-editor-field input,
+.availability-day-editor-field select,
+.availability-day-editor-field textarea {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 9px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.availability-day-editor-field input:focus,
+.availability-day-editor-field select:focus,
+.availability-day-editor-field textarea:focus {
+    border-color: var(--color-primary);
+}
+
+.availability-day-editor-field small {
+    color: var(--color-text-muted);
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.availability-day-editor-field textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+}
+
+.availability-day-editor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.availability-day-editor-secondary:disabled,
+.availability-day-editor-save:disabled,
+.availability-day-editor-cancel:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.availability-day-editor-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.availability-day-editor-save {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.availability-day-editor-save:hover {
+    border-color: var(--color-primary-hover);
+    background-color: var(--color-primary-hover);
+}
+
+.availability-day-editor-save:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.availability-day-editor-empty,
+.availability-day-editor-notes {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    color: var(--color-text-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.availability-day-editor-notes svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.availability-day-editor-notes p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    white-space: pre-wrap;
+}
+
+@media (max-width: 600px) {
+    .availability-day-editor-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .availability-day-editor-times {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .availability-day-editor-actions {
+        flex-direction: column;
+    }
+
+    .availability-day-editor-actions button {
+        width: 100%;
+    }
+
+    .availability-day-editor-footer {
+        justify-content: stretch;
+    }
+
+    .availability-day-editor-footer button {
+        flex: 1;
+    }
+}

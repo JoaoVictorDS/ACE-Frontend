@@ -56,12 +56,12 @@
     color: var(--color-warning);
 }
 
-.user-availability-option.selected:has(.availability-external_activities) {
+.user-availability-option.selected:has(.availability-external_activity) {
     background-color: var(--color-primary-light);
     color: var(--color-primary);
 }
 
-.user-availability-option.selected:has(.availability-end_of_activities) {
+.user-availability-option.selected:has(.availability-end_of_day) {
     background-color: var(--color-surface-hover);
     color: var(--color-text-secondary);
 }
@@ -94,10 +94,10 @@
     background-color: var(--color-warning);
 }
 
-.user-availability-dot.availability-external_activities {
+.user-availability-dot.availability-external_activity {
     background-color: var(--color-primary);
 }
 
-.user-availability-dot.availability-end_of_activities {
+.user-availability-dot.availability-end_of_day {
     background-color: var(--color-text-muted);
 }

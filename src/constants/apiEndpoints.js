@@ -25,6 +25,21 @@ export const API_ENDPOINTS = {
         }
     },
 
+    AVAILABILITY: {
+        LIST: '/v1/availability',
+        UPDATE_STATUS: '/v1/availability/me/status',
+        UPSERT_NOTES: '/v1/availability/me/notes',
+
+        ADMIN: {
+            GET_DAY: (userId) => `/v1/availability/${userId}/days`,
+            GET_MONTH: (userId) => `/v1/availability/${userId}/months`,
+            UPDATE_STATUS: (userId) => `/v1/availability/${userId}/status`,
+            UPSERT_NOTES: (userId) => `/v1/availability/${userId}/days/notes`,
+            UPDATE_PERIODS: (userId) => `/v1/availability/${userId}/days/periods`,
+            LOGS: '/v1/availability/logs'
+        }
+    },
+
     WORKSPACES: {
         LIST: '/v1/workspaces',
         CREATE: '/v1/workspaces',

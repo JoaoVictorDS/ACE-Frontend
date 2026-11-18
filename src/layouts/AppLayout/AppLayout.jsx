@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
+import { AvailabilitySocketListener } from '../../listeners/AvailabilitySocketListener/AvailabilitySocketListener'
 import { Header } from '../../components/Header/Header'
 import { Sidebar } from '../../components/Sidebar/Sidebar'
 import { CreateWorkspaceModal } from '../../components/CreateWorkspaceModal/CreateWorkspaceModal'
@@ -28,6 +29,8 @@ export const AppLayout = () => {
 
     return (
         <div className="app-layout">
+            <AvailabilitySocketListener />
+
             <Header />
             <div className="app-layout-body">
                 <Sidebar onCreateWorkspace={openCreateWorkspaceModal} onCreateBoard={openCreateBoardModal} />

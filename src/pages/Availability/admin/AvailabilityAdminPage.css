@@ -1,0 +1,771 @@
+/* =========================
+   Main Content
+========================= */
+
+.availability-page-content {
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+    align-items: start;
+    gap: 20px;
+}
+
+.availability-page-details {
+    min-width: 0;
+    min-height: 360px;
+    padding: 22px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+
+    background-color: var(--color-surface);
+}
+
+/* =========================
+   Search: Selected User Notice
+========================= */
+
+.availability-page-selected-user-notice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    margin: 0 12px 10px;
+    padding: 9px 10px;
+
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-background);
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.availability-page-selected-user-notice strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.availability-page-selected-user-notice button {
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+    color: var(--color-primary);
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.availability-page-selected-user-notice button:hover {
+    text-decoration: underline;
+}
+
+/* =========================
+   Details Header
+========================= */
+
+.availability-page-details-header {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.availability-page-details-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.availability-page-details-header h2 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.availability-page-details-header p {
+    margin: 5px 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+}
+
+/* =========================
+   User Selection
+========================= */
+
+.availability-admin-page .availability-page-user {
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
+.availability-admin-page .availability-page-user:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.availability-admin-page .availability-page-user.selected {
+    background-color: var(--color-primary-light);
+}
+
+/* =========================
+   Overview: Status + Month
+========================= */
+
+.availability-page-overview {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    align-items: stretch;
+    gap: 16px;
+
+    margin-top: 22px;
+}
+
+.availability-page-current-status,
+.availability-page-month-summary {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    padding: 18px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+
+    background-color: var(--color-surface);
+}
+
+.availability-page-current-status {
+    gap: 10px;
+}
+
+.availability-page-current-status .user-availability-menu {
+    padding: 6px 0;
+}
+
+.availability-page-status-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin-top: 12px;
+    padding: 10px;
+
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-background);
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.availability-page-status-notice svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.availability-page-month-summary {
+    gap: 16px;
+}
+
+/* =========================
+   Monthly Summary
+========================= */
+
+.availability-page-month-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.availability-page-month-header h3,
+.availability-page-day-details-header h3 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.availability-page-month-header p,
+.availability-page-day-details-header p {
+    margin: 4px 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+}
+
+.availability-page-month-navigation {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.availability-page-month-navigation strong {
+    min-width: 125px;
+
+    color: var(--color-text-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.availability-page-month-navigation button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    padding: 0;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.availability-page-month-navigation button:hover {
+    background-color: var(--color-surface-hover);
+    color: var(--color-text-primary);
+}
+
+.availability-page-month-totals {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+
+    margin-top: auto;
+}
+
+.availability-page-total-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    min-width: 0;
+    padding: 14px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--color-background);
+}
+
+.availability-page-total-card span {
+    color: var(--color-text-secondary);
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.availability-page-total-card strong {
+    overflow-wrap: anywhere;
+
+    font-size: clamp(16px, 2vw, 21px);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.availability-page-total-card.available strong {
+    color: var(--color-success);
+}
+
+.availability-page-total-card.external strong {
+    color: var(--color-primary);
+}
+
+/* =========================
+   Monthly Days
+========================= */
+
+.availability-page-month-days {
+    margin-top: 24px;
+}
+
+.availability-page-month-days>.availability-page-section-header {
+    margin-bottom: 14px;
+}
+
+.availability-page-days {
+    width: 100%;
+    overflow-x: auto;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+}
+
+.availability-page-days-header,
+.availability-page-day-row {
+    display: grid;
+    grid-template-columns:
+        minmax(75px, 0.8fr) minmax(100px, 1.2fr) minmax(100px, 1.2fr) minmax(95px, 1fr);
+    align-items: center;
+    gap: 10px;
+
+    min-width: 420px;
+}
+
+.availability-page-days-header {
+    padding: 11px 12px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    background-color: var(--color-background);
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.availability-page-day-entry {
+    min-width: 420px;
+
+    border-bottom: 1px solid var(--color-divider);
+}
+
+.availability-page-day-entry:last-child {
+    border-bottom: none;
+}
+
+.availability-page-day-row {
+    width: 100%;
+    padding: 10px 12px;
+
+    border: none;
+
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
+.availability-page-day-row:hover {
+    background-color: var(--color-surface-hover);
+}
+
+.availability-page-day-row.selected {
+    border-bottom-color: transparent;
+
+    background-color: var(--color-primary-light);
+}
+
+.availability-page-day-date {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.availability-page-day-date strong {
+    color: var(--color-text-primary);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.availability-page-day-date small {
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    text-transform: capitalize;
+}
+
+.availability-page-day-total {
+    font-size: 11px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.availability-page-day-total.available {
+    color: var(--color-success);
+}
+
+.availability-page-day-total.external {
+    color: var(--color-primary);
+}
+
+.availability-page-day-records {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+}
+
+.availability-page-day-records svg {
+    flex-shrink: 0;
+}
+
+.availability-page-day-expand-icon {
+    flex-shrink: 0;
+    margin-left: auto;
+
+    color: var(--color-text-muted);
+
+    transition: transform 0.15s ease;
+}
+
+.availability-page-day-row.selected .availability-page-day-expand-icon {
+    transform: rotate(180deg);
+}
+
+/* =========================
+   Selected Day Details
+========================= */
+
+.availability-page-day-details {
+    margin-top: 0;
+    padding: 18px 14px;
+
+    border-top: 1px solid var(--color-divider);
+
+    background-color: var(--color-background);
+}
+
+.availability-page-day-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.availability-page-day-count {
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+.availability-page-day-totals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+
+    margin: 15px 0;
+}
+
+.availability-page-day-totals span {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+}
+
+.availability-page-day-totals strong {
+    color: var(--color-text-primary);
+
+    font-size: 13px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* =========================
+   Periods
+========================= */
+
+.availability-page-periods {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    margin-top: 12px;
+}
+
+.availability-page-period {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 11px;
+
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface);
+}
+
+.availability-page-period-dot {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: var(--color-text-muted);
+}
+
+.availability-page-period-dot.availability-available {
+    background-color: var(--color-success);
+}
+
+.availability-page-period-dot.availability-break {
+    background-color: var(--color-warning);
+}
+
+.availability-page-period-dot.availability-external_activity {
+    background-color: var(--color-primary);
+}
+
+.availability-page-period-dot.availability-end_of_day {
+    background-color: var(--color-text-muted);
+}
+
+.availability-page-period-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+
+    min-width: 0;
+}
+
+.availability-page-period-info strong {
+    color: var(--color-text-primary);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.availability-page-period-info span {
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+}
+
+.availability-page-period-duration {
+    color: var(--color-text-secondary);
+
+    font-size: 10px;
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.availability-page-no-records {
+    padding: 22px 12px;
+
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface);
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    text-align: center;
+}
+
+/* =========================
+   Review Notice
+========================= */
+
+.availability-page-review-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+
+    margin-bottom: 14px;
+    padding: 11px;
+
+    border: 1px solid var(--color-warning-light);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-warning-light);
+    color: var(--color-warning);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.availability-page-review-notice svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* =========================
+   Empty State
+========================= */
+
+.availability-page-details-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 310px;
+    padding: 24px;
+
+    color: var(--color-text-muted);
+
+    text-align: center;
+}
+
+.availability-page-details-empty>svg {
+    margin-bottom: 12px;
+    opacity: 0.6;
+}
+
+.availability-page-details-empty h2 {
+    margin: 0;
+
+    color: var(--color-text-primary);
+
+    font-size: 14px;
+}
+
+.availability-page-details-empty p {
+    max-width: 300px;
+    margin: 7px 0 0;
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* =========================
+   Periods Requiring Review
+========================= */
+
+.availability-page-day-records.requires-review {
+    color: var(--color-warning);
+
+    font-weight: 600;
+}
+
+.availability-page-day-records.requires-review svg {
+    color: var(--color-warning);
+}
+
+.availability-page-period.requires-review {
+    border: 1px solid var(--color-warning-light);
+
+    background-color: var(--color-warning-light);
+}
+
+.availability-page-period-duration.requires-review {
+    color: var(--color-warning);
+}
+
+.availability-page-period-warning {
+    flex-shrink: 0;
+
+    color: var(--color-warning);
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1100px) {
+    .availability-page-overview {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .availability-page-content {
+        grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .availability-page-details {
+        padding: 18px;
+    }
+
+    .availability-page-month-totals {
+        gap: 8px;
+    }
+
+    .availability-page-total-card {
+        padding: 11px;
+    }
+}
+
+@media (max-width: 650px) {
+    .availability-page-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .availability-page-details {
+        min-height: 280px;
+    }
+
+    .availability-page-month-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .availability-page-month-navigation {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .availability-page-month-totals {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .availability-page-day-totals {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .availability-page-period {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .availability-page-period-duration {
+        width: 100%;
+        margin-left: 19px;
+
+        text-align: left;
+    }
+}
