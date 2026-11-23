@@ -145,8 +145,8 @@ export const AvailabilityDayEditor = ({ userId, day }) => {
 
                 const endedTime = period.endedTime || null
 
-                if (endedTime && toMinutes(endedTime) <= toMinutes(period.startedTime)) {
-                    throw new Error('O término deve ser posterior ao início.')
+                if (endedTime && toMinutes(endedTime) < toMinutes(period.startedTime)) {
+                    throw new Error('O término não pode ser anterior ao início.')
                 }
 
                 return {
@@ -294,7 +294,7 @@ export const AvailabilityDayEditor = ({ userId, day }) => {
                                                         step="60"
                                                         value={period.endedTime}
                                                         onChange={(event) => handlePeriodChange(index, 'endedTime', event.target.value)}
-                                                        min={getNextAvailableMinute(period.startedTime)}
+                                                        min={period.startedTime || undefined}
                                                     />
 
                                                     <small>
