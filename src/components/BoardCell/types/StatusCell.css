@@ -1,0 +1,292 @@
+/* ========================================
+   Visualização
+======================================== */
+
+.board-cell-status-value {
+    justify-content: center;
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s ease,
+        filter 0.15s ease;
+}
+
+.board-cell-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    width: max-content;
+    max-width: 100%;
+    min-width: 0;
+
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    color: var(--status-color);
+}
+
+.board-cell-status-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+}
+
+.board-cell-status-label {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   Cores dos status
+======================================== */
+
+/* Não iniciado */
+
+.board-cell-status-value.not-started,
+.board-cell-status-indicator.not-started,
+.board-cell-status-menu-item.not-started {
+    --status-color: #64748b;
+    --status-background: rgba(100, 116, 139, 0.13);
+}
+
+/* Em andamento */
+
+.board-cell-status-value.in-progress,
+.board-cell-status-indicator.in-progress,
+.board-cell-status-menu-item.in-progress {
+    --status-color: #2563eb;
+    --status-background: rgba(37, 99, 235, 0.12);
+}
+
+/* Aguardando */
+
+.board-cell-status-value.waiting,
+.board-cell-status-indicator.waiting,
+.board-cell-status-menu-item.waiting {
+    --status-color: #b45309;
+    --status-background: rgba(217, 119, 6, 0.13);
+}
+
+/* Bloqueado */
+
+.board-cell-status-value.blocked,
+.board-cell-status-indicator.blocked,
+.board-cell-status-menu-item.blocked {
+    --status-color: #dc2626;
+    --status-background: rgba(220, 38, 38, 0.12);
+}
+
+/* Concluído */
+
+.board-cell-status-value.completed,
+.board-cell-status-indicator.completed,
+.board-cell-status-menu-item.completed {
+    --status-color: #15803d;
+    --status-background: rgba(21, 128, 61, 0.12);
+}
+
+/* Cancelado */
+
+.board-cell-status-value.canceled,
+.board-cell-status-indicator.canceled,
+.board-cell-status-menu-item.canceled {
+    --status-color: #52525b;
+    --status-background: rgba(82, 82, 91, 0.13);
+}
+
+/* Valor desconhecido */
+
+.board-cell-status-value.unknown,
+.board-cell-status-indicator.unknown {
+    --status-color: var(--color-text-secondary);
+    --status-background: var(--color-surface-hover);
+}
+
+
+/* ========================================
+   Fundo preenchendo a célula inteira
+======================================== */
+
+.board-cell-status-value.not-started,
+.board-cell-status-value.in-progress,
+.board-cell-status-value.waiting,
+.board-cell-status-value.blocked,
+.board-cell-status-value.completed,
+.board-cell-status-value.canceled,
+.board-cell-status-value.unknown {
+    background-color: var(--status-background);
+}
+
+.board-cell-status-value:hover {
+    filter: brightness(0.96);
+}
+
+
+/* ========================================
+   Menu de seleção
+======================================== */
+
+.board-cell-status-editing {
+    position: relative;
+    z-index: 30;
+
+    overflow: visible;
+
+    min-height: 32px;
+
+    background-color: var(--color-surface);
+}
+
+.board-cell-status-menu {
+    position: fixed;
+
+    z-index: 10000;
+
+    width: 205px;
+    max-width: calc(100vw - 24px);
+
+    box-sizing: border-box;
+
+    padding: 6px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface);
+
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.board-cell-status-menu-header {
+    padding: 7px 9px 9px;
+
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.board-cell-status-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 7px 9px;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background-color: transparent;
+    color: var(--color-text-primary);
+
+    font-family: inherit;
+    font-size: 11px;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: background-color 0.15s ease;
+}
+
+.board-cell-status-menu-item:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+}
+
+.board-cell-status-menu-item:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.board-cell-status-menu-item .board-cell-status-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.board-cell-status-menu-label {
+    flex: 1;
+    min-width: 0;
+}
+
+.board-cell-status-check {
+    flex: 0 0 auto;
+    color: var(--status-color, var(--color-text-secondary));
+}
+
+.board-cell-status-menu-divider {
+    height: 1px;
+    margin: 5px 3px;
+
+    background-color: var(--color-border);
+}
+
+
+/* ========================================
+   Opções coloridas do menu
+======================================== */
+
+.board-cell-status-menu-item:not(.clear) {
+    color: var(--status-color);
+}
+
+/* Ícones */
+
+.board-cell-status-menu-item:not(.clear) .board-cell-status-icon {
+    width: 22px;
+    height: 22px;
+
+    border-radius: 50%;
+
+    color: var(--status-color);
+    background-color: var(--status-background);
+}
+
+/* Texto */
+
+.board-cell-status-menu-item:not(.clear) .board-cell-status-menu-label {
+    color: var(--status-color);
+}
+
+/* Hover e opção selecionada */
+
+.board-cell-status-menu-item:not(.clear):hover,
+.board-cell-status-menu-item:not(.clear).is-selected {
+    background-color: var(--status-background);
+}
+
+/* Check */
+
+.board-cell-status-menu-item:not(.clear) .board-cell-status-check {
+    color: var(--status-color);
+}
+
+
+/* ========================================
+   Sem status
+======================================== */
+
+.board-cell-status-menu-item.clear {
+    color: var(--color-text-secondary);
+}
+
+.board-cell-status-menu-item.clear .board-cell-status-icon {
+    color: var(--color-text-muted);
+    background-color: transparent;
+}

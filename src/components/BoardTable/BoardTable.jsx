@@ -32,7 +32,7 @@ const boardSensors = (defaults) => [
                 return true
             }
 
-            if (target.closest('.board-cell-user-editing, .board-cell-select-editing')) {
+            if (target.closest('.board-cell-user-editing, .board-cell-select-editing, .board-cell-status-editing')) {
                 return true
             }
 

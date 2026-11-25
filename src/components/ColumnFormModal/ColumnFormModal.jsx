@@ -10,9 +10,10 @@ const COLUMN_TYPES = [
     { value: 'LONG_TEXT', label: 'Texto longo' },
     { value: 'NUMBER', label: 'Número' },
     { value: 'DATE', label: 'Data' },
+    { value: 'STATUS', label: 'Status' },
     { value: 'SELECT', label: 'Seleção' },
     { value: 'USER', label: 'Usuário' },
-    { value: 'FORMULA', label: 'Fórmula' }
+    { value: 'FORMULA', label: 'Fórmula' },
 ]
 
 export const ColumnFormModal = ({ column = null, onSubmit, onClose }) => {
@@ -217,6 +218,12 @@ export const ColumnFormModal = ({ column = null, onSubmit, onClose }) => {
                             </span>
                         </div>
 
+                        {dataType === 'STATUS' && (
+                            <span className="column-form-modal-field-hint">
+                                Utilize os estados padronizados do sistema: Parado, Em andamento e Concluído.
+                            </span>
+                        )}
+
                         {dataType === 'SELECT' && (
                             <div className="column-form-modal-field">
                                 <label htmlFor={optionsId}>
@@ -230,7 +237,7 @@ export const ColumnFormModal = ({ column = null, onSubmit, onClose }) => {
                                         setOptionsText(event.target.value)
                                         setSubmitError(null)
                                     }}
-                                    placeholder={'Parado\nEm progresso\nFeito'}
+                                    placeholder={'Reunião\nAtendimento\nRelatório'}
                                     rows={4}
                                     disabled={isSubmitting}
                                     required

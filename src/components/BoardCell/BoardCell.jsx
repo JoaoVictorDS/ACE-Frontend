@@ -6,6 +6,7 @@ import { DateCell } from './types/DateCell'
 import { SelectCell } from './types/SelectCell'
 import { UserCell } from './types/UserCell'
 import { TextCell } from './types/TextCell'
+import { StatusCell } from './types/StatusCell'
 import './BoardCell.css'
 
 export const BoardCell = ({ column, item, users, onCommit }) => {
@@ -27,7 +28,8 @@ export const BoardCell = ({ column, item, users, onCommit }) => {
     useEffect(() => {
         if (editing) {
             inputRef.current?.focus()
-            if (column.data_type !== 'SELECT') {
+
+            if (!['SELECT', 'STATUS'].includes(column.data_type)) {
                 inputRef.current?.select()
             }
         }
@@ -44,17 +46,21 @@ export const BoardCell = ({ column, item, users, onCommit }) => {
         setEditing(false)
     }
 
-    const handleCommit = async () => {
+
+    const handleCommit = async (nextValue = value) => {
         if (saving) return
 
-        if (value === initialValue) {
+        if (nextValue === initialValue) {
             setEditing(false)
             return
         }
 
         try {
+            setValue(nextValue)
             setSaving(true)
-            await onCommit({ item, column, value })
+
+            await onCommit({ item, column, value: nextValue })
+
             setEditing(false)
         } catch {
             // Mantém em edição caso falhe
@@ -85,6 +91,7 @@ export const BoardCell = ({ column, item, users, onCommit }) => {
         case 'LONG_TEXT': return <LongTextCell {...cellProps} />
         case 'NUMBER': return <NumberCell {...cellProps} />
         case 'DATE': return <DateCell {...cellProps} />
+        case 'STATUS': return <StatusCell {...cellProps} />
         case 'SELECT': return <SelectCell {...cellProps} />
         case 'USER': return <UserCell {...cellProps} />
         case 'TEXT':
