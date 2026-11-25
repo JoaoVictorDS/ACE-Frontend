@@ -1,5 +1,10 @@
+/* ========================================
+   Visualização
+======================================== */
+
 .board-cell-select-value {
     justify-content: center;
+    cursor: pointer;
 }
 
 .board-cell-select-badge {
@@ -28,7 +33,6 @@
 
 .board-cell-select-value:hover .board-cell-select-badge {
     border-color: var(--color-border-strong);
-
     background-color: var(--color-primary-light);
 }
 
@@ -43,59 +47,118 @@
 
 
 /* ========================================
-   Edição
+   Âncora de edição
 ======================================== */
 
 .board-cell-select-editing {
+    justify-content: center;
+
+    min-height: 32px;
+
     background-color: var(--color-surface);
+
+    cursor: pointer;
 }
 
-.board-cell-select-wrapper {
-    position: relative;
 
-    width: 100%;
-    min-width: 0;
-}
+/* ========================================
+   Menu de seleção
+======================================== */
 
-.board-cell-select-input {
-    width: 100%;
-    min-width: 0;
+.board-cell-select-menu {
+    position: fixed;
 
-    height: 30px;
+    z-index: 10000;
 
-    padding: 5px 28px 5px 8px;
+    width: 220px;
+    max-width: calc(100vw - 24px);
 
-    appearance: none;
+    box-sizing: border-box;
 
-    border: 1px solid var(--color-focus);
+    padding: 6px;
+
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
 
-    outline: 0;
+    background-color: var(--color-surface);
 
-    background-color: var(--color-input-background);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.16);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.board-cell-select-menu-header {
+    padding: 7px 9px 9px;
+
+    color: var(--color-text-muted);
+
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.board-cell-select-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 8px 9px;
+
+    border: 0;
+    border-radius: var(--radius-sm);
+
+    background-color: transparent;
     color: var(--color-text-primary);
 
     font-family: inherit;
-    font-size: 10px;
+    font-size: 11px;
+    text-align: left;
 
     cursor: pointer;
 
-    box-shadow: 0 0 0 3px var(--color-focus-ring);
+    transition: background-color 0.15s ease;
 }
 
-.board-cell-select-input:disabled {
-    cursor: default;
+.board-cell-select-menu-item:hover,
+.board-cell-select-menu-item.is-selected {
+    background-color: var(--color-surface-hover);
+}
+
+.board-cell-select-menu-item:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: -2px;
+}
+
+.board-cell-select-menu-item:disabled {
     opacity: 0.6;
+    cursor: default;
 }
 
-.board-cell-select-icon {
-    position: absolute;
-    top: 50%;
-    right: 8px;
+.board-cell-select-menu-label {
+    flex: 1;
+    min-width: 0;
 
-    pointer-events: none;
+    overflow-wrap: anywhere;
+}
 
-    transform: translateY(-50%);
+.board-cell-select-check {
+    flex: 0 0 auto;
 
-    color: var(--color-text-muted);
+    color: var(--color-primary);
+}
+
+.board-cell-select-menu-divider {
+    height: 1px;
+    margin: 5px 3px;
+
+    background-color: var(--color-border);
+}
+
+.board-cell-select-menu-item.clear {
+    color: var(--color-text-secondary);
 }
