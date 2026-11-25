@@ -136,14 +136,13 @@
 ======================================== */
 
 .board-cell-status-editing {
-    position: relative;
-    z-index: 30;
-
-    overflow: visible;
+    justify-content: center;
 
     min-height: 32px;
 
     background-color: var(--color-surface);
+
+    cursor: pointer;
 }
 
 .board-cell-status-menu {
