@@ -47,7 +47,7 @@ export const BoardTable = ({
     board,
     users,
     canMoveBoardStructure,
-    canManageColumnRestrictions,
+    canManageColumns,
     onItemTitleCommit,
     onItemOpen,
     onCellCommit,
@@ -289,7 +289,7 @@ export const BoardTable = ({
                                     column={column}
                                     index={index}
                                     canMoveBoardStructure={canMoveBoardStructure}
-                                    canManageColumnRestrictions={canManageColumnRestrictions}
+                                    canManageColumns={canManageColumns}
                                     width={width}
                                     storedWidth={columnWidths[column.id] ?? null}
                                     minWidth={MIN_COLUMN_WIDTH}
@@ -307,18 +307,20 @@ export const BoardTable = ({
                             )
                         })}
 
-                        <div className="board-table-end-header">
-                            <button
-                                type="button"
-                                className="board-table-add-column"
-                                data-no-drag="true"
-                                title="Adicionar coluna"
-                                aria-label="Adicionar coluna"
-                                onClick={onCreateColumn}
-                            >
-                                <Plus size={16} />
-                            </button>
-                        </div>
+                        {canManageColumns && (
+                            <div className="board-table-end-header">
+                                <button
+                                    type="button"
+                                    className="board-table-add-column"
+                                    data-no-drag="true"
+                                    title="Adicionar coluna"
+                                    aria-label="Adicionar coluna"
+                                    onClick={onCreateColumn}
+                                >
+                                    <Plus size={16} />
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </DragDropProvider>
 
@@ -337,8 +339,8 @@ export const BoardTable = ({
                                 columns={columns}
                                 users={users}
                                 board={board}
-                                canMoveBoardStructure={canMoveBoardStructure}
                                 gridTemplateColumns={gridTemplateColumns}
+                                canMoveBoardStructure={canMoveBoardStructure}
                                 onItemTitleCommit={onItemTitleCommit}
                                 onItemOpen={onItemOpen}
                                 onCellCommit={onCellCommit}

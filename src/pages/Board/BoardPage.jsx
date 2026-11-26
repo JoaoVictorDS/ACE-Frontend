@@ -20,7 +20,7 @@ import { FeedbackState } from '../../components/FeedbackState/FeedbackState'
 import { Button } from '../../components/Button/Button'
 import { ConfirmDialog } from '../../components/ConfirmDialog/ConfirmDialog'
 import { getErrorMessage } from '../../utils/error'
-import { getEffectiveBoardRole, checkCanMoveBoardStructure, checkCanManageColumnRestrictions, checkCanCreateItemUpdate, checkCanCreateComment } from '../../policies/boardPolicy'
+import { getEffectiveBoardRole, checkCanMoveBoardStructure, checkCanManageColumns, checkCanCreateItemUpdate, checkCanCreateComment } from '../../policies/boardPolicy'
 import './BoardPage.css'
 
 export const BoardPage = () => {
@@ -106,7 +106,7 @@ export const BoardPage = () => {
     const currentBoardRole = getEffectiveBoardRole({ user, boardCreatorId: board.creator_id, boardMemberRole: currentBoardMember?.role })
 
     const canMoveBoardStructure = checkCanMoveBoardStructure(currentBoardRole)
-    const canManageColumnRestrictions = checkCanManageColumnRestrictions(currentBoardRole)
+    const canManageColumns = checkCanManageColumns(currentBoardRole)
     const canCreateItemUpdate = checkCanCreateItemUpdate(currentBoardRole)
     const canCreateComment = checkCanCreateComment(currentBoardRole)
 
@@ -393,8 +393,6 @@ export const BoardPage = () => {
     }
 
     const handleConfigureColumnRestrictions = (column) => {
-        if (!canManageColumnRestrictions) return
-
         setColumnBeingConfiguredRestrictions(column)
     }
 
@@ -551,7 +549,7 @@ export const BoardPage = () => {
                     board={board}
                     users={boardMembers}
                     canMoveBoardStructure={canMoveBoardStructure}
-                    canManageColumnRestrictions={canManageColumnRestrictions}
+                    canManageColumns={canManageColumns}
                     onItemTitleCommit={handleItemTitleCommit}
                     onItemOpen={handleOpenItemDetails}
                     onCellCommit={handleCellCommit}
@@ -647,7 +645,7 @@ export const BoardPage = () => {
                 />
             )}
 
-            {columnBeingConfiguredRestrictions && canManageColumnRestrictions && (
+            {columnBeingConfiguredRestrictions && (
                 <ColumnRestrictionsModal
                     key={columnBeingConfiguredRestrictions.id}
                     column={columnBeingConfiguredRestrictions}

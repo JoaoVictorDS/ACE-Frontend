@@ -13,13 +13,22 @@
    Nome da coluna
 ======================================== */
 
+.board-column-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 1;
+    min-width: 0;
+}
+
 /* Botão transparente que abre a edição inline. */
 .board-column-name-edit {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    flex: 1;
+    width: 100%;
     min-width: 0;
     padding: 0;
 
@@ -38,7 +47,10 @@
 .board-column-header-name {
     display: block;
 
+    width: fit-content;
+    max-width: 100%;
     min-width: 0;
+
     overflow: hidden;
 
     text-overflow: ellipsis;

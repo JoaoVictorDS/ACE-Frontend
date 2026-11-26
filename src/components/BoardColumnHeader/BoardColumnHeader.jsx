@@ -7,7 +7,7 @@ export const BoardColumnHeader = ({
     column,
     index,
     canMoveBoardStructure,
-    canManageColumnRestrictions,
+    canManageColumns,
     width,
     storedWidth,
     minWidth,
@@ -188,62 +188,70 @@ export const BoardColumnHeader = ({
                 </button>
             )}
 
-            {editingName ? (
-                <input
-                    ref={nameInputRef}
-                    type="text"
-                    className="board-column-name-input"
-                    value={columnName}
-                    disabled={savingName}
-                    data-no-drag="true"
-                    onChange={(event) => setColumnName(event.target.value)}
-                    onKeyDown={handleNameKeyDown}
-                    onBlur={handleNameBlur}
-                    aria-label={`Editar nome da coluna ${column.name}`}
-                />
-            ) : (
-                <button
-                    type="button"
-                    className="board-column-name-edit"
-                    data-no-drag="true"
-                    title={column.name}
-                    onClick={handleStartNameEdit}
-                >
+            <div className="board-column-name-container">
+                {canManageColumns ? (
+                    editingName ? (
+                        <input
+                            ref={nameInputRef}
+                            type="text"
+                            className="board-column-name-input"
+                            value={columnName}
+                            disabled={savingName}
+                            data-no-drag="true"
+                            onChange={(event) => setColumnName(event.target.value)}
+                            onKeyDown={handleNameKeyDown}
+                            onBlur={handleNameBlur}
+                            aria-label={`Editar nome da coluna ${column.name}`}
+                        />
+                    ) : (
+                        <button
+                            type="button"
+                            className="board-column-name-edit"
+                            data-no-drag="true"
+                            title={column.name}
+                            onClick={handleStartNameEdit}
+                        >
+                            <span className="board-column-header-name">
+                                {column.name}
+                            </span>
+                        </button>
+                    )
+                ) : (
                     <span className="board-column-header-name">
                         {column.name}
                     </span>
-                </button>
-            )}
+                )}
+            </div>
 
-            <div
-                ref={menuRef}
-                className="board-column-menu"
-            >
-                <button
-                    type="button"
-                    className="board-column-menu-trigger"
-                    data-no-drag="true"
-                    title="Configurações da coluna"
-                    aria-label={`Configurações da coluna ${column.name}`}
-                    aria-expanded={menuOpen}
-                    onClick={() => setMenuOpen((current) => !current)}
+            {canManageColumns && (
+                <div
+                    ref={menuRef}
+                    className="board-column-menu"
                 >
-                    <Ellipsis size={17} />
-                </button>
+                    <button
+                        type="button"
+                        className="board-column-menu-trigger"
+                        data-no-drag="true"
+                        title="Configurações da coluna"
+                        aria-label={`Configurações da coluna ${column.name}`}
+                        aria-expanded={menuOpen}
+                        onClick={() => setMenuOpen((current) => !current)}
+                    >
+                        <Ellipsis size={17} />
+                    </button>
 
-                {menuOpen && (
-                    <div className="board-column-menu-dropdown">
-                        <button
-                            type="button"
-                            className="board-column-menu-option"
-                            data-no-drag="true"
-                            onClick={() => handleAction(onEdit)}
-                        >
-                            <Settings2 size={14} />
-                            Configurar coluna
-                        </button>
+                    {menuOpen && (
+                        <div className="board-column-menu-dropdown">
+                            <button
+                                type="button"
+                                className="board-column-menu-option"
+                                data-no-drag="true"
+                                onClick={() => handleAction(onEdit)}
+                            >
+                                <Settings2 size={14} />
+                                Configurar coluna
+                            </button>
 
-                        {canManageColumnRestrictions && (
                             <button
                                 type="button"
                                 className="board-column-menu-option"
@@ -253,20 +261,20 @@ export const BoardColumnHeader = ({
                                 <ShieldCheck size={14} />
                                 Restrições de acesso
                             </button>
-                        )}
 
-                        <button
-                            type="button"
-                            className="board-column-menu-option board-column-menu-option-danger"
-                            data-no-drag="true"
-                            onClick={() => handleAction(onDelete)}
-                        >
-                            <Trash2 size={14} />
-                            Excluir coluna
-                        </button>
-                    </div>
-                )}
-            </div>
+                            <button
+                                type="button"
+                                className="board-column-menu-option board-column-menu-option-danger"
+                                data-no-drag="true"
+                                onClick={() => handleAction(onDelete)}
+                            >
+                                <Trash2 size={14} />
+                                Excluir coluna
+                            </button>
+                        </div>
+                    )}
+                </div>
+            )}
 
             <div
                 className="board-resize-handle board-column-resize-handle"

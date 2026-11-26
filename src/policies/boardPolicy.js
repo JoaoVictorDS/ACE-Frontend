@@ -8,11 +8,7 @@ const BOARD_ROLE_PERMISSIONS = {
  * Resolve a role efetiva do usuário no board.
  * Prioridade: ADMIN do sistema > criador do board > membro do board.
  */
-export const getEffectiveBoardRole = ({
-    user,
-    boardCreatorId,
-    boardMemberRole
-}) => {
+export const getEffectiveBoardRole = ({ user, boardCreatorId, boardMemberRole }) => {
     if (!user) return null
 
     if (user.role === 'ADMIN') return 'ADMIN'
@@ -30,6 +26,13 @@ export const checkBoardPermission = (role, permissionLevel) => {
 }
 
 /**
+ * Permissões para gerenciamento de colunas.
+ */
+export const checkCanManageColumns = (role) => {
+    return hasBoardManagementAccess(role)
+}
+
+/**
  * Permissões administrativas do board.
  */
 const hasBoardManagementAccess = (role) => {
@@ -37,10 +40,6 @@ const hasBoardManagementAccess = (role) => {
 }
 
 export const checkCanMoveBoardStructure = (role) => {
-    return hasBoardManagementAccess(role)
-}
-
-export const checkCanManageColumnRestrictions = (role) => {
     return hasBoardManagementAccess(role)
 }
 
